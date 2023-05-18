@@ -1,0 +1,227 @@
+<!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
+<input type="hidden" #AddUniversityTenant name="AddUniversityTenant" value="AddUniversityTenant">
+<div class="card mb-5 mb-xl-10 ">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panelBgColor">
+        <!--begin::Title-->
+        <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
+            <h3 class="m-0 text-white ArFontStyle" lang="AR-SA" id="AddUniversityTenant">{{label.headerName}}</h3>            
+        </div>
+        <h3 class="card-title align-items-start flex-column">
+            <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <button type="button" class="btn btn-primary ArFontStyle english-vermillion" lang="AR-SA">{{bodyLabel[0].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle candy-pink" lang="AR-SA">{{bodyLabel[2].title}}</button>
+              </div>
+        </h3>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Personal Information</h3> -->
+            <!--end::Title-->
+            <!--begin::Row-->
+            <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <form autocomplete="off">
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-3 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[9].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-3 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[10].title}}</label>
+                            <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-3 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[11].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-3 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[12].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[13].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[14].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[15].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[16].title}}
+                                </label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[17].title}}
+                                    Line</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[18].title}}
+                                </label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[19].title}} </label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[20].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[21].title}} </label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[22].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[23].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[24].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ">
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[25].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--end::Row-->
+        </div>
+
+    </div>
+    <!--end::Tab content-->
+</div>
+
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panelBgColor1">
+        <!--begin::Title-->
+        <div class="card-title" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+            <h3 class="m-0 text-white ArFontStyle" lang="AR-SA">{{bodyLabel[26].title}}</h3>
+        </div>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Job Information</h3> -->
+            <!--end::Title-->
+            <!--begin::Row-->
+            <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <form autocomplete="off">
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[27].title}}</label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[28].title}}</label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[29].title}}                                
+                                </label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[30].title}}</label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[31].title}}
+                                </label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[32].title}}</label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Service 1</option>
+                                <option value="2">Service 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--end::Row-->
+        </div>
+    </div>
+</div>
+<app-approval-detials [accordialApprovalDetails]="'setupAddUniversityTenant'"></app-approval-detials>
+<br/>
+<app-financial-detials [accordialDetails]="'setupAddUniversityTenantfinance'"></app-financial-detials>

@@ -1,0 +1,141 @@
+<!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
+<input type="hidden" #ApprovalDetailsInformation name="ApprovalDetailsInformation" value="ApprovalDetailsInformation">
+<ngb-accordion #acc="ngbAccordion" class="mb-2 approvaldetails" opened="false"
+[ngClass]="{'panelBgColor_approval': accordialApprovalDetails === 'ServiceApprovalAccordian',
+'panelBgColor_setupadd': accordialApprovalDetails === 'setupAddUniversityTenant',
+'panelBgColor_setupadservice': accordialApprovalDetails === 'addServiceSetup'}"><!--activeIds="ngb-panel-0"-->
+    <ngb-panel>
+        <ng-template ngbPanelTitle *ngFor="let label of formHeaderLabels; let i = index">
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="ApprovalDetailsInformation"
+            [ngClass]="{'setupheader': accordialApprovalDetails === 'setupAddUniversityTenant',
+            'header_setupadservice': accordialApprovalDetails === 'addServiceSetup'}">Management Approval - موافقة الإدارة</h3>
+          </ng-template>
+      <ng-template ngbPanelContent>
+        <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+            <form autocomplete="off" [formGroup]="approvalDetailsForm">  
+                <div class="row mb-4">
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[0].title}}</label>
+                        <ng-select [items]="approvalRoles$ | async" bindLabel="refSubType" bindValue="refId" 
+                            formControlName="serApproval1">                            
+                        </ng-select>
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[1].title}}</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="approvalBy1" id="approvalBy1" name="approvalBy1"  />
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[2].title}}</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar"></i>                     
+                            </span>
+                            <input type="text" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                            formControlName="approvedDate1" id="approvedDate1" name="approvedDate1"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" lang="AR-SA">{{bodyLabel[3].title}}</label>
+                        <ng-select [items]="approvalRoles$ | async" bindLabel="refSubType" bindValue="refId" 
+                            formControlName="serApproval2">                            
+                        </ng-select>
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="approvalBy2" id="approvalBy2" name="approvalBy2" />
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar"></i>                     
+                            </span>
+                            <input type="text" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                            formControlName="approvedDate2" id="approvedDate2" name="approvedDate2"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" lang="AR-SA">{{bodyLabel[6].title}}</label>
+                        <ng-select [items]="approvalRoles$ | async" bindLabel="refSubType" bindValue="refId" 
+                            formControlName="serApproval3" id="serApproval3" name="serApproval3">                            
+                        </ng-select>
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                            formControlName="approvalBy3" id="approvalBy3" name="approvalBy3" />
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar"></i>                     
+                            </span>
+                            <input type="text" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                                formControlName="approvedDate3" id="approvedDate3" name="approvedDate3"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" lang="AR-SA">{{bodyLabel[9].title}}</label>
+                        <ng-select [items]="approvalRoles$ | async" bindLabel="refSubType" bindValue="refId" 
+                            formControlName="serApproval4" id="serApproval4" name="serApproval4">                            
+                        </ng-select>
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[10].title}}</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="approvalBy4" id="approvalBy4" name="approvalBy4" />
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[11].title}}</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar"></i>                     
+                            </span>
+                            <input type="text" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                            formControlName="approvedDate4" id="approvedDate4" name="approvedDate4"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" lang="AR-SA">{{bodyLabel[12].title}}</label>
+                        <ng-select [items]="approvalRoles$ | async" bindLabel="refSubType" bindValue="refId" 
+                            formControlName="serApproval5" id="serApproval5" name="serApproval5">                            
+                        </ng-select>
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[13].title}}</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="approvalBy5" id="approvalBy5" name="approvalBy5">
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[14].title}}</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-calendar"></i>                     
+                            </span>
+                            <input type="text" class="form-control" bsDatepicker 
+                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                            formControlName="approvedDate5" id="approvedDate5" name="approvedDate5"/>
+                        </div> 
+                    </div>
+                </div>
+
+            </form>
+        </div>
+      </ng-template>
+    </ngb-panel>
+</ngb-accordion>

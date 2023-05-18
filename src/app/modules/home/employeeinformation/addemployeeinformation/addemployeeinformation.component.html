@@ -1,0 +1,382 @@
+<input type="hidden" #AddEmployee name="AddEmployee" value="AddEmployee">
+
+<div class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6 mb-3">
+  <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+    <div class="row">
+      <div class="btn-group " role="group" aria-label="Basic example"
+        *ngFor="let bodyLabel of formBodyLabels; let i = index">
+        <!-- Save Button -->
+        <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure" lang="AR-SA"
+          (click)="submitForm()"
+          [disabled]="!addEmployeeForm.valid || !jobDetailsForm.valid">{{bodyLabel[0].title}}</button>
+        <!-- <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure" lang="AR-SA"
+          (click)="submitForm()">{{bodyLabel[0].title}}</button> -->
+        <!-- Cancel Button -->
+        <button type="button" class="btn btn-primary float-left ArFontStyle moonstone-blue "
+          lang="AR-SA">{{bodyLabel[1].title}}</button>
+        <!-- Back Button -->
+        <button type="button" class="btn btn-primary float-left ArFontStyle beau-blue"
+          routerLink="/employee/view-employee" routerLinkActive="active" lang="AR-SA">{{bodyLabel[2].title}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
+<ngb-accordion #acc="ngbAccordion" class="mb-2 addEmployee" activeIds="ngb-panel-0">
+  <ngb-panel id="ngb-panel-0">
+    <ng-template ngbPanelTitle *ngFor="let label of formHeaderLabels; let i = index">
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{label.headerName}}</h3>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+        <form autocomplete="off" [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()" id="employeeForm">
+          <div class="row mb-6">
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+              lang="AR-SA">Employee ID</label>
+            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" name="employeeId"
+              formControlName="employeeId" maxlength="10" [readOnly]="isOK"/>
+              <span class="text-danger"
+                *ngIf="(empForm.employeeId.touched || isFormSubmitted) && empForm.employeeId.errors?.required">
+                Employee Id is required
+              </span>
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">Join Date</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                  formControlName="joinedDate" />
+              </div>
+              <span class="text-danger"
+                *ngIf="(empForm.joinedDate.touched || isFormSubmitted) && empForm.joinedDate.errors?.required">
+                Joined date is required
+              </span>
+            </div>
+          </div>
+          <div class="row mb-6">
+            <!-- <input type="hidden" formControlName="employeeId" name="empployeeId" /> -->
+
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[4].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="englishName"
+                formControlName="englishName" />
+              <span class="text-danger"
+                *ngIf="(empForm.englishName.touched || isFormSubmitted) && empForm.englishName.errors?.required">
+                English Name is required
+              </span>
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[5].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="arabicName"
+                formControlName="arabicName" />
+              <span class="text-danger"
+                *ngIf="(empForm.arabicName.touched || isFormSubmitted) && empForm.arabicName.errors?.required">
+                Arabic Name is required
+              </span>
+            </div>
+          </div>
+          <div class="row mb-6">
+            <div class="col-lg-3 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[6].title}}</label>
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                  formControlName="empBirthday" />
+              </div>
+              <span class="text-danger"
+                *ngIf="(empForm.empBirthday.touched || isFormSubmitted) && empForm.empBirthday.errors?.required">
+                Birthday is required
+              </span>
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+              <ng-select formControlName="empGender">
+                <ng-option *ngFor="let item of genderArray" [value]="item.id">{{item.name}}</ng-option>
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(empForm.empGender.touched || isFormSubmitted) && empForm.empGender.errors?.required">
+                Gender is required
+              </span>
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</label>
+              <ng-select formControlName="empMaritalStatus">
+                <ng-option *ngFor="let item of maritalStatusArray" [value]="item.id">{{item.name}}</ng-option>
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(empForm.empMaritalStatus.touched || isFormSubmitted) && empForm.empMaritalStatus.errors?.required">
+                Marital Status is required
+              </span>
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Country</label>
+              <ng-select formControlName="nationCode" [items]="countries$ | async" bindLabel="counamE1"
+                bindValue="countryid" (change)="onCountryChange($event)">
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(empForm.nationCode.touched || isFormSubmitted) && empForm.nationCode.errors?.required">
+                Country is required
+              </span>
+            </div>
+          </div>
+          <div class="row mb-6">
+            <div class="col-lg-4 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[9].title}}</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-mobile-alt"></i>
+                </span>
+                <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
+                  formControlName="mobileNumber" />
+              </div>
+              <span class="text-danger"
+                *ngIf="(empForm.mobileNumber.touched || isFormSubmitted) && empForm.mobileNumber.errors?.required">
+                Mobile number is required
+              </span>
+            </div>
+            <div class="col-lg-4 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[10].title}}</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-phone"></i>
+                </span>
+                <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
+                  formControlName="empWorkTelephone" />
+              </div>
+            </div>
+            <div class="col-lg-4 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[11].title}}</label>
+              <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
+                  formControlName="empWorkEmail" />
+              </div>
+              <span class="text-danger"
+                *ngIf="(empForm.empWorkEmail.touched || isFormSubmitted) && empForm.empWorkEmail.errors?.required">
+                Email is required
+              </span>
+            </div>
+          </div>
+          <div class="row mb-6">
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[12].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="next2KinName"
+                formControlName="next2KinName" />
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[13].title}}</label>
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-mobile-alt"></i>
+                </span>
+                <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="next2KinMobNumber"
+                  formControlName="next2KinMobNumber" />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-6 ckbox">
+            <!--begin::Label-->
+            <div class="col-lg-1 d-flex align-items-center">
+              <div class="form-check form-check-solid form-switch fv-row">
+                <input class="form-check-input w-45px h-30px" type="checkbox" id="isKUEmployee"
+                  formControlName="isKUEmployee">
+                <label class="form-check-label" for="isKUEmployee"></label>
+              </div>
+            </div>
+            <!--begin::Label-->
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> KU Employee </label>
+            <div class="col-lg-1 d-flex align-items-center">
+              <div class="form-check form-check-solid form-switch fv-row">
+                <input class="form-check-input w-45px h-30px" type="checkbox" id="isOnSickLeave"
+                  formControlName="isOnSickLeave">
+                <label class="form-check-label" for="isOnSickLeave"></label>
+              </div>
+            </div>
+            <!--begin::Label-->
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> On Sick Leave </label>
+          </div>
+          <div class="row mb-6">
+            <!--begin::Label-->
+            <div class="col-lg-1 d-flex align-items-center">
+              <div class="form-check form-check-solid form-switch fv-row">
+                <input class="form-check-input w-45px h-30px" type="checkbox" id="isMemberOfFund"
+                  formControlName="isMemberOfFund">
+                <label class="form-check-label" for="isMemberOfFund"></label>
+              </div>
+            </div>
+            <!--begin::Label-->
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> Member of Fund </label>
+
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+<br />
+
+<ngb-accordion #acc="ngbAccordion" class="mb-2 mt-4 job_details_accordian" activeIds="ngb-panel-0">
+  <ngb-panel>
+    <ng-template ngbPanelTitle *ngFor="let bodyLabel of formBodyLabels; let i = index">
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{bodyLabel[14].title}}</h3>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+        <form autocomplete="off" [formGroup]="jobDetailsForm">
+          <div class="row mb-6">
+            <div class="col-lg-4 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[15].title}}</label>
+              <ng-select [items]="departments$ | async" bindLabel="shortname" bindValue="refid"
+                formControlName="department">
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(jobForm.department.touched || isFormSubmitted) && jobForm.department.errors?.required">
+                Department is required
+              </span>
+            </div>
+            <div class="col-lg-4 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[16].title}}</label>
+              <ng-select [items]="contractType$ | async" bindLabel="shortname" bindValue="refid"
+                formControlName="contractType">
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(jobForm.contractType.touched || isFormSubmitted) && jobForm.contractType.errors?.required">
+                Contract type is required
+              </span>
+            </div>
+            <div class="col-lg-4 fv-row">
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[17].title}}</label>
+              <ng-select [items]="occupations$ | async" bindLabel="shortname" bindValue="refid"
+                formControlName="departmentName">
+              </ng-select>
+              <span class="text-danger"
+                *ngIf="(jobForm.departmentName.touched || isFormSubmitted) && jobForm.departmentName.errors?.required">
+                Occupation is required
+              </span>
+            </div>
+          </div>
+          <div class="row mb-6">
+            <div class="col-lg-3 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[18].title}}</label>
+              <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="salary" />
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[19].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="empCidNum"
+                maxlength="12" />
+
+              <span class="text-danger"
+                *ngIf="(jobForm.empCidNum.touched || isFormSubmitted) && jobForm.empCidNum.errors?.required">
+                CID is required
+              </span>
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[20].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
+                formControlName="empPaciNum" />
+            </div>
+            <div class="col-lg-3 fv-row">
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
+                lang="AR-SA">{{bodyLabel[21].title}}</label>
+              <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
+                formControlName="empOtherId" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+<br />
+
+<ngb-accordion #acc="ngbAccordion" class="mb-2 membership_details_accordian" activeIds="ngb-panel-0">
+  <ngb-panel>
+    <ng-template ngbPanelTitle *ngFor="let bodyLabel of formBodyLabels; let i = index">
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{bodyLabel[22].title}}</h3>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+        <form autocomplete="off" [formGroup]="membershipForm">
+          <div class="row">
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[23].title}}</label>
+              <input type="text" class="form-control" name="nameInArabic" formControlName="membership" />
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[24].title}}</label>
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="datePickerConfig"
+                  formControlName="membershipJoiningDate" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[25].title}}</label>
+              <ng-select [items]="terminations$ | async" bindLabel="shortname" bindValue="refid"
+                formControlName="termination">
+              </ng-select>
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[26].title}}</label>
+              <div class="input-group mb-5">
+                <span class="input-group-text" id="basic-addon1">
+                  <i class="fas fa-calendar"></i>
+                </span>
+                <input type="text" class="form-control" bsDatepicker [bsConfig]="datePickerConfig"
+                  formControlName="terminationDate" disabled />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+<br />
+<app-financial-detials [parentFormGroup]="parentForm" [accordialDetails]="'AddEmployee'">
+</app-financial-detials>
+
+<!--PopupModal Modal-->
+<ng-template #popupModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"></h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="popUpForm" id="popUpForm">
+      <div class="mb-3">
+        <span>{{popUpForm.controls.errorMessage.value}}</span>
+        <br />
+        <br />
+
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button mat-raised-button color="warn" (click)="modal.close('yes')">Yes</button> &nbsp;&nbsp;
+    <button mat-raised-button color="accent" (click)="modal.close('Save click')">No</button>
+  </div>
+</ng-template>

@@ -1,0 +1,188 @@
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panelBgColor1">
+        <!--begin::Title-->
+        <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
+            <h3 class="m-0 ArFontStyle theader">{{label.headerName}}</h3>
+        </div>
+        <h3 class="card-title align-items-start flex-column">
+            <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <button type="button" class="btn btn-primary ArFontStyle english-vermillion" (click)="addServiceSetup()">{{bodyLabel[0].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle candy-pink">{{bodyLabel[1].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle ruddy-pink" routerLink="/service-setup/service-setup-details" routerLinkActive="active" >{{bodyLabel[2].title}}</button>
+              </div>              
+        </h3>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Personal Information</h3> -->
+            <!--end::Title-->
+            <!--begin::Row-->
+            <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <form [formGroup]="addServiceSetupForm" id="addServiceSetupForm" autocomplete="off">
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[3].title}}
+                                </span></label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 readonly" formControlName="serviceId" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[4].title}}
+                                </span></label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" 
+                            formControlName="serviceName1"/>
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[5].title}}</span></label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="serviceName2" />
+                        </div>
+                    </div>
+                    <div class="row mb-0">
+                        <!--begin::Label-->
+                        <div class="col-lg-1 d-flex align-items-center">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                                <input class="form-check-input w-45px h-30px" type="checkbox" id="allowedNonEmployes"
+                                    checked="checked" formControlName="allowedNonEmployes">
+                                <label class="form-check-label" for="allowmarketing"></label>
+                            </div>
+                        </div>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <label class="col-lg-11 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[6].title}}</label>
+                        <!--begin::Label-->
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">Master Service</span></label>                           
+                            <ng-select [items]="masterServiceType$" bindValue="refId" bindLabel="refname3"
+                                formControlName="masterServiceId" lang="AR-SA" multiple="true" (change)="onMasterServiceChange($event)">                            
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[7].title}}</span></label>
+                            <ng-select [items]="serviceType$ " bindValue="refId" bindLabel="shortname" formControlName="serviceType" lang="AR-SA" (change)="onServiceTypeChange(selection)" [(ngModel)]="selection">                            
+                            </ng-select>
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">Service SubType</span></label>
+                            <ng-select [items]="serviceSubType$" bindValue="refId" bindLabel="shortName" formControlName="serviceSubType" lang="AR-SA">                            
+                            </ng-select>
+                        </div>
+                    </div>
+                   
+                    <div class="row mb-6">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[8].title}}</span></label>                           
+                            <ng-select formControlName="minMonthsService">     
+                                <ng-option *ngFor="let item of minimumMonthOfServices" [value]="item.id">{{item.name}}</ng-option>                       
+                            </ng-select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[9].title}}</span></label>                            
+                            <ng-select formControlName="minInstallment">     
+                                <ng-option *ngFor="let item of minInstallment" [value]="item.id">{{item.name}}</ng-option>                       
+                            </ng-select>
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{bodyLabel[10].title}}</span></label> 
+                            <ng-select formControlName="maxInstallment">     
+                                <ng-option *ngFor="let item of maxInstallment" [value]="item.id">{{item.name}}</ng-option>                       
+                            </ng-select>
+                        </div>
+                    </div>
+                    <div class="row mb-6">
+                        <!--begin::Label-->
+                        <div class="col-lg-1 d-flex align-items-center ArFontStyle">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                                <input class="form-check-input w-45px h-30px" type="checkbox" id="frozen"
+                                     formControlName="frozen">
+                                <label class="form-check-label" for="allowmarketing"></label>
+                            </div>
+                        </div>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[11].title}} </label>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <div class="col-lg-1 d-flex align-items-center">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                                <input class="form-check-input w-45px h-30px" type="checkbox" id="previousEmployees"
+                                    formControlName="previousEmployees">
+                                <label class="form-check-label" for="allowmarketing"></label>
+                            </div>
+                        </div>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[12].title}} </label>
+                        <!--begin::Label-->
+                    </div>
+                    <div class="row mb-6">                        
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <div class="col-lg-1 d-flex align-items-center">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                                <input class="form-check-input w-45px h-30px" type="checkbox" id="allowmarketing"
+                                    >
+                                <label class="form-check-label" for="allowmarketing"></label>
+                            </div>
+                        </div>                        
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[14].title}} </label>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <div class="col-lg-1 d-flex align-items-center">
+                            <div class="form-check form-check-solid form-switch fv-row">
+                                <input class="form-check-input w-45px h-30px" type="checkbox" formControlName="allowDiscountPer" 
+                                id="allowDiscountPer" (change)="allowDiscountPerChangeStatus($event)">
+                                <label class="form-check-label" for="allowDiscountPer"></label>
+                            </div>
+                        </div>                        
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">Allow Discount </label>   
+                    </div>
+                    <div class="row mb-6" [hidden]="!showHide">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Discount Type</span></label>                            
+                            <ng-select formControlName="discountType">     
+                                <ng-option *ngFor="let item of discountTypeArray" [value]="item.id">{{item.name}}</ng-option>          
+                            </ng-select>
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Discount Amount</span></label>
+                            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="allowDiscountAmount" maxlength="3">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--end::Row-->
+        </div>
+
+    </div>
+    <!--end::Tab content-->
+</div>
+
+
+<br/>
+<app-financial-detials [parentFormGroup]="parentForm" [accordialDetails]="'addServiceSetup'">
+
+</app-financial-detials>
+
+<br/>
+<app-approval-detials [parentFormGroup]="parentForm" [accordialApprovalDetails]="'addServiceSetup'">
+
+</app-approval-detials>
+
+
+

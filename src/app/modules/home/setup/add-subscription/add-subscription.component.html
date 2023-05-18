@@ -1,0 +1,120 @@
+<!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
+<input type="hidden" #AddSubscription name="AddSubscription" value="AddSubscription">
+<!--Parital View For Search-->
+<app-search-tab [pageName]="'AddSubscription'"></app-search-tab>
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panelBgColor">
+        <!--begin::Title-->
+        <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index;">
+            <h3 class="m-0 text-white ArFontStyle" lang="AR-SA">{{label.headerName}}</h3>
+        </div>
+        <h3 class="card-title align-items-start flex-column">
+            <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                <button type="button" class="btn btn-primary ArFontStyle sazerac" lang="AR-SA">{{bodyLabel[0].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle sandyBeach" lang="AR-SA">{{bodyLabel[1].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle peach" lang="AR-SA" (click)="open(employeePerformanceModal)">{{bodyLabel[2].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle creamBrulee" lang="AR-SA"
+                    routerLink="/references/subscription-details">{{bodyLabel[3].title}}</button>
+            </div>
+        </h3>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Personal Information</h3> -->
+            <!--end::Title-->
+            <!--begin::Row-->
+            <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">               
+                <form autocomplete="off">
+                    <div class="row mb-4">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}
+                                </label>
+                            <select class="form-control bg-light" aria-label="Select example">
+                                <option>-Select-</option>
+                                <option value="1">Subcriber</option>
+                                <option value="2">Re-Subscriber</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[5].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0 ArFontStyle" lang="AR-SA" value="في تَقَدم" readonly/>
+                        </div>
+                    </div>
+                    <div class="row mb-4">                        
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[6].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[7].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb 4">
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[8].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>                       
+                    </div>
+                    <div class="row mb 4">
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[9].title}}</label>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[10].title}}</label>
+                            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                        <!-- <div class="col-lg-4 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[11].title}}</label>
+                            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div> -->
+                        <div class="col-lg-4 fv-row">
+                            <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[12].title}}</label>
+                            <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                    <div class="row mb 4">
+                        
+                        <div class="col-lg-6 fv-row">
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA" >{{bodyLabel[13].title}}><small class="text-muted">{{bodyLabel[14].title}}</small> </label>
+                            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--end::Row-->
+        </div>
+
+    </div>
+    <!--end::Tab content-->
+</div>
+
+<!--TO DISPLAY EMPLOYEE CONTACT DETAILS IN MODAL POPUP-->
+<ng-template #employeePerformanceModal let-modal>
+    <div class="modal-header bg-light">
+      <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+      <h4 class="modal-title" id="modal-basic-title">Employee Performance</h4>
+    </div>
+    <div class="modal-body">
+      <!-- end::Header-->
+      <!-- begin::Body-->
+      
+        <!--begin::Contacts-->
+       <app-contact-details></app-contact-details>
+        <!--end::Contacts-->
+   
+      <!-- end: Card Body-->
+    </div>
+    <div class="modal-footer bg-light">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-warning" (click)="modal.close('Save click')">Close</button>
+      </div>
+    </div>
+  </ng-template>

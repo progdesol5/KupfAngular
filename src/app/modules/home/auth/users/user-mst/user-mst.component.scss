@@ -1,0 +1,23 @@
+table {
+    width: 100%;
+  }
+  .btn-sm {
+    min-width: 30px;
+    min-height: 30px;
+    
+}
+.icon-space {
+  margin-right: 12px;
+  color: #3979fc;
+  background: transparent;
+}
+input:focus {
+  background-color: #E9E9E9;
+}
+
+.usermstTableHeader{
+  background-color: var(--venitan-red2);
+  th {
+    color: #fff !important;
+  }
+}

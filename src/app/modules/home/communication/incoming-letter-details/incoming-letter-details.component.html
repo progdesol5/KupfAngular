@@ -1,0 +1,104 @@
+<!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
+<input type="hidden" #IncomingLetterDetails name="IncomingLetterDetails" value="IncomingLetterDetails">
+<div class="card mb-5 mb-xl-8 ">
+    <!--begin::Header-->
+    <div class="card-header border-0 pt-5 panel1bgColor">
+        <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
+            <h3 class="text-white ArFontStyle header_color" lang="AR-SA" id="IncomingLetterDetails">{{label.headerName}}
+            </h3>
+        </div>
+        <h3 class="card-title align-items-start flex-column" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA"
+                    routerLink="/communication/add-incoming-letter">{{bodyLabel[0].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle light-sea-green"
+                    lang="AR-SA">{{bodyLabel[1].title}}</button>
+            </div>
+        </h3>
+    </div>
+    <div class="card-body py-3">
+
+        <div class="table-responsive mt-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
+            <form [formGroup]="formGroup">
+                <mat-form-field appearance="fill" class="w-100" floatLabel="never">
+                    <mat-label>Search</mat-label>
+                    <input type="search" matInput formControlName="searchTerm" (keyup)="filterRecords()"
+                        class="ArFontStyle" />
+                    <mat-icon matPrefix class="material-icons">search</mat-icon>
+                    <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
+                </mat-form-field>
+                <div class="table-container">
+                    <table mat-table class="w-100" [dataSource]="incommingCommunicationDto" matSort>
+                        <ng-container matColumnDef="letterdated">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                                {{bodyLabel[3].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle"> {{item.letterdated}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="ArFontStyle w-10">{{bodyLabel[2].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="w-10 text-right">
+                                <button mat-raised-button color="warn"
+                                    (click)="openDeleteModal(deleteModal,item.mytransid)">Delete</button>
+                                &nbsp; <button mat-raised-button color="accent"
+                                    routerLink="/communication/add-incoming-letter/{{item.mytransid}}"
+                                    id={{item.mytransid}}>Edit</button>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="lettertype">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                                {{bodyLabel[4].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">{{item.lettertype}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="filledat">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                                {{bodyLabel[5].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle"> {{item. filledat}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="searchtag">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">
+                                {{bodyLabel[6].title}}
+                            </th>
+                            <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.searchtag }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-5 ArFontStyle">
+                                {{bodyLabel[7].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">{{item.description}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                            [ngClass]="{'hidden':!isLoadingCompleted}"></tr>
+                        <tr mat-row *matRowDef="let refTableDto; columns: columnsToDisplay"></tr>
+                    </table>
+                </div>
+                <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Delete Modal-->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <span>Do you want to delete this record</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer text-right">
+        <button mat-raised-button color="warn" (click)="modal.close('yes')">Yes</button> &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="modal.close('Save click')">No</button>
+    </div>
+</ng-template>

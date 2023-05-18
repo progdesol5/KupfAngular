@@ -1,0 +1,179 @@
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panel1bgColor">
+        <!--begin::Title-->
+        <div class="card-title">
+            <h3 class="m-0 text-white ArFontStyle" lang="AR-SA">Manage Form Header Language</h3>
+        </div>
+        <div class="card-title">
+            <button mat-raised-button color="accent" class="updateLabelBtnStyle" routerLink="/references/manage-form-labels" routerLinkActive="">Back</button>
+        </div>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Personal Information</h3> -->
+            <!--end::Title-->
+            <div class="row gx-9 gy-6">
+                <form #headerLabelsForm="ngForm">
+                    <div class="table-container">
+                        <table mat-table class="w-100" [dataSource]="formTitleHd">
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef matTooltipClass="yellow-back" matTooltip="Id" matTooltipPosition="below">Id</th>
+                                <td mat-cell *matCellDef="let item" class="w-20 ArFontStyle text-right">{{item.id}}</td>
+                            </ng-container>                           
+                            <ng-container matColumnDef="headerName">
+                                <th mat-header-cell *matHeaderCellDef matTooltipClass="yellow-back" matTooltip="Header Name">Header Name</th>
+                                <td mat-cell *matCellDef="let item; let i = index;" class="w-25 ArFontStyle">
+                                    <div *ngIf="item.isHeaderEdit">
+                                        <small><span class="text-danger" *ngIf="headerName.errors && headerName.errors['required']">Required field</span></small>
+                                        <input type="text" 
+                                        class="form-control form-control-solid w-80" 
+                                        value="{{item.headerName}}" [(ngModel)]="item.headerName" 
+                                        name="headerName" #headerName="ngModel" 
+                                        required />                                        
+                                    </div>                                    
+                                    <div *ngIf="!item.isHeaderEdit">
+                                        {{item.headerName}}
+                                    </div>
+                                </td>
+                            </ng-container>  
+                            <ng-container matColumnDef="subHeaderName">
+                                <th mat-header-cell *matHeaderCellDef matTooltipClass="yellow-back" matTooltip="Sub Header Name">Sub Header Name</th>
+                                <td mat-cell *matCellDef="let item; let i = index;" class="w-25 ArFontStyle">
+                                    <div *ngIf="item.isHeaderEdit">
+                                        <small><span class="text-danger" *ngIf="subHeaderName.errors && subHeaderName.errors['required']">Required field</span></small>                                        
+                                        <input type="text" 
+                                        class="form-control form-control-solid w-80" 
+                                        value="{{item.subHeaderName}}" [(ngModel)]="item.subHeaderName" 
+                                        name="subHeaderName" #subHeaderName="ngModel" 
+                                        required/>
+                                    </div>                                    
+                                    <div *ngIf="!item.isHeaderEdit">
+                                        {{item.subHeaderName}}
+                                    </div>                                 
+                                </td>
+                            </ng-container> 
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let item; let i = index;" class="w-20">
+                                    <div *ngIf="item.isHeaderEdit">
+                                        <button mat-raised-button color="accent" (click)="onHeaderUpdateClick(item)" [disabled]="headerLabelsForm.invalid">Update</button>                                        | 
+                                        <button mat-raised-button color="primary" (click)="item.isHeaderEdit = false" (click)="refreshPage()">Cancel</button>
+                                    </div>
+                                    <div *ngIf="!item.isHeaderEdit">
+                                        <button mat-raised-button color="accent" (click)="onHeaderEditClick(item)">Edit</button>
+                                    </div>                                   
+                                </td>
+                              </ng-container>                         
+                            <tr mat-header-row *matHeaderRowDef="headerColumnsToDisplay; sticky:true"
+                                [ngClass]="{'hidden':!isLoadingCompleted}" class="headerTableLanguage"></tr>
+                            <tr mat-row *matRowDef="let formTitleHd; columns: headerColumnsToDisplay;"></tr>
+                        </table>
+                    </div>
+                    <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                        
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-5 mb-xl-10">
+    <!--begin::Card header-->
+    <div class="card-header card-header-stretch pb-0 panel1bgColorBody">
+        <!--begin::Title-->
+        <div class="card-title">
+            <h3 class="m-0 text-white ArFontStyle" lang="AR-SA">Manage Form Body Language</h3>
+        </div>
+        <!--end::Title-->
+    </div>
+    <!--end::Card header-->
+    <!--begin::Tab content-->
+    <div id="kt_billing_payment_tab_content" class="card-body tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_billing_creditcard" class="tab-pane fade show active" role="tabpanel">
+            <!--begin::Title-->
+            <!-- <h3 class="mb-5">Personal Information</h3> -->
+            <!--end::Title-->
+            <div class="row gx-9 gy-6">
+                <form #bodyLabelsForm="ngForm">
+                    <mat-form-field appearance="fill" class="w-100" floatLabel="never" >
+                        <mat-label>Search</mat-label>
+                        <input type="search" matInput (keypress)="filterRecords($event)" (keydown.backspace)="backSpaceEvent($event)" id="searchText" class="ArFontStyle"/>
+                        <mat-icon matPrefix class="material-icons">search</mat-icon>                                                
+                        <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
+                    </mat-form-field>
+                    <div class="table-container">
+                        <table mat-table class="w-100" [dataSource]="formTitleDt" matSort>
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltipClass="yellow-back" matTooltip="Id">Id</th>
+                                <td mat-cell *matCellDef="let formBodyLabel" class="text-right">
+                                    {{formBodyLabel.id}}
+                                </td>
+                            </ng-container>                           
+                            <ng-container matColumnDef="title">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltipClass="yellow-back" matTooltip="Title">Title</th>
+                                <td mat-cell *matCellDef="let formBodyLabel" class="w-25 ArFontStyle">    
+                                    <div *ngIf="formBodyLabel.isBodyEdit">
+                                        <small><span class="text-danger" *ngIf="title.errors && title.errors['required']">Required field</span></small>                                        
+                                        <input type="text" 
+                                        class="form-control form-control-solid w-80" 
+                                        value="{{formBodyLabel.title}}" [(ngModel)]="formBodyLabel.title" 
+                                        name="title" #title="ngModel" 
+                                        required/>
+                                    </div>                                    
+                                    <div *ngIf="!formBodyLabel.isBodyEdit">
+                                        {{formBodyLabel.title}}
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="arabicTitle">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header matTooltipClass="yellow-back" matTooltip="Arabic Title">Arabic Title</th>
+                                <td mat-cell *matCellDef="let formBodyLabel" class="w-25 ArFontStyle">    
+                                    <div *ngIf="formBodyLabel.isBodyEdit">
+                                        <small><span class="text-danger" *ngIf="arabicTitle.errors && arabicTitle.errors['required']">Required field</span></small>                                        
+                                        <input type="text" 
+                                        class="form-control form-control-solid w-80" 
+                                        value="{{formBodyLabel.arabicTitle}}" [(ngModel)]="formBodyLabel.arabicTitle" 
+                                        name="arabicTitle" #arabicTitle="ngModel" 
+                                        required/>
+                                    </div>                                    
+                                    <div *ngIf="!formBodyLabel.isBodyEdit">
+                                        {{formBodyLabel.arabicTitle}}
+                                    </div>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="action2" >
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let formBodyLabel; let i = index;" class="w-25 ArFontStyle">
+                                    <div *ngIf="formBodyLabel.isBodyEdit">
+                                        <button mat-raised-button color="accent" (click)="onBodyUpdateClick(formBodyLabel)" [disabled]="bodyLabelsForm.invalid" >Update</button>                                        | 
+                                        <button mat-raised-button color="primary" (click)="formBodyLabel.isBodyEdit = false" (click)="refreshPage()">Cancel</button>
+                                    </div>
+                                    <div *ngIf="!formBodyLabel.isBodyEdit">
+                                        <button mat-raised-button color="accent" (click)="onBodyEditClick(formBodyLabel)">Edit</button>
+                                    </div> 
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="bodyColumnsToDisplay; sticky:true"
+                                [ngClass]="{'hidden':!isLoadingCompleted}" class="headerTableLanguage1"></tr>
+                            <tr mat-row *matRowDef="let formTitleHd; columns: bodyColumnsToDisplay"></tr>
+                        </table>
+                    </div>
+                    <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                        </mat-paginator>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,294 @@
+<ngb-accordion #ngbSearchUser="ngbAccordion" activeIds="ngb-panel-0" class="searchUsermst">
+    <ngb-panel title="Search User">
+        <ng-template ngbPanelContent>
+
+            <div class="row mb-4">
+                <div class="col-lg-4 fv-row">
+                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Tenant Id</label>
+                    <select class="form-control bg-light" aria-label="Select example">
+                        <option selected disabled>--Select Tenant--</option>
+                        <option value="21">21</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 fv-row">
+                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Location</label>
+                    <select class="form-control bg-light" aria-label="Select example">
+                        <option selected disabled>--Select Location--</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 fv-row">
+                    <button mat-raised-button color="accent" style="margin-top: 45px">Go</button>
+                </div>
+            </div>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>
+<br />
+<ngb-accordion #ngbAddUser="ngbAccordion" activeIds="ngb-panel-0" opened="true" class="addUsermst">
+    <ngb-panel title="Add User">
+        <ng-template ngbPanelContent>
+            <div class="row mb-4">
+                <div class="col-lg-6 fv-row">
+
+                </div>
+                <div class="col-lg-6 fv-row">
+                    <div class="text-left">
+                        <!--[disabled]="!userForm.valid" -->
+                        <button mat-raised-button color="primary" class="float-left" (click)="onUserFormSubmit()"
+                            [disabled]="!userForm.valid" form="userForm">Add</button> |
+                        <button mat-raised-button color="accent" class="float-left"
+                            (click)="resetForm()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <form autocomplete="off" [formGroup]="userForm" id="userForm">
+                <div class="row mb-4">
+                    <div class="col-lg-6 fv-row">
+                        <input type="hidden" formControlName="userId" />
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">First Name</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                            formControlName="firstName" name="firstName" id="firstName" />
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.firstName.errors?.required">First name is
+                            required</span>
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Last Name</label>
+                        <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="lastName"
+                            name="lastName" id="lastName" />
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.lastName.errors?.required">Last name is
+                            required</span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Email</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="email" name="email" id="email" lang="AR-SA"/>
+                        </div>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.email.errors?.required">Email is
+                            required</span>
+                        <span class="text-danger" *ngIf="u.email.invalid && u.email.touched">Invalid Email</span>
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Mobile Number</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-mobile-alt"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="mobile" name="mobile" id="mobile" />
+                        </div>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.mobile.errors?.required">Mobile is
+                            required</span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">User Type</label>
+                        <!-- <select class="form-control" formControlName="userType">
+                            <option disabled selected>--Select User--</option>
+                            <option *ngFor="let user of users$ | async" value="{{user.userId}}">{{user.firstName}}</option>
+                        </select> -->
+                        <ng-select [items]="users$ | async" bindLabel="firstName" bindValue="userId"
+                            formControlName="userType">
+                        </ng-select>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.userType.errors?.required">
+                            Please select user type</span>
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Login Id</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="loginId" name="loginId" id="loginId" />
+                        </div>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.loginId.errors?.required">
+                            Please enter login Id</span>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Password</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <input type="password" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="password" name="password" id="password" />
+                        </div>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.password.touched && u.password.invalid 
+                        && u.password.errors && u.password.errors['required']">
+                            Please enter password</span>
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Confirm Password</label>
+                        <div class="input-group mb-5">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            <input type="password" class="form-control form-control-lg  mb-3 mb-lg-0"
+                                formControlName="cpassword" name="cpassword" id="cpassword" />
+                        </div>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.cpassword.touched && u.cpassword.invalid && 
+                        u.cpassword.errors && u.cpassword.errors['required']">
+                            Please enter confirm password</span>
+
+                        <span class="text-danger" *ngIf="u.cpassword.errors &&
+                         u.cpassword.errors['confirmedValidator']">
+                            Password and confirm password not matched</span>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>
+<br />
+
+<ngb-accordion #ngbListUsers="ngbAccordion" activeIds="ngb-panel-0" class="listUsermst">
+    <ngb-panel title="List">
+        <ng-template ngbPanelContent>
+            <form [formGroup]="formGroup">
+                <mat-form-field appearance="fill" class="w-100" floatLabel="never">
+                    <mat-label>Search</mat-label>
+                    <input type="search" matInput formControlName="searchTerm" (keyup)="filterRecords()"
+                        class="ArFontStyle" />
+                    <mat-icon matPrefix class="material-icons">search</mat-icon>
+                    <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
+                </mat-form-field>
+                <div class="table-container">
+                    <table mat-table class="w-100" [dataSource]="userMst" matSort>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="ArFontStyle">Action</th>
+                            <td mat-cell *matCellDef="let item" class="text-right w-10">
+                                <select class="form-control form-control-solid" (change)="onChange($event)"
+                                    style="max-width:200px">
+                                    <option selected disabled>--Select--</option>
+                                    <option value="{{item.userId}}">Edit</option>
+                                    <option value="{{item.userId}}">Delete</option>
+                                    <option value="{{item.userId}}">Change Password</option>
+                                    <option value="{{item.userId}}">User Rights</option>
+                                </select>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="firstName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">First Name</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.firstName }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="lastName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Last Name</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.lastName}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="loginId" class="w-30">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Login Id</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.loginId}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="isActive" class="w-20">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Is Active</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.activeuser ?
+                                'Active':'Inactive'}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                            [ngClass]="{'hidden':!isLoadingCompleted}" class="usermstTableHeader"></tr>
+                        <tr mat-row *matRowDef="let userMst; columns: columnsToDisplay"></tr>
+                    </table>
+                </div>
+                <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </form>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>
+
+<!--Change Passowrd Modal-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form name="form" [formGroup]="changePasswordForm" id="changePasswordForm">
+            <div class="row">
+                <input type="hidden" formControlName="UserId" />
+                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Old Password</label>
+                <div class="input-group mb-5">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <input type="password" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="oldPassword" name="oldPassword" id="oldPassword" />
+                </div>
+                <span class="text-danger" *ngIf="isFormSubmitted && f.oldPassword.errors?.required">Old password is
+                    required</span>
+
+            </div>
+            <div class="row">
+                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">New Password</label>
+                <div class="input-group mb-5">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <input type="password" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="newPassword" name="newPassword" id="newPassword" />
+                </div>
+                <!-- <span class="text-danger" *ngIf="isFormSubmitted && f.newPassword.errors?.required">New password is
+                    required</span> -->
+                <span class="text-danger" *ngIf="isFormSubmitted && f.newPassword?.touched && f.newPassword?.invalid 
+                        && f.newPassword?.errors && f.newPassword?.errors['required']">
+                    New password is required</span>
+            </div>
+            <div class="row">
+                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Confirm Password</label>
+                <div class="input-group mb-5">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fas fa-key"></i>
+                    </span>
+                    <input type="password" class="form-control form-control-lg  mb-3 mb-lg-0"
+                        formControlName="confirmPassword" name="confirmPassword" id=confirmPassword />
+                </div>
+                <!-- <span class="text-danger" *ngIf="isFormSubmitted && f.confirmPassword.errors?.required">Confirm password
+                    is
+                    required</span> -->
+                <span class="text-danger" *ngIf="f.confirmPassword?.touched && f.confirmPassword?.invalid && 
+                        f.confirmPassword?.errors && f.confirmPassword?.errors['required']">
+                    Please enter confirm password</span>
+
+                <span class="text-danger" *ngIf="f.confirmPassword?.errors &&
+                         f.confirmPassword?.errors['confirmedValidator']">
+                    Password and confirm password not matched</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer text-right">
+        <button mat-raised-button color="warn" (click)="onFormSubmit()" form="changePasswordForm" [disabled]="!changePasswordForm.valid">Update</button>
+        &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="modal.close('cancel')">Cancel</button>
+    </div>
+</ng-template>
+
+<!--Delete Modal-->
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <span>Do you want to delete this record</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer text-right">
+        <button mat-raised-button color="warn" (click)="modal.close('yes')">Yes</button> &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="modal.close('Save click')">No</button>
+    </div>
+</ng-template>

@@ -1,0 +1,59 @@
+<ngb-accordion #ngbOfferDetails="ngbAccordion" activeIds="ngb-panel-1" opened="true">
+    <ngb-panel id="ngb-panel-1">
+        <ng-template ngbPanelTitle>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA">Vouchers</h3>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <form [formGroup]="formGroup">
+                
+                <mat-form-field appearance="fill" class="w-100" floatLabel="never" >
+                    <mat-label>Search</mat-label>
+                    <input type="search" matInput formControlName="searchTerm" (keyup)="filterRecords()" class="ArFontStyle"/>
+                    <mat-icon matPrefix class="material-icons">search</mat-icon>                        
+                    <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
+                </mat-form-field>
+                <div class="table-container">
+                    <table mat-table class="w-100" [dataSource]="voucherDto" matSort>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>Action</th>
+                            <td mat-cell *matCellDef="let item" class="text-right w-20">
+                                <button mat-raised-button color="primary" routerLink="/service-setup/voucher-details/{{item.voucherId}}">Voucher Details</button> 
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="voucherId">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Id </th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle" >{{item.voucherId}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="voucherDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Date</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.voucherDate}}</td>
+                        </ng-container> 
+                        <ng-container matColumnDef="voucherCode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Code</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.voucherCode}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="narrations">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Narrations</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.narrations}}</td>
+                        </ng-container>     
+                        <ng-container matColumnDef="isPosted">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>IsPosted</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.isPosted}}</td>
+                        </ng-container>   
+                        <ng-container matColumnDef="totalAmount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Amount</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.totalAmount}}</td>
+                        </ng-container>                                          
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                            [ngClass]="{'hidden':!isLoadingCompleted}" class="row_header"></tr>
+                        <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
+                    </table>
+                </div>
+                <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                    </mat-paginator>
+                </div>
+            </form>
+        </ng-template>
+    </ngb-panel>
+</ngb-accordion>
