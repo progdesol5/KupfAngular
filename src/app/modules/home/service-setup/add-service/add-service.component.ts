@@ -515,8 +515,8 @@ export class AddServiceComponent implements OnInit, OnDestroy {
         }
         else {
           this.toastrService.success(response.message, 'Success');
-          this.addServiceForm.controls['pfId'].setValue(response.pfId)
-          console.log('save response',response)
+          this.searchForm.controls['pfId'].setValue(response.pfId)
+          // console.log('save response',response)
           this.popUpForm.patchValue({
             transactionId: response.transactionId,
             attachId: response.attachId,
