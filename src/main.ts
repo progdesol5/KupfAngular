@@ -7,7 +7,11 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
-
+// let assignValue:string = "ltr";
+// if(localStorage.getItem('lang') == 'ar'){
+//   debugger;
+//   assignValue = 'rtl';
+// }
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));

@@ -34,17 +34,17 @@ const routes: Routes = [
   { path: 'manage-approvals', component: ApprovalManagementComponent },
   { path: 'import-emplyee-monthly-payment', component: ImportEmployeeMonthlyPaymentComponent },
   { path: 'add-employee-movement', component: AddEmployeeMovementComponent },
-  { path: 'employee-movement-details', component: EmployeeMovementDetailsComponent },  
-  { path: 'cashier-approval', component: CashierApprovalComponent }, 
+  { path: 'employee-movement-details', component: EmployeeMovementDetailsComponent },
+  { path: 'cashier-approval', component: CashierApprovalComponent },
   { path: 'financial-approval', component: FinancialApprovalComponent },
   { path: 'cashier-delivery', component: CashierDeliveryComponent },
   { path: 'cashier-draft', component: CashierDraftComponent },
   { path: 'financial-delivery', component: FinancialDeliveryComponent },
   { path: 'financial-draft', component: FinancialDraftComponent },
-  {path: 'view-service-detail/:transId',component:ViewServiceDetailComponent},
-  {path: 'voucher',component:VoucherComponent},
-  {path: 'voucher-details/:voucherId',component:VoucherDetailsComponent},
-  {path: 'general-voucher',component:GeneralVoucherComponent}
+  { path: 'view-service-detail/:transId', component: ViewServiceDetailComponent },
+  { path: 'voucher', component: VoucherComponent },
+  { path: 'voucher-details/:voucherId', component: VoucherDetailsComponent },
+  { path: 'general-voucher', component: GeneralVoucherComponent }
 ];
 
 @NgModule({

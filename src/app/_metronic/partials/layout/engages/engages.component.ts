@@ -23,13 +23,17 @@ export class EngagesComponent implements OnInit {
   }
   // Set Language to AR
   switchToAr(language: string) {
-
+    document.getElementsByTagName('body')[0].removeAttribute('dir');
+      document.getElementsByTagName('body')[0].removeAttribute('direction');
+      document.getElementsByTagName('body')[0].removeAttribute('style');
     this.ifLanguageAlreadySelected = localStorage.getItem('lang');
     if (this.ifLanguageAlreadySelected != 'ar') {
-
       localStorage.setItem('lang', language);
       // Set Language value 
       localStorage.setItem('langType', '2');
+      document.getElementsByTagName('body')[0].setAttribute('dir', 'rtl');
+      document.getElementsByTagName('body')[0].setAttribute('direction', 'rtl');
+      document.getElementsByTagName('body')[0].setAttribute('style', 'direction: rtl');
       // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -42,12 +46,19 @@ export class EngagesComponent implements OnInit {
   }
   // Set Language to EN
   switchToEn(language: string) {
+    console.log(document.getElementsByTagName('body'));
+    document.getElementsByTagName('body')[0].removeAttribute('dir');
+      document.getElementsByTagName('body')[0].removeAttribute('direction');
+      document.getElementsByTagName('body')[0].removeAttribute('style');
     this.ifLanguageAlreadySelected = localStorage.getItem('lang');
     if (this.ifLanguageAlreadySelected != 'en') {
       this.ifAlreadySelected = true;
       localStorage.setItem('lang', language);
       // Set Language value
       localStorage.setItem('langType', '1');
+      document.getElementsByTagName('body')[0].setAttribute('dir', 'ltr');
+      document.getElementsByTagName('body')[0].setAttribute('direction', 'ltr');
+      document.getElementsByTagName('body')[0].setAttribute('style', 'direction: ltr');
       // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
       let currentUrl = this.router.url;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;

@@ -18,7 +18,7 @@ export class VoucherComponent implements OnInit {
 
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action', 'voucherId', 'voucherDate', 'voucherCode', 'narrations', 'isPosted','totalAmount'];
+  columnsToDisplay: string[] = ['action', 'status', 'services', 'empname', 'cepfid', 'transid', 'jvid'];
 
   // Getting data as abservable.
   voucherDto$: Observable<voucherDto[]>;
@@ -33,7 +33,7 @@ export class VoucherComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   // Hide footer while loading.
-  isLoadingCompleted: boolean = false;
+  isLoadingCompleted: boolean = true;
 
   // Incase of any error will display error message.
   dataLoadingStatus: string = '';
@@ -48,43 +48,45 @@ export class VoucherComponent implements OnInit {
   searchTerm: string = '';
   //#endregion
 
-  constructor(private financialService:FinancialService,private router:Router) { 
+  constructor(private financialService: FinancialService, private router: Router) {
     this.formGroup = new FormGroup({
       searchTerm: new FormControl(null)
     })
   }
 
   ngOnInit(): void {
-    this.loadData();
+    // this.loadData();
   }
-  loadData(){
-    this.financialService.GetVouchers().subscribe((response: voucherDto[]) => {
-      this.voucherDto = new MatTableDataSource<voucherDto>(response);
-      this.voucherDto.paginator = this.paginator;
-      this.voucherDto.sort = this.sort;
-      this.isLoadingCompleted = true;
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
+
+
+  // loadData() {
+  //   this.financialService.GetVouchers().subscribe((response: voucherDto[]) => {
+  //     this.voucherDto = new MatTableDataSource<voucherDto>(response);
+  //     this.voucherDto.paginator = this.paginator;
+  //     this.voucherDto.sort = this.sort;
+  //     this.isLoadingCompleted = true;
+  //   }, error => {
+  //     console.log(error);
+  //     this.dataLoadingStatus = 'Error fetching the data';
+  //     this.isError = true;
+  //   })
+  // }
+  // navigateToVoucherDetails(voucherId: number) {
+  //   this.router.navigateByUrl(`/service-setup/voucher-details?voucherId=${voucherId}`);
+  // }
+  // redirectTo(uri: string) {
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+  //     this.router.navigate([uri]));
+  // }
+  //#region Material Search and Clear Filter 
+  filterRecords() {
+  //   if (this.formGroup.value.searchTerm != null && this.voucherDto) {
+  //     this.voucherDto.filter = this.formGroup.value.searchTerm.trim();
+  //   }
   }
-  navigateToVoucherDetails(voucherId: number) {
-    this.router.navigateByUrl(`/service-setup/voucher-details?voucherId=${voucherId}`);
+  clearFilter() {
+  //   this.formGroup?.patchValue({ searchTerm: "" });
+  //   this.filterRecords();
   }
-  redirectTo(uri: string) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate([uri]));
-  }
-//#region Material Search and Clear Filter 
-filterRecords() {
-  if (this.formGroup.value.searchTerm != null && this.voucherDto) {
-    this.voucherDto.filter = this.formGroup.value.searchTerm.trim();
-  }
-}
-clearFilter() {
-  this.formGroup?.patchValue({ searchTerm: "" });
-  this.filterRecords();
-}
-//#endregion
+  //#endregion
 }
