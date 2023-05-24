@@ -429,6 +429,9 @@ export class AddServiceComponent implements OnInit, OnDestroy {
 
 
   saveFinancialService() {
+    this.isFormSubmitted = true;
+    debugger;
+    console.log(this.addServiceFrm.serviceType.errors?.required);
     this.setValidators(this.notSubscriber);
     // Get Tenant Id
     var data = JSON.parse(localStorage.getItem("user")!);
@@ -493,7 +496,7 @@ export class AddServiceComponent implements OnInit, OnDestroy {
     // finalformData.append('metaTags', JSON.parse(JSON.stringify(this.parentForm.value.documentAttachmentForm[0].metaTag)));
     // finalformData.append('attachmentRemarks', this.parentForm.value.documentAttachmentForm[0].attachmentRemarks);
     //
-    this.isFormSubmitted = true;
+    
     //
     if (this.mytransid) {
       //console.log('edit click',formData);

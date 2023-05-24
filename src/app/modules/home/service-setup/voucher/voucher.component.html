@@ -78,39 +78,41 @@
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
                 </mat-form-field>
                 <div class="table-container">
-                    <table mat-table class="w-100" matSort>
+                    <table mat-table class="w-100" [dataSource]="voucherDto" matSort>
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef>Action</th>
-                            <td mat-cell *matCellDef="let item" class="text-right w-20">
-                                <button mat-raised-button color="primary">View</button>
+                            <td mat-cell *matCellDef="let item" class="text-right w-10">
+                                <button mat-raised-button color="primary"
+                                    (click)="openVoucherModal(voucherModal,item.voucherId)">View</button>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">test </td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-15">{{item.status}} </td>
                         </ng-container>
                         <ng-container matColumnDef="services">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Services</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">test</td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceType}}</td>
                         </ng-container>
                         <ng-container matColumnDef="empname">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name English/Arabic</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">test</td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}
+                                {{item.arabicName}}</td>
                         </ng-container>
                         <ng-container matColumnDef="cepfid">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Civil Id/Employee/PF</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">2298/8987/7687</td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-20">2298/{{item.employeeID}}/7687</td>
                         </ng-container>
                         <ng-container matColumnDef="transid">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Id </th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">56</td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.mytransid}}</td>
                         </ng-container>
                         <ng-container matColumnDef="jvid">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header>JV Id</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">22</td>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.voucherId}}</td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
-                            [ngClass]="{'hidden':!isLoadingCompleted}"  class="m_approval_thead"></tr>
+                            [ngClass]="{'hidden':!isLoadingCompleted}" class="m_approval_thead"></tr>
                         <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
                     </table>
                 </div>
@@ -126,3 +128,26 @@
 
     </div>
 </div>
+
+<!--APPROVE SERVICE-->
+<ng-template #voucherModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" lang="AR-SA">Voucher details - تفاصيل القسيمة</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div *ngFor="let voucherDetail of voucherDetail">
+            <p>Account Id - <b>{{voucherDetail.accountId}}</b> </p>
+            <p>Account name - <b>{{voucherDetail.accountName}}</b> </p>
+            <p>Amount - <b>{{voucherDetail.amount}}</b> </p>
+            <p>Cheque date - <b>{{voucherDetail.chequeDate ? voucherDetail.chequeDate : "No date"}}</b> </p>
+            <p>Credit amount - <b>{{voucherDetail.cr}}</b> </p>
+            <p>Debit amount - <b>{{voucherDetail.dr}}</b> </p>
+            <p>Amount - <b>{{voucherDetail.amount}}</b> </p>
+        </div>
+    </div>
+    <div class="modal-footer text-right">
+        <button mat-raised-button color="accent" (click)="modal.close('yes')"
+            >Close</button>
+    </div>
+</ng-template>

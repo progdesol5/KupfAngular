@@ -46,7 +46,7 @@ export class ViewemployeeinformationComponent implements OnInit {
 
   // FormId
   formId: string;
-
+dirval = localStorage.getItem('lang')
   /*----------------------------------------------------*/
   //#endregion
 

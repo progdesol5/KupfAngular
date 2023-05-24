@@ -6,16 +6,16 @@
       <div class="btn-group " role="group" aria-label="Basic example"
         *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <!-- Save Button -->
-        <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure" lang="AR-SA"
-          (click)="submitForm()"
-          [disabled]="!addEmployeeForm.valid || !jobDetailsForm.valid">{{bodyLabel[0].title}}</button>
+        <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure mx-1" lang="AR-SA"
+          (click)="submitForm()">{{bodyLabel[0].title}}</button>
+          <!-- [disabled]="!addEmployeeForm.valid || !jobDetailsForm.valid" -->
         <!-- <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure" lang="AR-SA"
           (click)="submitForm()">{{bodyLabel[0].title}}</button> -->
         <!-- Cancel Button -->
-        <button type="button" class="btn btn-primary float-left ArFontStyle moonstone-blue "
+        <button type="button" class="btn btn-primary float-left ArFontStyle moonstone-blue mx-1"
           lang="AR-SA">{{bodyLabel[1].title}}</button>
         <!-- Back Button -->
-        <button type="button" class="btn btn-primary float-left ArFontStyle beau-blue"
+        <button type="button" class="btn btn-primary float-left ArFontStyle beau-blue mx-1"
           routerLink="/employee/view-employee" routerLinkActive="active" lang="AR-SA">{{bodyLabel[2].title}}</button>
       </div>
     </div>
@@ -32,18 +32,16 @@
         <form autocomplete="off" [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()" id="employeeForm">
           <div class="row mb-6">
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-              lang="AR-SA">Employee ID</label>
-            <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" name="employeeId"
-              formControlName="employeeId" maxlength="10" [readOnly]="isOK"/>
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Employee ID</label>
+              <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" name="employeeId"
+                formControlName="employeeId" maxlength="10" [readOnly]="isOK" />
               <span class="text-danger"
-                *ngIf="(empForm.employeeId.touched || isFormSubmitted) && empForm.employeeId.errors?.required">
+                *ngIf="(empForm.employeeId.touched || isFormSubmitted) && empForm.employeeId.errors?.required || empForm['employeeId'].hasError('min')">
                 Employee Id is required
               </span>
             </div>
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">Join Date</label>
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Join Date</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-calendar"></i>
@@ -276,6 +274,10 @@
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
                 lang="AR-SA">{{bodyLabel[18].title}}</label>
               <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="salary" />
+              <span class="text-danger"
+                *ngIf="(jobForm.salary.touched || isFormSubmitted) && jobForm.salary.errors?.required || jobForm['salary'].hasError('min')">
+                Salary is required
+              </span>
             </div>
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
@@ -284,8 +286,8 @@
                 maxlength="12" />
 
               <span class="text-danger"
-                *ngIf="(jobForm.empCidNum.touched || isFormSubmitted) && jobForm.empCidNum.errors?.required">
-                CID is required
+                *ngIf="(jobForm.empCidNum.touched || isFormSubmitted) && jobForm.empCidNum.errors?.required || jobForm['empCidNum'].hasError('minlength') || jobForm['empCidNum'].hasError('maxlength')">
+                (12 digit) CID is required
               </span>
             </div>
             <div class="col-lg-3 fv-row">
@@ -329,6 +331,10 @@
                 </span>
                 <input type="text" class="form-control" bsDatepicker [bsConfig]="datePickerConfig"
                   formControlName="membershipJoiningDate" />
+                  <span class="text-danger"
+                *ngIf="membershipForm.controls['membership'].valid && membershipForm.controls['membershipJoiningDate'].invalid">
+                Joining field is required
+              </span>
               </div>
             </div>
           </div>

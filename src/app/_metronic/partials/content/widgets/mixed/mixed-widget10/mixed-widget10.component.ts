@@ -47,7 +47,6 @@ listTotalMyperiod: string[] = [];
   const strokeColor = getCSSVariableValue('--bs-gray-300');
   const baseColor = getCSSVariableValue('--bs-' + chartColor);
   const lightColor = getCSSVariableValue('--bs-light-' + chartColor);
- debugger
   for (var s = 0; s < this.lidashboardResponseDto.length; s++) {
 
   //  this.listTotalEmp.push(s+30);

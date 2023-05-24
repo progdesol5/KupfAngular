@@ -218,7 +218,7 @@ export class AddemployeeinformationComponent implements OnInit {
 
   initializeForm() {
     this.addEmployeeForm = this.fb.group({
-      employeeId: new FormControl('', Validators.required),
+      employeeId:  new FormControl('', [Validators.required, Validators.min(11)]),
       englishName: new FormControl('', Validators.required),
       arabicName: new FormControl('', Validators.required),
       empBirthday: new FormControl('', Validators.required),
@@ -242,8 +242,8 @@ export class AddemployeeinformationComponent implements OnInit {
     this.jobDetailsForm = this.fb.group({
       department: new FormControl('', Validators.required),
       departmentName: new FormControl('', Validators.required),
-      salary: new FormControl(''),
-      empCidNum: new FormControl('', [Validators.required, Validators.maxLength(12)]),
+      salary: new FormControl('', [Validators.required, Validators.min(11)]),
+      empCidNum: new FormControl('', [Validators.required,Validators.minLength(12), Validators.maxLength(12)]),
       empPaciNum: new FormControl(''),
       empOtherId: new FormControl(''),
       contractType: new FormControl('', Validators.required)
@@ -272,82 +272,87 @@ export class AddemployeeinformationComponent implements OnInit {
 
   //Save employee data...
   submitForm() {
-
-    var data = JSON.parse(localStorage.getItem("user")!);
-    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
-    const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
-    const username = data.map((obj: { username: any; }) => obj.username);
-    const userId = data.map((obj: { userId: any; }) => obj.userId);
-
-    let empId = this.addEmployeeForm.get('employeeId')?.value
-    this.parentForm.controls.addEmployeeForm.patchValue({
-      empGender: +this.parentForm.value.addEmployeeForm.empGender,
-      empMaritalStatus: +this.parentForm.value.addEmployeeForm.empMaritalStatus,
-      employeeId: +empId,
-    });
-    //  TO CONVER OBJECT ARRAY AS SIMPLE ARRAY.
-    let formData = {
-      ...this.parentForm.value.addEmployeeForm,
-      ...this.parentForm.value.jobDetailsForm,
-      ...this.parentForm.value.membershipForm,
-      ...this.parentForm.value.financialForm,
-      tenentID: tenantId[0],
-      locationId: locationId[0],
-      username: username[0],
-      userId: userId[0]
-    }
-    //
     this.isFormSubmitted = true;
-    //
-    if (this.addEmployeeForm.valid) {
-      if (this.employeeId != null) {
-        this.employeeService.UpdateEmployee(formData).subscribe((res: any) => {
-          console.log(res);
-          this.toastrService.success('Saved successfully', 'Success');
-          this.addEmployeeForm.reset();
-          this.jobDetailsForm.reset();
-          this.membershipForm.reset();
-          this.parentForm.reset();
-          this.router.navigateByUrl('/employee/view-employee')
-        }, error => {
-          if (error.status === 500) {
-            this.toastrService.error('Something went wrong', 'Error');
-          }
-        })
+    if (this.addEmployeeForm.invalid || this.jobDetailsForm.invalid) {
+      console.log((this.empForm.employeeId.touched || this.isFormSubmitted) && this.empForm.employeeId.errors?.required && this.empForm.employeeId.errors?.minlength)
+      this.toastrService.warning('Kindly enter all the mandatory fields', 'Warning');
+    } else {
+      var data = JSON.parse(localStorage.getItem("user")!);
+      const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+      const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
+      const username = data.map((obj: { username: any; }) => obj.username);
+      const userId = data.map((obj: { userId: any; }) => obj.userId);
+
+      let empId = this.addEmployeeForm.get('employeeId')?.value
+      this.parentForm.controls.addEmployeeForm.patchValue({
+        empGender: +this.parentForm.value.addEmployeeForm.empGender,
+        empMaritalStatus: +this.parentForm.value.addEmployeeForm.empMaritalStatus,
+        employeeId: +empId,
+      });
+      //  TO CONVER OBJECT ARRAY AS SIMPLE ARRAY.
+      let formData = {
+        ...this.parentForm.value.addEmployeeForm,
+        ...this.parentForm.value.jobDetailsForm,
+        ...this.parentForm.value.membershipForm,
+        ...this.parentForm.value.financialForm,
+        tenentID: tenantId[0],
+        locationId: locationId[0],
+        username: username[0],
+        userId: userId[0]
       }
-      else {
-        this.employeeService.ValidateEmployeeData(formData).subscribe((response: any) => {
-          if (response == "1") {
-            this.toastrService.error('Duplicate Civil Id, please enter a different Civil Id', 'Error');
-          }
-          else if (response == "2") {
-            this.popUpForm.patchValue({
-              errorMessage: '?Duplicate mobile number found, do you want to proceed'
-            })
-            this.openPopUpModal(this.popupModal, formData);
-          }
-          else if (response == "3") {
-            this.popUpForm.patchValue({
-              errorMessage: '?Duplicate email found, do you want to proceed'
-            })
-            this.openPopUpModal(this.popupModal, formData);
-          }
-          else if (response == "4") {
-            this.toastrService.error('Duplicate Employee Id, please enter a different Employee Id', 'Error');
-          }
-          else if (response == "0") {
-            this.employeeService.AddEmployee(formData).subscribe((res: any) => {
-              console.log(res)
-              this.toastrService.success('Saved successfully', 'Success');
-              this.addEmployeeForm.reset();
-              this.jobDetailsForm.reset();
-              this.membershipForm.reset();
-              this.parentForm.reset();
-              this.addEmployeeForm.controls['employeeId'].setValue(0);
-              this.router.navigateByUrl('/employee/view-employee')
-            })
-          }
-        });
+      //
+      
+      //
+      if (this.addEmployeeForm.valid) {
+        if (this.employeeId != null) {
+          this.employeeService.UpdateEmployee(formData).subscribe((res: any) => {
+            console.log(res);
+            this.toastrService.success('Saved successfully', 'Success');
+            this.addEmployeeForm.reset();
+            this.jobDetailsForm.reset();
+            this.membershipForm.reset();
+            this.parentForm.reset();
+            this.router.navigateByUrl('/employee/view-employee')
+          }, error => {
+            if (error.status === 500) {
+              this.toastrService.error('Something went wrong', 'Error');
+            }
+          })
+        }
+        else {
+          this.employeeService.ValidateEmployeeData(formData).subscribe((response: any) => {
+            if (response == "1") {
+              this.toastrService.error('Duplicate Civil Id, please enter a different Civil Id', 'Error');
+            }
+            else if (response == "2") {
+              this.popUpForm.patchValue({
+                errorMessage: '?Duplicate mobile number found, do you want to proceed'
+              })
+              this.openPopUpModal(this.popupModal, formData);
+            }
+            else if (response == "3") {
+              this.popUpForm.patchValue({
+                errorMessage: '?Duplicate email found, do you want to proceed'
+              })
+              this.openPopUpModal(this.popupModal, formData);
+            }
+            else if (response == "4") {
+              this.toastrService.error('Duplicate Employee Id, please enter a different Employee Id', 'Error');
+            }
+            else if (response == "0") {
+              this.employeeService.AddEmployee(formData).subscribe((res: any) => {
+                console.log(res)
+                this.toastrService.success('Saved successfully', 'Success');
+                this.addEmployeeForm.reset();
+                this.jobDetailsForm.reset();
+                this.membershipForm.reset();
+                this.parentForm.reset();
+                this.addEmployeeForm.controls['employeeId'].setValue(0);
+                this.router.navigateByUrl('/employee/view-employee')
+              })
+            }
+          });
+        }
       }
     }
   }
