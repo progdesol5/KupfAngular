@@ -12,6 +12,7 @@ export class EngagesComponent implements OnInit {
   ifLanguageAlreadySelected: string | null;
   ifAlreadySelected: boolean;
   currentURL: string = '';
+  selectedLanguage:any;
   constructor(private router: Router) { }
 
   // async reload(url: string): Promise<boolean> {
@@ -19,7 +20,12 @@ export class EngagesComponent implements OnInit {
   //   return this.router.navigateByUrl(url);
   // }
   ngOnInit(): void {
-
+   if(localStorage.getItem('lang') == 'ar'){
+    this.selectedLanguage = 'ar';
+   }
+   if(localStorage.getItem('lang') == 'en'){
+    this.selectedLanguage = 'en';
+   }
   }
   // Set Language to AR
   switchToAr(language: string) {
@@ -70,6 +76,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('style');
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'en') {
+        this.selectedLanguage = 'en';
         this.ifAlreadySelected = true;
         localStorage.setItem('lang', language);
         // Set Language value
@@ -102,6 +109,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('style');
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'ar') {
+        this.selectedLanguage = 'ar';
         localStorage.setItem('lang', language);
         // Set Language value 
         localStorage.setItem('langType', '2');

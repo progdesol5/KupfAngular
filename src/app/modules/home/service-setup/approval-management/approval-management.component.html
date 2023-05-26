@@ -73,7 +73,8 @@
                         <ng-container matColumnDef="transId">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
                                 Civil ID / Employee / PF / TransID </th>
-                            <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle idTdClass">{{item.transId}} {{item.pfid}} {{item.employeeId}} {{item.empCidNum}}  </td>
+                            <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle idTdClass">{{item.transId}}
+                                {{item.pfid}} {{item.employeeId}} {{item.empCidNum}} </td>
                         </ng-container>
                         <div *ngIf="lang == 'en'">
                             <ng-container matColumnDef="employeeName">
