@@ -1,3 +1,10 @@
 .setupheader, .header_setupadservice{
     color: #fff !important;
 }
+.m_approval_thead{
+    background-color: var(--texasRose);
+    
+    .mat-header-cell{
+        color: black !important;
+    }
+}

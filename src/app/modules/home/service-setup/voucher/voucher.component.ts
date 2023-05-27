@@ -10,6 +10,7 @@ import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { CashierApprovalDto } from 'src/app/modules/models/FinancialService/CashierApprovalDto';
 import { voucherDto } from 'src/app/modules/models/VoucherDto';
 
+
 @Component({
   selector: 'app-voucher',
   templateUrl: './voucher.component.html',
@@ -58,12 +59,28 @@ export class VoucherComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
   }
-
+length:number;
+pageSize:number = 10;
 
   loadData() {
-    this.financialService.GetVouchers().subscribe((response: voucherDto[]) => {
-      this.voucherDto = new MatTableDataSource<voucherDto>(response);
+    this.financialService.GetVouchers(1, this.pageSize, '').subscribe((response: any) => {
+      this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
       this.voucherDto.paginator = this.paginator;
+      this.voucherDto.sort = this.sort;
+      this.length = response.totalRecords
+      this.isLoadingCompleted = true;
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
+  }
+
+  onPaginationChange(event:any){
+    this.financialService.GetVouchers(event.pageIndex+1, event.pageSize, '').subscribe((response: any) => {
+      this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
+      this.voucherDto.paginator = this.paginator;
+      this.length = response.totalRecords
       this.voucherDto.sort = this.sort;
       this.isLoadingCompleted = true;
     }, error => {
@@ -81,13 +98,21 @@ export class VoucherComponent implements OnInit {
   // }
   //#region Material Search and Clear Filter 
   filterRecords() {
-    //   if (this.formGroup.value.searchTerm != null && this.voucherDto) {
-    //     this.voucherDto.filter = this.formGroup.value.searchTerm.trim();
-    //   }
+    this.financialService.GetVouchers(1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
+      this.voucherDto.paginator = this.paginator;
+      this.length = response.totalRecords
+      this.voucherDto.sort = this.sort;
+      this.isLoadingCompleted = true;
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
   }
   clearFilter() {
-    //   this.formGroup?.patchValue({ searchTerm: "" });
-    //   this.filterRecords();
+      this.formGroup?.patchValue({ searchTerm: "" });
+      this.filterRecords();
   }
   //#endregion
 

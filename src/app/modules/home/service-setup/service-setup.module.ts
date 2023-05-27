@@ -30,6 +30,9 @@ import { ViewServiceDetailComponent } from './view-service-detail/view-service-d
 import { VoucherComponent } from './voucher/voucher.component';
 import { VoucherDetailsComponent } from './voucher-details/voucher-details.component';
 import { GeneralVoucherComponent } from './general-voucher/general-voucher.component';
+import {MatMenuModule} from '@angular/material/menu';
+// import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     ServiceSetupDetailsComponent,
@@ -63,6 +66,8 @@ import { GeneralVoucherComponent } from './general-voucher/general-voucher.compo
     MaterialModule,
     NgSelectModule,
     NgbModule,
+    MatMenuModule,
+    // MatButtonModule
 
   ],
   exports:[

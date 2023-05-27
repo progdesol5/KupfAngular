@@ -1,6 +1,6 @@
 <!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
-<nav class="navbar sticky-top navbar-expand-lg custom-nav bg-light-primary rounded border-primary border border-dashed p-6 mb-3"
-    *ngIf="!isViewOnly">
+<nav class="navbar sticky-top navbar-expand-lg custom-nav bg-light-primary rounded border-primary border border-dashed p-6 mb-3 ml-1"
+   *ngIf="!isViewOnly">
     <div [ngClass]="{'header-container': isSearched == true}">
         <div class="sm-container" *ngIf="isSearched">
             <div class="responsive-font"><strong>Name: </strong>{{employeeForm?.controls.englishName.value}} /

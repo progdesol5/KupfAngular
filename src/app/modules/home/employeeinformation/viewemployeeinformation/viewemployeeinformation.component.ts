@@ -46,7 +46,7 @@ export class ViewemployeeinformationComponent implements OnInit {
 
   // FormId
   formId: string;
-dirval = localStorage.getItem('lang')
+  dirval = localStorage.getItem('lang')
   /*----------------------------------------------------*/
   //#endregion
 
@@ -184,20 +184,19 @@ dirval = localStorage.getItem('lang')
     }
     this.userParams.pageSize = event.pageSize;
     this.employeeService.setUserParams(this.userParams);
-    if(this.formGroup.value.searchTerm == null){
+    if (this.formGroup.value.searchTerm == null) {
       this.loadData(event.pageIndex);
     }
-    else if(this.formGroup.value.searchTerm.length>0){
+    else if (this.formGroup.value.searchTerm.length > 0) {
       this.filterRecords(event.pageIndex);
     }
-    else{
+    else {
       this.loadData(event.pageIndex);
-    }  
+    }
   }
   //#region Material Search and Clear Filter  
-  filterRecords(pageIndex:any) {
+  filterRecords(pageIndex: any) {
     this.userParams.pageNumber = pageIndex + 1;
-    console.log(this.userParams);
     this.employeeService.setUserParams(this.userParams);
     this.employeeService.GetFilterEmployees(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.employeeHeaders = JSON.parse(response.headers.get('pagination'));
@@ -219,7 +218,7 @@ dirval = localStorage.getItem('lang')
     this.formGroup?.patchValue({ searchTerm: "" });
     this.loadData(0);
     this.userParams.pageNumber = 1;
-    this.userParams.pageSize= 10;
+    this.userParams.pageSize = 10;
     // this.filterRecords(0);
   }
   //#endregion
@@ -269,7 +268,7 @@ dirval = localStorage.getItem('lang')
 
   onFilterItemSelect(e: any) {
     //
-    if(!e){
+    if (!e) {
       this.loadData(0);
     }
     this.employeeService.setUserParams(this.userParams);

@@ -65,10 +65,6 @@ input:focus {
     font-weight: bold !important;
   }
 
-  .navbar{
-    z-index:-1;
-  }
-
   .navbar .navbar-brand {
     font-size: 30px;
   }
@@ -100,13 +96,6 @@ input:focus {
     flex-direction: row-reverse;
     width: 100%;
     justify-content: space-between;
-    
-    .sm-container{
-
-    }
-    .btn-container {
-
-    }
 }
 
 /* If the screen size is 1200px wide or more, set the font-size to 80px */
@@ -123,7 +112,11 @@ input:focus {
     }
   }
 
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button{
-    appearance: none;
+  .navbar{
+    margin-left:10px;
   }
+
+  // input[type=number]::-webkit-inner-spin-button,
+  // input[type=number]::-webkit-outer-spin-button{
+  //   appearance: none;
+  // }

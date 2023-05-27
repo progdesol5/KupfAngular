@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, forkJoin, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -243,6 +243,9 @@ export class FinancialService {
   GetCashierApprovals(periodCode:number,tenentId:number,locationId:number,isShowAll:boolean) { 
     return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetCashierApprovals?periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`);    
   }
+  GetVoucherByTransId(id:number){
+    return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `Account/GetVoucherDetailsByTransId?TransId=${id}`);    
+  }
   GetFinacialApprovals(periodCode:number,tenentId:number,locationId:number,isShowAll:boolean) { 
     return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetFinacialApprovals?periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`);    
   }
@@ -255,8 +258,12 @@ export class FinancialService {
   GenerateFinancialServiceSerialNo() { 
     return this.httpClient.get<any>(this.baseUrl + `FinancialService/GenerateFinancialServiceSerialNo`);    
   }
-  GetVouchers() { 
-    return this.httpClient.get<voucherDto[]>(this.baseUrl + `Account/GetVoucher`);    
+  GetVouchers(pageNum:number, pagesize:number, query:string) {
+    let list = new HttpParams();
+    list = list.append('PageNumber', pageNum);
+    list = list.append('PageSize', pagesize);
+    list = list.append('Query', query);
+    return this.httpClient.get<voucherDto[]>(this.baseUrl + `Account/GetVoucher`, {params:list});    
   }
   GetVoucherDetails(voucherId:number) { 
     return this.httpClient.get<voucherDetailsDto[]>(this.baseUrl + `Account/GetVoucherDetails?voucherId=${voucherId}`);    

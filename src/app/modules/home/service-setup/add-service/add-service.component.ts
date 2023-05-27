@@ -430,7 +430,6 @@ export class AddServiceComponent implements OnInit, OnDestroy {
 
   saveFinancialService() {
     this.isFormSubmitted = true;
-    debugger;
     console.log(this.addServiceFrm.serviceType.errors?.required);
     this.setValidators(this.notSubscriber);
     // Get Tenant Id
@@ -597,6 +596,10 @@ export class AddServiceComponent implements OnInit, OnDestroy {
           totinstallments: 0,
           allowDiscountAmount: 0
         })
+      }
+      if(noOfinstallments>0){
+        let val = ( amount-allowDiscountAmount-downPayment)/noOfinstallments
+       this.addServiceForm.get('installmentAmount')?.setValue(val);
       }
       // If 2 Fixed Amount and discount will be 100%...
       // else if (this.addServiceForm.get('discountType')?.value === 2) {

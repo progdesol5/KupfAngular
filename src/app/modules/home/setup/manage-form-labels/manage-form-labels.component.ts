@@ -16,10 +16,10 @@ import { LocalizationService } from 'src/app/modules/_services/localization.serv
 export class ManageFormLabelsComponent implements OnInit {
 
   /* Material Table Configuration */
-  
+
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action', 'formID', 'formName', 'headerName', 'subHeaderName'];
+  columnsToDisplay: string[] = ['action', 'formID', 'formName', 'headerNameEn', 'subHeaderNameEn'];
 
   // Getting data as abservable.
   formTitleHd$: Observable<FormTitleHd[]>;
@@ -48,7 +48,7 @@ export class ManageFormLabelsComponent implements OnInit {
   // Search Term
   searchTerm: string = '';
   //#endregion
-
+  direction = '';
 
 
   constructor(private localizationService: LocalizationService) {
@@ -59,9 +59,16 @@ export class ManageFormLabelsComponent implements OnInit {
 
   ngOnInit(): void {
     //#region    
+    if (localStorage.getItem('lang') == 'ar') {
+      this.direction = 'rtl'
+    }
+    if (localStorage.getItem('lang') == 'en') {
+      this.direction = 'ltr';
+    }
     this.formTitleHd$ = this.localizationService.getAllFormHeaderLabels();
     this.formTitleHd$.subscribe((resoponse: FormTitleHd[]) => {
       this.formTitleHd = new MatTableDataSource<FormTitleHd>(resoponse);
+      console.log(this.formTitleHd);
       this.formTitleHd.paginator = this.paginator;
       this.formTitleHd.sort = this.sort;
       this.isLoadingCompleted = true;

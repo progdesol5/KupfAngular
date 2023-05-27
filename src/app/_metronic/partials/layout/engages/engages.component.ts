@@ -12,7 +12,7 @@ export class EngagesComponent implements OnInit {
   ifLanguageAlreadySelected: string | null;
   ifAlreadySelected: boolean;
   currentURL: string = '';
-  selectedLanguage:any;
+  selectedLanguage: any;
   constructor(private router: Router) { }
 
   // async reload(url: string): Promise<boolean> {
@@ -20,54 +20,68 @@ export class EngagesComponent implements OnInit {
   //   return this.router.navigateByUrl(url);
   // }
   ngOnInit(): void {
-   if(localStorage.getItem('lang') == 'ar'){
-    this.selectedLanguage = 'ar';
-   }
-   if(localStorage.getItem('lang') == 'en'){
-    this.selectedLanguage = 'en';
-   }
-  }
-  // Set Language to AR
-  switchToAr(language: string) {
-    document.getElementsByTagName('body')[0].removeAttribute('dir');
-    document.getElementsByTagName('body')[0].removeAttribute('direction');
-    document.getElementsByTagName('body')[0].removeAttribute('style');
-    this.ifLanguageAlreadySelected = localStorage.getItem('lang');
-    if (this.ifLanguageAlreadySelected != 'ar') {
-      localStorage.setItem('lang', language);
-      // Set Language value 
+    if (localStorage.getItem('lang') == 'ar') {
+      document.getElementsByTagName('body')[0].removeAttribute('dir');
+      document.getElementsByTagName('body')[0].removeAttribute('direction');
+      // document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.selectedLanguage = 'ar';
       localStorage.setItem('langType', '2');
       document.getElementsByTagName('body')[0].setAttribute('dir', 'rtl');
       document.getElementsByTagName('body')[0].setAttribute('direction', 'rtl');
-      document.getElementsByTagName('body')[0].setAttribute('style', 'direction: rtl');
-      // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
-      let currentUrl = this.router.url;
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([currentUrl]);
+      // document.getElementsByTagName('body')[0].setAttribute('style', 'direction: rtl');
     }
-  }
-  // Set Language to EN
-  switchToEn(language: string) {
-    document.getElementsByTagName('body')[0].removeAttribute('dir');
-    document.getElementsByTagName('body')[0].removeAttribute('direction');
-    document.getElementsByTagName('body')[0].removeAttribute('style');
-    this.ifLanguageAlreadySelected = localStorage.getItem('lang');
-    if (this.ifLanguageAlreadySelected != 'en') {
-      this.ifAlreadySelected = true;
-      localStorage.setItem('lang', language);
-      // Set Language value
+    if (localStorage.getItem('lang') == 'en') {
+      document.getElementsByTagName('body')[0].removeAttribute('dir');
+      document.getElementsByTagName('body')[0].removeAttribute('direction');
+      // document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.selectedLanguage = 'en';
       localStorage.setItem('langType', '1');
       document.getElementsByTagName('body')[0].setAttribute('dir', 'ltr');
       document.getElementsByTagName('body')[0].setAttribute('direction', 'ltr');
-      document.getElementsByTagName('body')[0].setAttribute('style', 'direction: ltr');
-      // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
-      let currentUrl = this.router.url;
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([currentUrl]);
+      // document.getElementsByTagName('body')[0].setAttribute('style', 'direction: ltr');
     }
   }
+  // Set Language to AR
+  // switchToAr(language: string) {
+  //   document.getElementsByTagName('body')[0].removeAttribute('dir');
+  //   document.getElementsByTagName('body')[0].removeAttribute('direction');
+  //   document.getElementsByTagName('body')[0].removeAttribute('style');
+  //   this.ifLanguageAlreadySelected = localStorage.getItem('lang');
+  //   if (this.ifLanguageAlreadySelected != 'ar') {
+  //     localStorage.setItem('lang', language);
+  //     // Set Language value 
+  //     localStorage.setItem('langType', '2');
+  //     document.getElementsByTagName('body')[0].setAttribute('dir', 'rtl');
+  //     document.getElementsByTagName('body')[0].setAttribute('direction', 'rtl');
+  //     document.getElementsByTagName('body')[0].setAttribute('style', 'direction: rtl');
+  //     // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
+  //     let currentUrl = this.router.url;
+  //     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  //     this.router.onSameUrlNavigation = 'reload';
+  //     this.router.navigate([currentUrl]);
+  //   }
+  // }
+  // Set Language to EN
+  // switchToEn(language: string) {
+  //   document.getElementsByTagName('body')[0].removeAttribute('dir');
+  //   document.getElementsByTagName('body')[0].removeAttribute('direction');
+  //   document.getElementsByTagName('body')[0].removeAttribute('style');
+  //   this.ifLanguageAlreadySelected = localStorage.getItem('lang');
+  //   if (this.ifLanguageAlreadySelected != 'en') {
+  //     this.ifAlreadySelected = true;
+  //     localStorage.setItem('lang', language);
+  //     // Set Language value
+  //     localStorage.setItem('langType', '1');
+  //     document.getElementsByTagName('body')[0].setAttribute('dir', 'ltr');
+  //     document.getElementsByTagName('body')[0].setAttribute('direction', 'ltr');
+  //     document.getElementsByTagName('body')[0].setAttribute('style', 'direction: ltr');
+  //     // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
+  //     let currentUrl = this.router.url;
+  //     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  //     this.router.onSameUrlNavigation = 'reload';
+  //     this.router.navigate([currentUrl]);
+  //   }
+  // }
 
   switchLanguage(language: string) {
     if (language == 'en') {
@@ -89,7 +103,7 @@ export class EngagesComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
-      }else{
+      } else {
         localStorage.setItem('lang', language);
         // Set Language value
         localStorage.setItem('langType', '1');
@@ -121,7 +135,7 @@ export class EngagesComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate([currentUrl]);
-      } else{
+      } else {
         localStorage.setItem('lang', language);
         // Set Language value 
         localStorage.setItem('langType', '2');
