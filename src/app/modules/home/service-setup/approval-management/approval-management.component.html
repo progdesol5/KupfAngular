@@ -11,12 +11,19 @@
     <!--begin::Body-->
     <div class="card-body py-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <div class="row mb-4">
+            <!--
             <div class="col-lg-6 fv-row">
                 <div class="form-group form-check mt-4">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1"
                         (change)="onShowAllChange($event)">
                     <label class="form-check-label" for="exampleCheck1">Show All</label>
                 </div>
+            </div>
+            -->            
+            <div class="form-group form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                (change)="onShowAllChange($event)" style="float:right">
+                <label class="form-check-label" for="exampleCheck1">Show All</label>
             </div>
             <!-- <div class="col-lg-4 fv-row">
                 <select class="form-control form-control-solid">

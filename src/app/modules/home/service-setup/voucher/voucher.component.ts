@@ -49,7 +49,7 @@ export class VoucherComponent implements OnInit {
   // Search Term
   searchTerm: string = '';
   //#endregion
-  voucherDetail:any;
+  voucherDetail: any;
   constructor(private financialService: FinancialService, private router: Router, private modalService: NgbModal) {
     this.formGroup = new FormGroup({
       searchTerm: new FormControl("")
@@ -57,13 +57,13 @@ export class VoucherComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadData(0);
   }
-length:number;
-pageSize:number = 10;
+  length: number;
+  pageSize: number = 10;
 
-  loadData() {
-    this.financialService.GetVouchers(1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
+  loadData(pageIndex: any) {
+    this.financialService.GetVouchers(pageIndex + 1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
       this.voucherDto.paginator = this.paginator;
       this.voucherDto.sort = this.sort;
@@ -76,19 +76,8 @@ pageSize:number = 10;
     })
   }
 
-  onPaginationChange(event:any){
-    this.financialService.GetVouchers(event.pageIndex+1, event.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
-      this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
-      //this.voucherDto.paginator = this.paginator;
-      this.length = response.totalRecords
-      this.voucherDto.sort = this.sort;
-      this.isLoadingCompleted = true;
-      //console.log(this.voucherDto);
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
+  onPaginationChange(event: any) {
+    this.loadData(event.pageIndex);
   }
   // navigateToVoucherDetails(voucherId: number) {
   //   this.router.navigateByUrl(`/service-setup/voucher-details?voucherId=${voucherId}`);
@@ -99,26 +88,16 @@ pageSize:number = 10;
   // }
   //#region Material Search and Clear Filter 
   filterRecords() {
-    this.financialService.GetVouchers(1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
-      this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
-      this.voucherDto.paginator = this.paginator;
-      this.length = response.totalRecords
-      this.voucherDto.sort = this.sort;
-      this.isLoadingCompleted = true;
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
+    this.loadData(0);
   }
   clearFilter() {
-      this.formGroup?.patchValue({ searchTerm: "" });
-      this.filterRecords();
+    this.formGroup?.patchValue({ searchTerm: "" });
+    this.filterRecords();
   }
   //#endregion
 
   openVoucherModal(content: any, id: any) {
-    this.financialService.GetVoucherDetails(id).subscribe((res:any) => {
+    this.financialService.GetVoucherDetails(id).subscribe((res: any) => {
       this.voucherDetail = res;
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', modalDialogClass: 'modal-md' });
     })

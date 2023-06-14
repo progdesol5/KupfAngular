@@ -11,6 +11,8 @@ import { ServiceSetupDto } from 'src/app/modules/models/ServiceSetup/ServiceSetu
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { LocalizationService } from 'src/app/modules/_services/localization.service';
 import { ServiceSetupService } from 'src/app/modules/_services/service-setup.service';
+import { Pagination } from 'src/app/modules/models/pagination';
+import { UserParams } from 'src/app/modules/models/UserParams';
 
 @Component({
   selector: 'app-service-setup-details',
@@ -19,33 +21,33 @@ import { ServiceSetupService } from 'src/app/modules/_services/service-setup.ser
 })
 export class ServiceSetupDetailsComponent implements OnInit {
 
-//#region 
-    /*----------------------------------------------------*/
+  //#region 
+  /*----------------------------------------------------*/
 
-    // Language Type e.g. 1 = ENGLISH and 2 =  ARABIC
-    languageType: any;
+  // Language Type e.g. 1 = ENGLISH and 2 =  ARABIC
+  languageType: any;
 
-    // Selected Language
-    language: any;
+  // Selected Language
+  language: any;
 
-    // We will get form lables from lcale storage and will put into array.
-    AppFormLabels: FormTitleHd[] = [];
+  // We will get form lables from lcale storage and will put into array.
+  AppFormLabels: FormTitleHd[] = [];
 
-    // We will filter form header labels array
-    formHeaderLabels: any[] = [];
+  // We will filter form header labels array
+  formHeaderLabels: any[] = [];
 
-    // We will filter form body labels array
-    formBodyLabels: any[] = [];
+  // We will filter form body labels array
+  formBodyLabels: any[] = [];
 
-    // FormId
-    formId: string;
+  // FormId
+  formId: string;
 
-    /*----------------------------------------------------*/  
+  /*----------------------------------------------------*/
   //#endregion
 
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action', 'services', 'serviceType', 'minMax', 'discountAllow','forEmployee'];
+  columnsToDisplay: string[] = ['action', 'services', 'serviceType', 'minMax', 'discountAllow', 'forEmployee'];
 
   // Getting data as abservable.
   serviceSetupDto$: Observable<ServiceSetupDto[]>;
@@ -79,25 +81,30 @@ export class ServiceSetupDetailsComponent implements OnInit {
   lang: any = '';
   //
   closeResult: string = '';
-  
+
+  //
+  userParams: UserParams;
+  pagination: Pagination;
   //
   currentPage = 0;
   totalRows = 0;
   pageSizeOptions: number[] = [10, 20, 50, 100];
-  employeeHeaders: any = {};
+  serviceHeaders: any = {};
   // 
-  formTitle:string;
+  formTitle: string;
   constructor(
     private common: CommonService,
     private serviceSetup: ServiceSetupService,
     private modalService: NgbModal,
-    private toastrService: ToastrService) {       
-      this.formGroup = new FormGroup({
-        searchTerm: new FormControl("")
-      })
-    }
+    private toastrService: ToastrService) {
+    this.formGroup = new FormGroup({
+      searchTerm: new FormControl("")
+    })
 
-  ngOnInit(): void {    
+    this.userParams = this.serviceSetup.getUserParams();
+  }
+
+  ngOnInit(): void {
     this.lang = localStorage.getItem('lang');
     this.formTitle = this.common.getFormTitle();
     this.formTitle = '';
@@ -128,25 +135,32 @@ export class ServiceSetupDetailsComponent implements OnInit {
         }
       }
     }
-    
+
     //#endregion
-    this.loadData();
+    this.loadData(0);
   }
-loadData()
-{
-  this.serviceSetupDto$ = this.serviceSetup.GetAllServiceSetupRecords();
-    this.serviceSetupDto$.subscribe((response: ServiceSetupDto[]) => {
-      this.serviceSetupDto = new MatTableDataSource<ServiceSetupDto>(response);
+  loadData(pageIndex:any) {
+    this.userParams.pageNumber = pageIndex + 1;
+    this.serviceSetup.setUserParams(this.userParams);
+
+    this.serviceSetup.GetAllServiceSetupRecords(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
+
+      this.serviceHeaders = JSON.parse(response.headers.get('pagination'));
+
+      this.serviceSetupDto = new MatTableDataSource<ServiceSetupDto>(response.body);
       this.serviceSetupDto.paginator = this.paginator;
       this.serviceSetupDto.sort = this.sort;
       this.isLoadingCompleted = true;
-      console.log(this.serviceSetupDto);    
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.serviceHeaders.totalItems;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
       this.isError = true;
     })
-}
+  }
   // Delete recored...
   openDeleteModal(content: any, id: number) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -156,7 +170,7 @@ loadData()
           if (response === 1) {
             this.toastrService.success('Record deleted successfully', 'Success');
             // Refresh Grid
-            this.loadData();
+            this.loadData(this.paginator.pageIndex);
           } else {
             this.toastrService.error('Something went wrong', 'Errro');
           }
@@ -165,7 +179,7 @@ loadData()
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-  
+
   }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -177,17 +191,40 @@ loadData()
     }
   }
 
+  pageChanged(event: any) {
+    if (event.pageIndex == 0) {
+      this.userParams.pageNumber = event.pageIndex + 1
+    } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+      this.userParams.pageNumber = event.pageIndex;
+    } else {
+      this.userParams.pageNumber = event.pageIndex + 1
+    }
+    this.userParams.pageSize = event.pageSize;
+    this.serviceSetup.setUserParams(this.userParams);
+    if (this.formGroup.value.searchTerm == null) {
+      this.loadData(event.pageIndex);
+    }
+    else if (this.formGroup.value.searchTerm.length > 0) {
+      this.filterRecords(event.pageIndex);
+    }
+    else {
+      this.loadData(event.pageIndex);
+    }
+  }
 
   //#region Material Search and Clear Filter
-  filterRecords() {
-    
-    if (this.formGroup.value.searchTerm != null && this.serviceSetupDto) {
-      this.serviceSetupDto.filter = this.formGroup.value.searchTerm.trim();
-    }
+  filterRecords(pageIndex: any) {
+    this.loadData(pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
-    this.filterRecords();
+    this.loadData(0);
+    this.userParams.pageNumber = 1;
+    this.userParams.pageSize = 10;
+    // this.filterRecords(0);
   }
   //#endregion
 }
