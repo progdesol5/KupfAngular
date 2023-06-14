@@ -11,6 +11,9 @@ import { CommonService } from 'src/app/modules/_services/common.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Pagination } from 'src/app/modules/models/pagination';
+import { UserParams } from 'src/app/modules/models/UserParams';
+
 
 @Component({
   selector: 'app-cashier-approval',
@@ -54,19 +57,29 @@ export class CashierApprovalComponent implements OnInit {
   //#endregion
   isShowAllChecked: boolean = false;
 
+  userParams: UserParams;
+  pagination: Pagination;
+  //
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  cashierApprovalHeaders: any = {};
+
   constructor(private financialService: FinancialService,
     private modalService: NgbModal,
     private toastrService: ToastrService,
     private router: Router,
     private commonService: CommonService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
+
+    this.userParams = this.financialService.getUserParams(); 
   }
 
   ngOnInit(): void {
     //
-    this.loadData();
+    this.loadData(0);
   }
   navigateToCashierDraft(mytransId: number, employeeId: number) {
     this.router.navigateByUrl(`/service-setup/cashier-draft?mytransId=${mytransId}&employeeId=${employeeId}`);
@@ -82,20 +95,30 @@ export class CashierApprovalComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate([uri]));
   }
-  loadData(isShowAll: boolean = false) {
-    //   
+  loadData(pageIndex: any, isShowAll: boolean = false) {
+
+    this.userParams.pageNumber = pageIndex + 1;
+    this.financialService.setUserParams(this.userParams);
+    //
     var data = JSON.parse(localStorage.getItem("user")!);
     const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
     const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
     const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
     const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
     //
-    this.financialService.GetCashierApprovals(periodCode, tenantId, locationId, isShowAll).subscribe((response: CashierApprovalDto[]) => {
-      this.cashierApprovalDto = new MatTableDataSource<CashierApprovalDto>(response);
+    this.financialService.GetCashierApprovals(this.userParams, periodCode, tenantId, locationId, isShowAll, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      console.log(response)
+
+      this.cashierApprovalHeaders = JSON.parse(response.headers.get('pagination'));
+
+      this.cashierApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
       this.cashierApprovalDto.paginator = this.paginator;
       this.cashierApprovalDto.sort = this.sort;
       this.isLoadingCompleted = true;
-      console.log(response)
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.cashierApprovalHeaders.totalItems;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
@@ -104,19 +127,71 @@ export class CashierApprovalComponent implements OnInit {
   }
   onShowAllChange(event: any) {
     this.isShowAllChecked = event.target.checked;
-    this.loadData(event.target.checked)
+    this.loadData(0, event.target.checked)
   }
   //#region Material Search and Clear Filter 
-  filterRecords() {
+  filterRecords(pageIndex: any) {
     if (this.formGroup.value.searchTerm != null && this.cashierApprovalDto) {
       this.cashierApprovalDto.filter = this.formGroup.value.searchTerm.trim();
     }
+
+    this.userParams.pageNumber = pageIndex + 1;
+    this.financialService.setUserParams(this.userParams);
+
+    var data = JSON.parse(localStorage.getItem("user")!);
+    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+    const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
+    const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
+    const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
+
+    this.financialService.GetCashierApprovals(this.userParams, periodCode, tenantId, locationId, false, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.cashierApprovalHeaders = JSON.parse(response.headers.get('pagination'));
+      this.cashierApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
+      this.cashierApprovalDto.paginator = this.paginator;
+      this.cashierApprovalDto.sort = this.sort;
+      this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.cashierApprovalHeaders.totalItems;
+      });
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
-    this.filterRecords();
+    
+    this.loadData(0, this.isShowAllChecked);
+    this.userParams.pageNumber = 1;
+    this.userParams.pageSize = 10;
   }
   //#endregion
+  pageChanged(event: any) {
+    if (event.pageIndex == 0) {
+      this.userParams.pageNumber = event.pageIndex + 1
+    } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+      this.userParams.pageNumber = event.pageIndex;
+    } else {
+      this.userParams.pageNumber = event.pageIndex + 1
+    }
+    this.userParams.pageSize = event.pageSize;
+    this.financialService.setUserParams(this.userParams);
+    if (this.formGroup.value.searchTerm == null) {
+      this.loadData(event.pageIndex, this.isShowAllChecked);
+    }
+    else if (this.formGroup.value.searchTerm.length > 0) {
+      this.filterRecords(event.pageIndex);
+    }
+    else {
+      this.loadData(event.pageIndex, this.isShowAllChecked);
+    }
+  }
+
   jvDetail: any;
   crTotal:number=0;
   drTotal:number=0;

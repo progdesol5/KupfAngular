@@ -12,6 +12,8 @@ import { FormTitleDt } from 'src/app/modules/models/formTitleDt';
 import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { DbCommonService } from 'src/app/modules/_services/db-common.service';
+import { Pagination } from 'src/app/modules/models/pagination';
+import { UserParams } from 'src/app/modules/models/UserParams';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { LocalizationService } from 'src/app/modules/_services/localization.service';
 
@@ -83,15 +85,24 @@ export class ServiceDetailsComponent implements OnInit {
   lang: any = '';
   // Modal close result...
   closeResult = '';
+
+  userParams: UserParams;
+  pagination: Pagination;
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  financialHeaders: any = {};
+
   constructor(private common: CommonService, 
     private router: Router, 
     private financialService:FinancialService,
     private modalService: NgbModal,
     private toastrService:ToastrService) {
-      this.formGroup = new FormGroup({
-        searchTerm: new FormControl(null)
-      })
-     }
+    this.formGroup = new FormGroup({
+      searchTerm: new FormControl(null)
+    })      
+    this.userParams = this.financialService.getUserParams(); 
+  }
 
   ngOnInit(): void {
     this.formTitle = this.common.getFormTitle();
@@ -123,33 +134,86 @@ export class ServiceDetailsComponent implements OnInit {
       }
     }
     //#endregion
-  
-  //
-  this.loadData();
-  //
+
+    //
+    this.loadData(0);
+    //
   
   }
-  loadData(){
-    this.financialService.GetFinancialServices().subscribe((response: ReturnTransactionHdDto[]) => {      
-      this.returnTransactionHdDto = new MatTableDataSource<ReturnTransactionHdDto>(response);
+  loadData(pageIndex:any){
+    this.financialService.setUserParams(this.userParams);
+    //this.detailedEmployee = [];
+    this.financialService.GetFinancialServices(this.userParams, "").subscribe((response: any) => {
+
+      this.financialHeaders = JSON.parse(response.headers.get('pagination'));
+
+      this.returnTransactionHdDto = new MatTableDataSource<ReturnTransactionHdDto>(response.body);
       this.returnTransactionHdDto.paginator = this.paginator;
       this.returnTransactionHdDto.sort = this.sort;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.financialHeaders.totalItems;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
       this.isError = true;
     })
   }
+
+  pageChanged(event: any) {
+    if (event.pageIndex == 0) {
+      this.userParams.pageNumber = event.pageIndex + 1
+    } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+      this.userParams.pageNumber = event.pageIndex;
+    } else {
+      this.userParams.pageNumber = event.pageIndex + 1
+    }
+    this.userParams.pageSize = event.pageSize;
+    this.financialService.setUserParams(this.userParams);
+    if (this.formGroup.value.searchTerm == null) {
+      this.loadData(event.pageIndex);
+    }
+    else if (this.formGroup.value.searchTerm.length > 0) {
+      this.filterRecords(event.pageIndex);
+    }
+    else {
+      this.loadData(event.pageIndex);
+    }
+  }
  //#region Material Search and Clear Filter
- filterRecords() {
+ filterRecords(pageIndex: any) {
   if (this.formGroup.value.searchTerm != null && this.returnTransactionHdDto) {
     this.returnTransactionHdDto.filter = this.formGroup.value.searchTerm.trim();
   }
+
+  this.userParams.pageNumber = pageIndex + 1;
+  this.financialService.setUserParams(this.userParams);
+  this.financialService.GetFinancialServices(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
+    this.financialHeaders = JSON.parse(response.headers.get('pagination'));
+    this.returnTransactionHdDto = new MatTableDataSource<ReturnTransactionHdDto>(response.body);
+    this.returnTransactionHdDto.paginator = this.paginator;
+    this.returnTransactionHdDto.sort = this.sort;
+    this.isLoadingCompleted = true;
+    setTimeout(() => {
+      this.paginator.pageIndex = pageIndex;
+      this.paginator.length = this.financialHeaders.totalItems;
+    });
+  }, error => {
+    console.log(error);
+    this.dataLoadingStatus = 'Error fetching the data';
+    this.isError = true;
+  })
 }
 clearFilter() {
   this.formGroup?.patchValue({ searchTerm: "" });
-  this.filterRecords();
+  this.loadData(0);
+  this.userParams.pageNumber = 1;
+  this.userParams.pageSize = 10;
 }
 //#endregion
 
@@ -163,7 +227,7 @@ openDeleteModal(content: any, id: number) {
         if (response === 11) {
           this.toastrService.success('Record deleted successfully', 'Success');
           // Refresh Grid
-          this.loadData();
+          this.loadData(this.paginator.pageIndex);
         } else {
           this.toastrService.error('Something went wrong', 'Error');
         }

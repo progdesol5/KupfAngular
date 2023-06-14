@@ -52,7 +52,7 @@ export class VoucherComponent implements OnInit {
   voucherDetail:any;
   constructor(private financialService: FinancialService, private router: Router, private modalService: NgbModal) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
   }
 
@@ -63,11 +63,11 @@ length:number;
 pageSize:number = 10;
 
   loadData() {
-    this.financialService.GetVouchers(1, this.pageSize, '').subscribe((response: any) => {
+    this.financialService.GetVouchers(1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
       this.voucherDto.paginator = this.paginator;
       this.voucherDto.sort = this.sort;
-      this.length = response.totalRecords
+      this.length = response.totalRecords;
       this.isLoadingCompleted = true;
     }, error => {
       console.log(error);
@@ -77,12 +77,13 @@ pageSize:number = 10;
   }
 
   onPaginationChange(event:any){
-    this.financialService.GetVouchers(event.pageIndex+1, event.pageSize, '').subscribe((response: any) => {
+    this.financialService.GetVouchers(event.pageIndex+1, event.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.voucherDto = new MatTableDataSource<any>(response.voucherDto);
-      this.voucherDto.paginator = this.paginator;
+      //this.voucherDto.paginator = this.paginator;
       this.length = response.totalRecords
       this.voucherDto.sort = this.sort;
       this.isLoadingCompleted = true;
+      //console.log(this.voucherDto);
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
