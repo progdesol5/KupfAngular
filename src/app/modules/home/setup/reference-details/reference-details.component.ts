@@ -155,7 +155,7 @@ export class ReferenceDetailsComponent implements OnInit {
     // Filling RefType...
     this.refType$ = this.commonService.GetRefTypes()
     //
-    this.loadData(0);
+    //this.loadData(0);
     this.initializeForm();
     //
     this.initializeEditForm();
@@ -231,7 +231,6 @@ export class ReferenceDetailsComponent implements OnInit {
     this.commonService.GetRefSubTypeByRefType($event.refType).subscribe((response) => {
       this.refSubType$ = response
     })
-    this.loadData(0);
   }
   // Reset form
   resetForm() {
@@ -241,10 +240,11 @@ export class ReferenceDetailsComponent implements OnInit {
   // Load data...
   loadData(pageIndex: any) {
     this.refTableService.GetAllRefTableRecordsByRefTypeAndSubType(pageIndex + 1, this.pageSize, this.selectedItems.refType, this.selectedItemsSub.refSubType, this.formGroup.value.searchTerm).subscribe((response: any) => {
-      this.refTableDto = new MatTableDataSource<any>(response.voucherDto);
+      console.log(response);
+      this.refTableDto = new MatTableDataSource<any>(response.body.refTableDto);
       this.refTableDto.paginator = this.paginator;
       this.refTableDto.sort = this.sort;
-      this.length = response.totalRecords;
+      this.length = response.body.totalRecords;
       this.isLoadingCompleted = true;
     }, error => {
       console.log(error);

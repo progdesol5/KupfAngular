@@ -52,8 +52,8 @@ export class ReferenceDetailsService {
   }
   */
 
-  GetAllRefTableRecordsByRefTypeAndSubType(pageNumber: number, pageSize: number, refType: string, refSubType: string, query:string) {    
-    return this.httpClient.get(this.baseUrl + `RefTable/GetRefTableByRefTypeAndSubType/${refType}/${refSubType}?PageNumber=${pageNumber}&PageSize=${pageSize}&Query=${query}`, {observe: 'response'});    
+  GetAllRefTableRecordsByRefTypeAndSubType(pageNumber: number, pageSize: number, refType: string, refSubType: string, query:string) {
+    return this.httpClient.get<RefTableDto[]>(this.baseUrl + `RefTable/GetRefTableByRefTypeAndSubType/${refType}/${refSubType}?PageNumber=${pageNumber}&PageSize=${pageSize}&Query=${query}`, {observe: 'response'});    
   }
   //
   GetAllRefTableRecords() {
