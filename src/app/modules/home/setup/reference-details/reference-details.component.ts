@@ -89,6 +89,12 @@ export class ReferenceDetailsComponent implements OnInit {
   closeResult: string = '';
 
   //
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  reftableHeaders: any = {};
+
+  //
   userForm: FormGroup;
   //
   userEditForm: FormGroup;
@@ -99,7 +105,10 @@ export class ReferenceDetailsComponent implements OnInit {
   selectedItemsSub: any = [];
 
   // Will disable Add button if RefSubType not selected
-  isRefSubTypeEmpty=false;
+  isRefSubTypeEmpty = false;
+
+  length: number;
+  pageSize: number = 10;
 
   constructor(private modalService: NgbModal,
     private commonService: DbCommonService,
@@ -107,7 +116,7 @@ export class ReferenceDetailsComponent implements OnInit {
     private refTableService: ReferenceDetailsService,
     private toastrService: ToastrService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
     this.refSubType$ = new ReplaySubject(1);
   }
@@ -146,7 +155,7 @@ export class ReferenceDetailsComponent implements OnInit {
     // Filling RefType...
     this.refType$ = this.commonService.GetRefTypes()
     //
-    //this.loadData();
+    this.loadData(0);
     this.initializeForm();
     //
     this.initializeEditForm();
@@ -154,17 +163,17 @@ export class ReferenceDetailsComponent implements OnInit {
   }
 
 
-  onUserFormSubmit() { 
+  onUserFormSubmit() {
     // Get Tenant Id
     var data = JSON.parse(localStorage.getItem("user")!);
-    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId); 
-     
+    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+
     //  TO CONVER OBJECT ARRAY AS SIMPLE ARRAY. 
-     let formData = {
+    let formData = {
       ...this.userForm.value,
       tenentID: tenantId[0], cruP_ID: 0
-    }  
-    
+    }
+
     //Add New record
     this.refTableService.AddRefTable(formData).subscribe(response => {
       if (response === 500) {
@@ -173,7 +182,7 @@ export class ReferenceDetailsComponent implements OnInit {
         this.toastrService.success('Saved successfully', 'Success');
         this.isFormSubmitted = false;
         this.userForm.reset();
-        
+
       }
     });
   }
@@ -208,24 +217,13 @@ export class ReferenceDetailsComponent implements OnInit {
       refImage: new FormControl('', Validators.required),
     })
   }
- 
-  onRefSubTypeChange($event: any) {    
+
+  onRefSubTypeChange($event: any) {
     this.userForm.value.refSubType = $event
-    this.selectedItemsSub = $event;    
-    this.refTableDto$ = this.refTableService.GetAllRefTableRecordsByRefTypeAndSubType(this.selectedItems.refType, $event?.refSubType);
-    this.refTableDto$.subscribe((response: RefTableDto[]) => {
-      this.refTableDto = new MatTableDataSource<RefTableDto>(response);
-      this.refTableDto.paginator = this.paginator;
-      this.refTableDto.sort = this.sort;
-      this.isLoadingCompleted = true;
-      //
-      this.isRefSubTypeEmpty =true;
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
-     this.initializeForm();
+    this.selectedItemsSub = $event;
+    this.isRefSubTypeEmpty = true;
+    this.loadData(0);
+    this.initializeForm();
   }
 
   onRefTypeChange($event: any) {
@@ -233,6 +231,7 @@ export class ReferenceDetailsComponent implements OnInit {
     this.commonService.GetRefSubTypeByRefType($event.refType).subscribe((response) => {
       this.refSubType$ = response
     })
+    this.loadData(0);
   }
   // Reset form
   resetForm() {
@@ -240,13 +239,12 @@ export class ReferenceDetailsComponent implements OnInit {
   }
 
   // Load data...
-  loadData() {
-    this.refTableDto$ = this.refTableService.GetAllRefTableRecords();
-    //
-    this.refTableDto$.subscribe((response: RefTableDto[]) => {
-      this.refTableDto = new MatTableDataSource<RefTableDto>(response);
+  loadData(pageIndex: any) {
+    this.refTableService.GetAllRefTableRecordsByRefTypeAndSubType(pageIndex + 1, this.pageSize, this.selectedItems.refType, this.selectedItemsSub.refSubType, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.refTableDto = new MatTableDataSource<any>(response.voucherDto);
       this.refTableDto.paginator = this.paginator;
       this.refTableDto.sort = this.sort;
+      this.length = response.totalRecords;
       this.isLoadingCompleted = true;
     }, error => {
       console.log(error);
@@ -255,11 +253,19 @@ export class ReferenceDetailsComponent implements OnInit {
     })
   }
 
-  //#region Material Search and Clear Filter
+  onPaginationChange(event: any) {
+    this.loadData(event.pageIndex);
+  }
+  // navigateToVoucherDetails(voucherId: number) {
+  //   this.router.navigateByUrl(`/service-setup/voucher-details?voucherId=${voucherId}`);
+  // }
+  // redirectTo(uri: string) {
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+  //     this.router.navigate([uri]));
+  // }
+  //#region Material Search and Clear Filter 
   filterRecords() {
-    if (this.formGroup.value.searchTerm != null && this.refTableDto) {
-      this.refTableDto.filter = this.formGroup.value.searchTerm.trim();
-    }
+    this.loadData(0);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
@@ -268,26 +274,26 @@ export class ReferenceDetailsComponent implements OnInit {
   //#endregion
 
   // Delete recored...
-openDeleteModal(content: any, id: number) {
-  this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-    if (result === 'yes') {
-      console.log(id);
-      this.refTableService.DeleteRefTable(id).subscribe(response => {
-        if (response === 1) {
-          this.toastrService.success('Record deleted successfully', 'Success');
-          // Refresh Grid
-          this.loadData();
-        } else {
-          this.toastrService.error('Something went wrong', 'Errro');
-        }
-      });
-    }
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
+  openDeleteModal(content: any, id: number) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      if (result === 'yes') {
+        console.log(id);
+        this.refTableService.DeleteRefTable(id).subscribe(response => {
+          if (response === 1) {
+            this.toastrService.success('Record deleted successfully', 'Success');
+            // Refresh Grid
+            this.loadData(0);
+          } else {
+            this.toastrService.error('Something went wrong', 'Errro');
+          }
+        });
+      }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
 
-}
+  }
 
   open(content: any) {
     this.userForm.patchValue({
@@ -296,50 +302,50 @@ openDeleteModal(content: any, id: number) {
     })
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', modalDialogClass: 'modal-xl' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      
+
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-// To update the existing record...
-  openEditModal(content: any,id:number) {    
+  // To update the existing record...
+  openEditModal(content: any, id: number) {
     this.userEditForm.patchValue({
       refType: this.selectedItems?.refType,
       refSubType: this.selectedItemsSub?.refSubType,
       refid: id
     })
-    this.refTableService.GetRefTableRecordsByIdRefTypeAndSubType(this.userEditForm.get('refid')?.value,this.userEditForm.get('refType')?.value,this.userEditForm.get('refSubType')?.value).subscribe((res:any)=>{
+    this.refTableService.GetRefTableRecordsByIdRefTypeAndSubType(this.userEditForm.get('refid')?.value, this.userEditForm.get('refType')?.value, this.userEditForm.get('refSubType')?.value).subscribe((res: any) => {
       this.userEditForm.patchValue({
         refType: this.selectedItems?.refType,
         refSubType: this.selectedItemsSub?.refSubType,
         refid: id,
-        refname1:res.refname1,
-        refname2:res.refname2,
-        refname3:res.refname3,
-        remarks:res.remarks
+        refname1: res.refname1,
+        refname2: res.refname2,
+        refname3: res.refname3,
+        remarks: res.remarks
       })
     })
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', modalDialogClass: 'modal-xl' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      
+
     }, (reason) => {
       this.userEditForm.reset();
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  onEditFormSubmit(){
-    this.refTableService.UpdateRefTable(this.userEditForm.value).subscribe(response=>{
+  onEditFormSubmit() {
+    this.refTableService.UpdateRefTable(this.userEditForm.value).subscribe(response => {
       if (response === 500) {
         this.toastrService.error('Something went wrong. please again latter', 'Error');
       } else {
         this.toastrService.success('Updated successfully', 'Success');
         this.resetEditForm();
-       
+
       }
     });
   }
-  
-  resetEditForm(){
+
+  resetEditForm() {
     this.userEditForm.reset();
   }
   private getDismissReason(reason: any): string {
@@ -351,5 +357,4 @@ openDeleteModal(content: any, id: number) {
       return `with: ${reason}`;
     }
   }
-
 }

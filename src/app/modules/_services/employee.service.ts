@@ -10,11 +10,11 @@ import { UserParams } from '../models/UserParams';
 })
 export class EmployeeService {
 
-  
+
   // Getting base URL of Api from enviroment.
   baseUrl = environment.KUPFApiUrl;
   //
-  employeeDetails: DetailedEmployee[]=[];
+  employeeDetails: DetailedEmployee[] = [];
   userParams: UserParams;
   // 
   // totalRows = 0;
@@ -24,39 +24,39 @@ export class EmployeeService {
 
   constructor(private httpClient: HttpClient) {
     this.userParams = new UserParams();
-   }
-   getUserParams() {
+  }
+  getUserParams() {
     return this.userParams;
   }
   setUserParams(params: UserParams) {
     this.userParams = params;
   }
 
-   AddEmployee(response: DetailedEmployee) {    
-    return this.httpClient.post(this.baseUrl +`Employee/AddEmployee`,response);
+  AddEmployee(response: DetailedEmployee) {
+    return this.httpClient.post(this.baseUrl + `Employee/AddEmployee`, response);
   }
-  ValidateEmployeeData(response: DetailedEmployee) {    
-    return this.httpClient.post(this.baseUrl +`Employee/ValidateEmployeeData`,response);
+  ValidateEmployeeData(response: DetailedEmployee) {
+    return this.httpClient.post(this.baseUrl + `Employee/ValidateEmployeeData`, response);
   }
-  UpdateEmployee(response: DetailedEmployee) {    
-    return this.httpClient.put(this.baseUrl +`Employee/UpdateEmployee`,response);
+  UpdateEmployee(response: DetailedEmployee) {
+    return this.httpClient.put(this.baseUrl + `Employee/UpdateEmployee`, response);
   }
-  GetEmployeeById(id:any) {    
-    return this.httpClient.get<DetailedEmployee[]>(this.baseUrl +`Employee/GetEmployeeById?employeeId=`+id).pipe(
+  GetEmployeeById(id: any) {
+    return this.httpClient.get<DetailedEmployee[]>(this.baseUrl + `Employee/GetEmployeeById?employeeId=` + id).pipe(
       map(employeeDetails => {
         this.employeeDetails = employeeDetails;
         return employeeDetails;
       })
     )
   }
-  DeleteEmployee(dtailedEmployee: DetailedEmployee) { 
-    return this.httpClient.post(`${this.baseUrl}Employee/DeleteEmployee`,dtailedEmployee);    
+  DeleteEmployee(dtailedEmployee: DetailedEmployee) {
+    return this.httpClient.post(`${this.baseUrl}Employee/DeleteEmployee`, dtailedEmployee);
   }
-  GetEmployees(userParams: UserParams, query:string) {    
-    return this.httpClient.get(this.baseUrl + `Employee/GetEmployees?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}`, {observe: 'response'});    
+  GetEmployees(userParams: UserParams, query: string) {
+    return this.httpClient.get(this.baseUrl + `Employee/GetEmployees?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}`, { observe: 'response' });
   }
-  
-  FilterEmployee(userParams: UserParams,query:string,filterVal:any) {
-    return this.httpClient.get(this.baseUrl + `Employee/FilterEmployee?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}&filterVal=${filterVal}`, {observe: 'response'});    
+
+  FilterEmployee(userParams: UserParams, query: string, filterVal: any) {
+    return this.httpClient.get(this.baseUrl + `Employee/FilterEmployee?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}&filterVal=${filterVal}`, { observe: 'response' });
   }
 }
