@@ -110,7 +110,7 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
     private commonService: CommonService,
     private dbCommonService:DbCommonService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
     this.setUpParentForm();
   }

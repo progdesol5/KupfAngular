@@ -44,6 +44,9 @@ export class LoginService {
   // Login
   Login(model : Array<string>) {
     console.log(this.baseUrl);
+    //return this.httpClient.get<Login[]>('/app/_fake/fake_users.json');
+    //return this.httpClient.get<Login[]>('/assets/fake_users.json');
+
     return this.httpClient.post<Login[]>(this.baseUrl + `Login/EmployeeLogin`,{
       username:model[0],
       password:model[1]
@@ -52,8 +55,7 @@ export class LoginService {
         this.loginDto = loginDto;
         return loginDto;
         }))   
-}
-
+  }
 
   logout(){
     this.router.navigateByUrl('/login')

@@ -78,7 +78,7 @@ export class IncomingLetterDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private toastrService: ToastrService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
   }
 

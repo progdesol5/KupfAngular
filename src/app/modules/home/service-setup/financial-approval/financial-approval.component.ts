@@ -15,6 +15,8 @@ import { RefTableDto } from 'src/app/modules/models/ReferenceDetails/RefTableDto
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { EmployeeService } from 'src/app/modules/_services/employee.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
+import { Pagination } from 'src/app/modules/models/pagination';
+import { UserParams } from 'src/app/modules/models/UserParams';
 
 @Component({
   selector: 'app-financial-approval',
@@ -25,7 +27,7 @@ export class FinancialApprovalComponent implements OnInit {
 
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action', 'transId','periodCode','employee', 'mobile','service'];
+  columnsToDisplay: string[] = ['action', 'transId', 'periodCode', 'employee', 'mobile', 'service'];
 
   // Getting data as abservable.
   financialApprovalDto$: Observable<CashierApprovalDto[]>;
@@ -54,14 +56,23 @@ export class FinancialApprovalComponent implements OnInit {
   // Search Term
   searchTerm: string = '';
   //#endregion
-// 
-approveServiceForm: FormGroup;
+  // 
+  approveServiceForm: FormGroup;
 
-//
-rejectServiceForm: FormGroup;
-//
-employeeDetailsform: FormGroup;
-closeResult: string = '';
+  //
+  rejectServiceForm: FormGroup;
+  //
+  employeeDetailsform: FormGroup;
+  closeResult: string = '';
+
+  userParams: UserParams;
+  pagination: Pagination;
+  //
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  financialApprovalHeaders: any = {};
+
   currentUserId: any;
   //
   isFormSubmitted = false;
@@ -71,25 +82,25 @@ closeResult: string = '';
   locationId: any
   periodCode: any;
   prevPeriodCode: any
-  roleId:any;
-  username:any;
+  roleId: any;
+  username: any;
   financialData: any;
   financialDetails: any;
   approvalDetails: any;
-  employeeActivityLog:any;
-  crupId:any;
+  employeeActivityLog: any;
+  crupId: any;
   isShowAllChecked: boolean = false;
   constructor(private financialService: FinancialService,
-    private router: Router, 
+    private router: Router,
     private commonService: CommonService,
-    private fb:FormBuilder,
+    private fb: FormBuilder,
     private datepipe: DatePipe,
     private modalService: NgbModal,
     private toastrService: ToastrService,
     private employeeService: EmployeeService,
-    ) { 
+  ) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
     var data = JSON.parse(localStorage.getItem("user")!);
     this.tenentId = data.map((obj: { tenantId: any; }) => obj.tenantId);
@@ -98,11 +109,13 @@ closeResult: string = '';
     this.prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
     this.roleId = data.map((obj: { roleId: any; }) => obj.roleId);
     this.username = data.map((obj: { username: any; }) => obj.username);
+
+    this.userParams = this.financialService.getUserParams(); 
   }
 
   ngOnInit(): void {
     //
-    this.loadData();
+    this.loadData(0);
     //
     this.initApproveServiceForm();
     //
@@ -189,41 +202,84 @@ closeResult: string = '';
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate([uri]));
   }
-  loadData(isShowAll: boolean = false){
+  loadData(pageIndex: any, isShowAll: boolean = false) {
+    this.userParams.pageNumber = pageIndex + 1;
     //   
-    
+    this.financialService.setUserParams(this.userParams);
+
     var data = JSON.parse(localStorage.getItem("user")!);
     const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
     const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
     const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
     const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
     //
-    this.financialService.GetFinacialApprovals(periodCode,tenantId,locationId,isShowAll).subscribe((response: CashierApprovalDto[]) => {   
-      this.financialApprovalDto = new MatTableDataSource<CashierApprovalDto>(response);
+    this.financialService.GetFinancialApprovals(this.userParams, periodCode, tenantId, locationId, isShowAll, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.financialApprovalHeaders = JSON.parse(response.headers.get('pagination'));
+
+      this.financialApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
       this.financialApprovalDto.paginator = this.paginator;
       this.financialApprovalDto.sort = this.sort;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.financialApprovalHeaders.totalItems;
+      });
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
+
+    this.financialService.setUserParams(this.userParams);
+    //this.detailedEmployee = [];
+    this.employeeService.GetEmployees(this.userParams, "").subscribe((response: any) => {
+
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
       this.isError = true;
     })
   }
+
+  pageChanged(event: any) {
+    if (event.pageIndex == 0) {
+      this.userParams.pageNumber = event.pageIndex + 1
+    } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+    }
+    else if (event.previousPageIndex > event.pageIndex) {
+      this.userParams.pageNumber = event.pageIndex;
+    } else {
+      this.userParams.pageNumber = event.pageIndex + 1
+    }
+    this.userParams.pageSize = event.pageSize;
+    this.employeeService.setUserParams(this.userParams);
+    if (this.formGroup.value.searchTerm == null) {
+      this.loadData(event.pageIndex, this.isShowAllChecked);
+    }
+    else if (this.formGroup.value.searchTerm.length > 0) {
+      this.filterRecords(event.pageIndex);
+    }
+    else {
+      this.loadData(event.pageIndex, this.isShowAllChecked);
+    }
+  }
+
   get approvalForm() { return this.approveServiceForm.controls; }
   get rejectionForm() { return this.rejectServiceForm.controls; }
 
   onShowAllChange(event: any) {
     this.isShowAllChecked = event.target.checked;
-    this.loadData(event.target.checked)
+    this.loadData(this.paginator.pageIndex, event.target.checked)
     console.log(this.isShowAllChecked);
   }
 
-  openContactModal(content: any, event: any,crup_id:any) {
+  openContactModal(content: any, event: any, crup_id: any) {
     console.log(crup_id);
     this.commonService.employeeId = event.target.id    //
-    this.crupId =crup_id.crupId;
-    this.employeeService.GetEmployeeById(event.target.id).subscribe((response: any) => {      
-      if (response) {        
+    this.crupId = crup_id.crupId;
+    this.employeeService.GetEmployeeById(event.target.id).subscribe((response: any) => {
+      if (response) {
         this.employeeDetailsform.patchValue({
           employeeId: response.employeeId,
           englishName: response.englishName,
@@ -249,7 +305,7 @@ closeResult: string = '';
           next2KinMobNumber: response.next2KinMobNumber,
           userId: response.userId,
           deviceId: response.deviceId,
-          crupId :response.cruP_ID
+          crupId: response.cruP_ID
         });
       }
     }, error => {
@@ -270,10 +326,10 @@ closeResult: string = '';
       console.log(error);
     });
     //
-    this.financialService.GetEmployeeActivityLog(this.crupId,this.tenentId,this.locationId).subscribe((response:any)=>{
+    this.financialService.GetEmployeeActivityLog(this.crupId, this.tenentId, this.locationId).subscribe((response: any) => {
       this.employeeActivityLog = response;
-      
-    },error=>{
+
+    }, error => {
       console.log(error);
     })
 
@@ -317,7 +373,7 @@ closeResult: string = '';
         this.financialService.FinanceApproveService(this.approveServiceForm.value).subscribe(response => {
           this.toastrService.success('.Service approved successfully', 'Success');
           this.isFormSubmitted = false;
-          this.loadData();
+          this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
         })
       }
 
@@ -351,7 +407,7 @@ closeResult: string = '';
           this.isFormSubmitted = false;
           this.rejectServiceForm.reset();
           this.rejectServiceForm.controls['approvalDate']?.setValue(currentDate);
-          this.loadData();
+          this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
         })
       }
 
@@ -367,17 +423,45 @@ closeResult: string = '';
       }
     })
   }
+
   //#region Material Search and Clear Filter 
-filterRecords() {
-  if (this.formGroup.value.searchTerm != null && this.financialApprovalDto) {
-    this.financialApprovalDto.filter = this.formGroup.value.searchTerm.trim();
+  filterRecords(pageIndex: any) {
+    if (this.formGroup.value.searchTerm != null && this.financialApprovalDto) {
+      this.financialApprovalDto.filter = this.formGroup.value.searchTerm.trim();
+    }
+    this.userParams.pageNumber = pageIndex + 1;
+    this.financialService.setUserParams(this.userParams);
+
+    var data = JSON.parse(localStorage.getItem("user")!);
+    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+    const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
+    const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
+    const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
+
+    this.financialService.GetFinancialApprovals(this.userParams, periodCode, tenantId, locationId, false, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.financialApprovalHeaders = JSON.parse(response.headers.get('pagination'));
+      this.financialApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
+      this.financialApprovalDto.paginator = this.paginator;
+      this.financialApprovalDto.sort = this.sort;
+      this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.financialApprovalHeaders.totalItems;
+      });
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
   }
-}
-clearFilter() {
-  this.formGroup?.patchValue({ searchTerm: "" });
-  this.filterRecords();
-}
-//#endregion
+  clearFilter() {
+    this.formGroup?.patchValue({ searchTerm: "" });
+
+    this.loadData(0, this.isShowAllChecked);
+    this.userParams.pageNumber = 1;
+    this.userParams.pageSize = 10;
+  }
+  //#endregion
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

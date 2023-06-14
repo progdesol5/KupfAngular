@@ -16,6 +16,9 @@ import { ReturnServiceApprovals } from 'src/app/modules/models/ReturnServiceAppr
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { EmployeeService } from 'src/app/modules/_services/employee.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
+import { Pagination } from 'src/app/modules/models/pagination';
+import { UserParams } from 'src/app/modules/models/UserParams';
+
 @Component({
   selector: 'app-approval-management',
   templateUrl: './approval-management.component.html',
@@ -105,6 +108,14 @@ export class ApprovalManagementComponent implements OnInit {
   employeeActivityLog: any;
   crupId: any;
   isShowAllChecked: boolean = false;
+  userParams: UserParams;
+  pagination: Pagination;
+  //
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  manageApprovalHeaders: any = {};
+
   constructor(
     private modalService: NgbModal,
     private financialService: FinancialService,
@@ -114,7 +125,7 @@ export class ApprovalManagementComponent implements OnInit {
     private employeeService: EmployeeService,
     private commonService: CommonService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     });
     var data = JSON.parse(localStorage.getItem("user")!);
     this.tenentId = data.map((obj: { tenantId: any; }) => obj.tenantId);
@@ -123,6 +134,8 @@ export class ApprovalManagementComponent implements OnInit {
     this.prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
     this.username = data.map((obj: { username: any; }) => obj.username);
     this.userId = data.map((obj: { userId: any; }) => obj.userId);
+
+    this.userParams = this.financialService.getUserParams(); 
   }
 
   ngOnInit(): void {
@@ -159,7 +172,7 @@ export class ApprovalManagementComponent implements OnInit {
     //#endregion
 
     // Get Data...
-    this.loadData();
+    this.loadData(0, this.isShowAllChecked);
 
     //
     this.initApproveServiceForm();
@@ -236,16 +249,24 @@ export class ApprovalManagementComponent implements OnInit {
   }
 
   onShowAllChange(event: any) {   
-    this.loadData(event.target.checked)
+    this.loadData(this.paginator.pageIndex, event.target.checked)
     this.isShowAllChecked = event.target.checked;
   }
   // Get Data...
-  loadData(isShowAll: boolean = false) {
-    this.financialService.GetServiceApprovals(this.periodCode, this.tenentId, this.locationId, isShowAll).subscribe((response: CashierApprovalDto[]) => {
-      this.returnServiceApprovals = new MatTableDataSource<CashierApprovalDto>(response);
+  loadData(pageIndex: any, isShowAll: boolean) {
+    this.userParams.pageNumber = pageIndex + 1;
+    this.financialService.setUserParams(this.userParams);
+
+    this.financialService.GetServiceApprovals(this.userParams, this.periodCode, this.tenentId, this.locationId, isShowAll, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.manageApprovalHeaders = JSON.parse(response.headers.get('pagination'));
+      this.returnServiceApprovals = new MatTableDataSource<CashierApprovalDto>(response.body);
       this.returnServiceApprovals.paginator = this.paginator;
       this.returnServiceApprovals.sort = this.sort;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.manageApprovalHeaders.totalItems;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
@@ -352,7 +373,7 @@ export class ApprovalManagementComponent implements OnInit {
         this.financialService.ManagerApproveService(this.approveServiceForm.value).subscribe(response => {
           this.toastrService.success('.Service approved successfully', 'Success');
           this.isFormSubmitted = false;
-          this.loadData();
+          this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
         })
       }
 
@@ -387,7 +408,7 @@ export class ApprovalManagementComponent implements OnInit {
           this.isFormSubmitted = false;
           this.rejectServiceForm.reset();
           this.rejectServiceForm.controls['approvalDate']?.setValue(currentDate);
-          this.loadData();
+          this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
         })
       }
 
@@ -415,12 +436,39 @@ export class ApprovalManagementComponent implements OnInit {
 //#region Material Search and Clear Filter 
 filterRecords() {
   if (this.formGroup.value.searchTerm != null && this.returnServiceApprovals) {
-    this.returnServiceApprovals.filter = this.formGroup.value.searchTerm.trim();
+    this.formGroup.value.searchTerm = this.returnServiceApprovals.filter = this.formGroup.value.searchTerm.trim();
   }
+
+  this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
 }
 clearFilter() {
   this.formGroup?.patchValue({ searchTerm: "" });
   this.filterRecords();
 }
+
+pageChanged(event: any) {
+  if (event.pageIndex == 0) {
+    this.userParams.pageNumber = event.pageIndex + 1
+  } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+    this.userParams.pageNumber = event.pageIndex + 1;
+  }
+  else if (event.previousPageIndex > event.pageIndex) {
+    this.userParams.pageNumber = event.pageIndex;
+  } else {
+    this.userParams.pageNumber = event.pageIndex + 1
+  }
+  this.userParams.pageSize = event.pageSize;
+  this.financialService.setUserParams(this.userParams);
+  if (this.formGroup.value.searchTerm == null) {
+    this.loadData(event.pageIndex, this.isShowAllChecked);
+  }
+  else if (this.formGroup.value.searchTerm.length > 0) {
+    this.filterRecords();
+  }
+  else {
+    this.loadData(event.pageIndex, this.isShowAllChecked);
+  }
+}
+
 //#endregion
 }

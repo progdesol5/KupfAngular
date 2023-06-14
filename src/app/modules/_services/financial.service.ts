@@ -19,6 +19,7 @@ import { SelectServiceTypeDto } from '../models/ServiceSetup/SelectServiceTypeDt
 import { ServiceSetupDto } from '../models/ServiceSetup/ServiceSetupDto';
 import { voucherDto } from '../models/VoucherDto';
 import { voucherDetailsDto } from '../models/voucherDetailsDto';
+import { UserParams } from '../models/UserParams';
 
 @Injectable({
   providedIn: 'root'
@@ -45,9 +46,20 @@ export class FinancialService {
   //
   employeeDetails: DetailedEmployee[]=[]
 
+  userParams: UserParams;
+
   // 
   returnEmployeeActivityLog:EmployeeActivityLogDto[]=[];
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+    this.userParams = new UserParams();
+  }
+
+  getUserParams() {
+    return this.userParams;
+  }
+  setUserParams(params: UserParams) {
+    this.userParams = params;
+  }
 
   AddFinacialService(response: FormData) {    
     return this.httpClient.post(this.baseUrl +`FinancialService/AddFinancialService`,response);
@@ -131,6 +143,7 @@ export class FinancialService {
   DeleteFinancialService(mytransid: number) { 
     return this.httpClient.delete(`${this.baseUrl}FinancialService/DeleteFinancialService?transId=${mytransid}`);    
   }
+  /*
   GetFinancialServices() {      
     return this.httpClient.get<ReturnTransactionHdDto[]>(this.baseUrl + `FinancialService/GetFinancialServices`).pipe(
       map(returnTransactionHdDto => {
@@ -139,7 +152,11 @@ export class FinancialService {
       })
     )
   }
+  */
 
+  GetFinancialServices(userParams: UserParams, query:string) {    
+    return this.httpClient.get(this.baseUrl + `FinancialService/GetFinancialServices?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}`, {observe: 'response'});    
+  }
 
   GetSelectedServiceSubType(serviceType : number,serviceSubType : number, tenentId:number) {
     return this.httpClient.get<ServiceSetupDto[]>(this.baseUrl + `FinancialService/GetServiceByServiceTypeAndSubType/${serviceType}/${serviceSubType}/${tenentId}`).pipe(
@@ -150,13 +167,8 @@ export class FinancialService {
     )
   }
   
-  GetServiceApprovals(periodCode:number,tenentId:number,locationId:number,isShowAll:boolean) {      
-    return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetServiceApprovalsAsync?periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`).pipe(
-      map(returnServiceApprovals => {
-        this.returnManagerApprovals = returnServiceApprovals;
-        return returnServiceApprovals;
-      })
-    )
+  GetServiceApprovals(userParams:UserParams, periodCode:number,tenentId:number,locationId:number,isShowAll:boolean, query:string) {
+    return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetServiceApprovalsAsync?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}&periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`, {observe: 'response'});    
   }
   GetServiceApprovalsByEmployeeIdForManager(employeeId:number,tenentId:number,locationId:number) {      
     return this.httpClient.get<ReturnApprovalsByEmployeeId[]>(this.baseUrl + `FinancialService/GetServiceApprovalsByEmployeeIdForManager?employeeId=${employeeId}&tenentId=${tenentId}&locationId=${locationId}`).pipe(
@@ -240,14 +252,14 @@ export class FinancialService {
   SearchNewSubscriber(searchEmployeeDto: SearchEmployeeDto) {
     return this.httpClient.post<ReturnSearchResultDto[]>(this.baseUrl + `FinancialService/SearchNewSubscriber`,searchEmployeeDto);
   }
-  GetCashierApprovals(periodCode:number,tenentId:number,locationId:number,isShowAll:boolean) { 
-    return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetCashierApprovals?periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`);    
+  GetCashierApprovals(userParams: UserParams, periodCode:number,tenentId:number,locationId:number,isShowAll:boolean, query:string) {    
+    return this.httpClient.get(this.baseUrl + `FinancialService/GetCashierApprovals?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}&Query=${query}`, {observe: 'response'});    
   }
   GetVoucherByTransId(id:number){
     return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `Account/GetVoucherDetailsByTransId?TransId=${id}`);    
   }
-  GetFinacialApprovals(periodCode:number,tenentId:number,locationId:number,isShowAll:boolean) { 
-    return this.httpClient.get<CashierApprovalDto[]>(this.baseUrl + `FinancialService/GetFinacialApprovals?periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}`);    
+  GetFinancialApprovals(userParams: UserParams, periodCode:number,tenentId:number,locationId:number,isShowAll:boolean, query:string) {    
+    return this.httpClient.get(this.baseUrl + `FinancialService/GetFinacialApprovals?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&periodCode=${periodCode}&tenentId=${tenentId}&locationId=${locationId}&isShowAll=${isShowAll}&Query=${query}`, {observe: 'response'});    
   }
   CreateCahierDelivery(response: CashierApprovalDto) {    
     return this.httpClient.post(this.baseUrl +`FinancialService/CreateCahierDelivery`,response);

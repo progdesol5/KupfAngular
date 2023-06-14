@@ -79,6 +79,12 @@ export class ServiceSetupDetailsComponent implements OnInit {
   lang: any = '';
   //
   closeResult: string = '';
+  
+  //
+  currentPage = 0;
+  totalRows = 0;
+  pageSizeOptions: number[] = [10, 20, 50, 100];
+  employeeHeaders: any = {};
   // 
   formTitle:string;
   constructor(
@@ -87,11 +93,11 @@ export class ServiceSetupDetailsComponent implements OnInit {
     private modalService: NgbModal,
     private toastrService: ToastrService) {       
       this.formGroup = new FormGroup({
-        searchTerm: new FormControl(null)
+        searchTerm: new FormControl("")
       })
     }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.lang = localStorage.getItem('lang');
     this.formTitle = this.common.getFormTitle();
     this.formTitle = '';
@@ -122,9 +128,9 @@ export class ServiceSetupDetailsComponent implements OnInit {
         }
       }
     }
+    
     //#endregion
     this.loadData();
-    
   }
 loadData()
 {

@@ -11,6 +11,7 @@ export class MixedWidget10Component implements OnInit {
   @Input() chartHeight: string;
   chartOptions: any = {};
   totalEmp:number=0;
+  lang: any = '';
 lidashboardResponseDto:dashboardResponseDto[];
 listTotalEmp: number[] = [];
 listTotalMyperiod: string[] = [];
@@ -22,6 +23,7 @@ listTotalMyperiod: string[] = [];
 
   ngOnInit(): void {
     this.getDashboardTotalEmployees();
+    this.lang = localStorage.getItem('lang');
   }
 
 

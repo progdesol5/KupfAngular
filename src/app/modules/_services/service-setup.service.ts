@@ -41,7 +41,7 @@ GetServiceSetupById(id: number) {
 }
 
 // Get all service setup
-GetAllServiceSetupRecords() {      
+GetAllServiceSetupRecords() {       
   return this.httpClient.get<ServiceSetupDto[]>(this.baseUrl + `ServiceSetup/GetServiceSetup`).pipe(
     map(serviceSetupDto => {
       this.serviceSetupDto = serviceSetupDto;

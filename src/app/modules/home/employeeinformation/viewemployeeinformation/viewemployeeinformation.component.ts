@@ -81,6 +81,8 @@ export class ViewemployeeinformationComponent implements OnInit {
   // Search Term
   searchTerm: string = '';
 
+  filterItem = 0;
+
   //local Storage Emploee Details
   localStorageEmployee: DetailedEmployee[] = [];
   //#endregion
@@ -107,7 +109,7 @@ export class ViewemployeeinformationComponent implements OnInit {
     private router: Router
   ) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
     this.userParams = this.employeeService.getUserParams();
   }
@@ -153,7 +155,8 @@ export class ViewemployeeinformationComponent implements OnInit {
     console.log(this.userParams);
     this.employeeService.setUserParams(this.userParams);
     //this.detailedEmployee = [];
-    this.employeeService.GetAllEmployees(this.userParams).subscribe((response: any) => {
+    
+    this.employeeService.FilterEmployee(this.userParams, this.formGroup.value.searchTerm, this.filterItem).subscribe((response: any) => {
 
       this.employeeHeaders = JSON.parse(response.headers.get('pagination'));
 
@@ -198,7 +201,7 @@ export class ViewemployeeinformationComponent implements OnInit {
   filterRecords(pageIndex: any) {
     this.userParams.pageNumber = pageIndex + 1;
     this.employeeService.setUserParams(this.userParams);
-    this.employeeService.GetFilterEmployees(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
+    this.employeeService.FilterEmployee(this.userParams, this.formGroup.value.searchTerm, this.filterItem).subscribe((response: any) => {
       this.employeeHeaders = JSON.parse(response.headers.get('pagination'));
       this.detailedEmployee = new MatTableDataSource<DetailedEmployee>(response.body);
       this.detailedEmployee.paginator = this.paginator;
@@ -271,9 +274,11 @@ export class ViewemployeeinformationComponent implements OnInit {
     if (!e) {
       this.loadData(0);
     }
+
+    this.filterItem = e;
     this.employeeService.setUserParams(this.userParams);
     //this.detailedEmployee = [];
-    this.employeeService.FilterEmployee(this.userParams, e).subscribe((response: any) => {
+    this.employeeService.FilterEmployee(this.userParams, this.formGroup.value.searchTerm, e).subscribe((response: any) => {
 
       this.employeeHeaders = JSON.parse(response.headers.get('pagination'));
 

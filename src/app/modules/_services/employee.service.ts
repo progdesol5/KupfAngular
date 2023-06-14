@@ -52,13 +52,11 @@ export class EmployeeService {
   DeleteEmployee(dtailedEmployee: DetailedEmployee) { 
     return this.httpClient.post(`${this.baseUrl}Employee/DeleteEmployee`,dtailedEmployee);    
   }
-  GetAllEmployees(userParams: UserParams) {    
-    return this.httpClient.get(this.baseUrl + `Employee/GetEmployees?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}`, {observe: 'response'});    
-  }
-  GetFilterEmployees(userParams: UserParams, query:string) {    
+  GetEmployees(userParams: UserParams, query:string) {    
     return this.httpClient.get(this.baseUrl + `Employee/GetEmployees?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}`, {observe: 'response'});    
   }
-  FilterEmployee(userParams: UserParams,filterVal:any) {    
-    return this.httpClient.get(this.baseUrl + `Employee/FilterEmployee?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&filterVal=${filterVal}`, {observe: 'response'});    
+  
+  FilterEmployee(userParams: UserParams,query:string,filterVal:any) {
+    return this.httpClient.get(this.baseUrl + `Employee/FilterEmployee?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}&filterVal=${filterVal}`, {observe: 'response'});    
   }
 }

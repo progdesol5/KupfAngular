@@ -6,6 +6,7 @@ import { FormTitleDt } from '../models/formTitleDt';
 import { FormTitleHd } from '../models/formTitleHd';
 import { GetDistinctHDFormName } from '../models/GetDistinctHDFormName';
 import { GetFormLabels } from '../models/GetFormLables';
+import { UserParams } from '../models/UserParams';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,18 @@ export class LocalizationService {
   //
   getDistinctHDFormName: GetDistinctHDFormName[] = [];
 
-  constructor(private httpClient: HttpClient) { }
+  userParams: UserParams;
 
+  constructor(private httpClient: HttpClient) { 
+    this.userParams = new UserParams();
+  }
+
+  getUserParams() {
+    return this.userParams;
+  }
+  setUserParams(params: UserParams) {
+    this.userParams = params;
+  }
 
   getFormHeaderLabels(formId: string, languageId: string) {
     if (this.formTitleHd.length > 0) return of(this.formTitleHd);
@@ -56,13 +67,13 @@ export class LocalizationService {
     )
   }
   // Get all form header labels.
-  getAllFormHeaderLabels() { //https://kupfapi.erp53.com/api/FormLabels/GetAllFormHeaderLabels   
-    return this.httpClient.get<FormTitleHd[]>(this.baseUrl + `FormLabels/GetAllFormHeaderLabels`).pipe(
-      map(formTitleHd => {
-        this.formTitleHd = formTitleHd; 
-        return formTitleHd;
-      })
-    )
+  getAllFormHeaderLabels(userParams: any, query: string) { 
+    //https://kupfapi.erp53.com/api/FormLabels/GetAllFormHeaderLabels
+    let list = new HttpParams();
+    list = list.append('PageNumber', (userParams.pageNumber+1));
+    list = list.append('PageSize', userParams.pageSize);
+    list = list.append('Query', query);
+    return this.httpClient.get<FormTitleHd[]>(this.baseUrl + `FormLabels/GetAllFormHeaderLabels`, {params:list});
   }
 
   // / Get all form header labels by form Id.
