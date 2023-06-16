@@ -160,7 +160,7 @@ export class FunctionMstComponent implements OnInit {
   }
   
   //
-  GetFunctionMstById(id:number){   
+  GetFunctionMstById(id:number){
    this.functionMst$ = this.functionMstService.GetFunctionMstById(id);
    this.functionMst$.subscribe((response)=>{
     this.singleFunctionMst = response;
