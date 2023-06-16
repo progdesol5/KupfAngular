@@ -47,92 +47,92 @@
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
                 </mat-form-field>
-                <div class="table-container">
-                    <table mat-table class="w-100" [dataSource]="returnServiceApprovals" matSort>
-                        <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{bodyLabel[1].title}}</th>
-                            <td mat-cell *matCellDef="let item" class="w-20 text-right actionTdClass">
-                                <a href="javascript:void(0)" class="text-info fw-bolder"
-                                    routerLink="/service-setup/view-service-detail/{{item.transId}}"
-                                    [id]="item.transId">
-                                    View
-                                </a>
-                                &nbsp;
-                                <a href="javascript:void(0)" class="text-success fw-bolder"
-                                    (click)="openApproveServiceModal(approveServiceModal,$event)" [id]="item.transId"
-                                    [hidden]="isShowAllChecked">
-                                    Approve
-                                </a>
-                                &nbsp;
-                                <a href="javascript:void(0)" class="text-danger fw-bolder"
-                                    (click)="openRejectServiceModal(rejectServiceModal,$event)" [id]="item.transId"
-                                    [hidden]="isShowAllChecked">
-                                    Reject
-                                </a>
-                                &nbsp;
-                                <a href="javascript:void(0)" class="text-primary fw-bolder"
-                                    (click)="openContactModal(employeePerformanceModal,$event,item)"
-                                    [id]="item.employeeId">
-                                    Details
-                                </a>
-                            </td>
-                        </ng-container>
-                        <ng-container matColumnDef="transId">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                Civil ID / Employee / PF / TransID </th>
-                            <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle idTdClass">{{item.transId}}
-                                {{item.pfid}} {{item.employeeId}} {{item.empCidNum}} </td>
-                        </ng-container>
-                        <div *ngIf="lang == 'en'">
-                            <ng-container matColumnDef="employeeName">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                    {{bodyLabel[3].title}}</th>
-                                <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}</td>
-                            </ng-container>
-                        </div>
-                        <div *ngIf="lang == 'ar'">
-                            <ng-container matColumnDef="employeeName">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                    {{bodyLabel[3].title}}</th>
-                                <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.arabicName}}</td>
-                            </ng-container>
-                        </div>
-                        <ng-container matColumnDef="serviceType">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                Services</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceName}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="source">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[8].title}}</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.source}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="totalInstallment">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[5].title}}</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle text-center">
-                                {{item.totalInstallments}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="amount">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[6].title}}</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.totalAmount}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                Status</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.status}}</td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
-                            [ngClass]="{'hidden':!isLoadingCompleted}" class="m_approval_thead"></tr>
-                        <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
-                    </table>
-                </div>
-                <div [ngClass]="{'hidden':!isLoadingCompleted}">
-                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" (page)="pageChanged($event)" showFirstLastButtons>
-                    </mat-paginator>
-                </div>
             </form>
+            <div class="table-container">
+                <table mat-table class="w-100" [dataSource]="returnServiceApprovals" matSort>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{bodyLabel[1].title}}</th>
+                        <td mat-cell *matCellDef="let item" class="w-20 text-right actionTdClass">
+                            <a href="javascript:void(0)" class="text-info fw-bolder"
+                                routerLink="/service-setup/view-service-detail/{{item.transId}}"
+                                [id]="item.transId">
+                                View
+                            </a>
+                            &nbsp;
+                            <a href="javascript:void(0)" class="text-success fw-bolder"
+                                (click)="openApproveServiceModal(approveServiceModal,$event)" [id]="item.transId"
+                                [hidden]="isShowAllChecked">
+                                Approve
+                            </a>
+                            &nbsp;
+                            <a href="javascript:void(0)" class="text-danger fw-bolder"
+                                (click)="openRejectServiceModal(rejectServiceModal,$event)" [id]="item.transId"
+                                [hidden]="isShowAllChecked">
+                                Reject
+                            </a>
+                            &nbsp;
+                            <a href="javascript:void(0)" class="text-primary fw-bolder"
+                                (click)="openContactModal(employeePerformanceModal,$event,item)"
+                                [id]="item.employeeId">
+                                Details
+                            </a>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="transId">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            Civil ID / Employee / PF / TransID </th>
+                        <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle idTdClass">{{item.transId}}
+                            {{item.pfid}} {{item.employeeId}} {{item.empCidNum}} </td>
+                    </ng-container>
+                    <div *ngIf="lang == 'en'">
+                        <ng-container matColumnDef="employeeName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                                {{bodyLabel[3].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}</td>
+                        </ng-container>
+                    </div>
+                    <div *ngIf="lang == 'ar'">
+                        <ng-container matColumnDef="employeeName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                                {{bodyLabel[3].title}}</th>
+                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.arabicName}}</td>
+                        </ng-container>
+                    </div>
+                    <ng-container matColumnDef="serviceType">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            Services</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="source">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            {{bodyLabel[8].title}}</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.source}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalInstallment">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            {{bodyLabel[5].title}}</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle text-center">
+                            {{item.totalInstallments}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            {{bodyLabel[6].title}}</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.totalAmount}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
+                            Status</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.status}}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                        [ngClass]="{'hidden':!isLoadingCompleted}" class="m_approval_thead"></tr>
+                    <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
+                </table>
+            </div>
+            <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" (page)="pageChanged($event)" showFirstLastButtons>
+                </mat-paginator>
+            </div>
         </div>
     </div>
     <!--begin::Body-->

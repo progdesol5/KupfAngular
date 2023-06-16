@@ -78,52 +78,51 @@
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
                 </mat-form-field>
             </form>
-                <div class="table-container">
-                    <table mat-table class="w-100" [dataSource]="voucherDto" matSort>
-                        <ng-container matColumnDef="empname">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name English/Arabic</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}
-                                {{item.arabicName}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.status}} </td>
-                        </ng-container>   
-                        <ng-container matColumnDef="cepfid">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Civil Id/Employee/PF</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-20">{{item.civilId}}/{{item.employeeID}}/{{item.pfid}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="transid">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Id </th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.mytransid}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="jvid">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>JV Id</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.jvId}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="services">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Services</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceType}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef>Action</th>
-                            <td mat-cell *matCellDef="let item" class="text-right w-10">
-                                <button mat-raised-button color="primary"
-                                    (click)="openVoucherModal(voucherModal,item.jvId)">View</button>
-                            </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
-                            [ngClass]="{'hidden':!isLoadingCompleted}" class="m_approval_thead"></tr>
-                        <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
-                    </table>
-                </div>
-                <div [ngClass]="{'hidden':!isLoadingCompleted}">
-                    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[10,20,50]" 
-                    (page)="onPaginationChange($event)" 
-                    showFirstLastButtons>
-                    </mat-paginator>
-                </div>
-            
+            <div class="table-container">
+                <table mat-table class="w-100" [dataSource]="voucherDto" matSort>
+                    <ng-container matColumnDef="empname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name English/Arabic</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}
+                            {{item.arabicName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.status}} </td>
+                    </ng-container>   
+                    <ng-container matColumnDef="cepfid">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Civil Id/Employee/PF</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-20">{{item.civilId}}/{{item.employeeID}}/{{item.pfid}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="transid">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Id </th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.mytransid}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="jvid">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>JV Id</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.jvId}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="services">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Services</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceType}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <td mat-cell *matCellDef="let item" class="text-right w-10">
+                            <button mat-raised-button color="primary"
+                                (click)="openVoucherModal(voucherModal,item.jvId)">View</button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                        [ngClass]="{'hidden':!isLoadingCompleted}" class="m_approval_thead"></tr>
+                    <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
+                </table>
+            </div>
+            <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[10,20,50]" 
+                (page)="onPaginationChange($event)" 
+                showFirstLastButtons>
+                </mat-paginator>
+            </div>
         </div>
     </div>
     <!--begin::Body-->
