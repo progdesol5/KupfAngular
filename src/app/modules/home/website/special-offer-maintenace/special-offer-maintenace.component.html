@@ -126,51 +126,51 @@
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
                     <mat-label>Search</mat-label>
-                    <input type="search" matInput formControlName="searchTerm" (keyup)="filterRecords()"
+                    <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords()"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
                 </mat-form-field>
-                <div class="table-container">
-                    <table mat-table class="w-100" [dataSource]="offers" matSort>
-                        <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef class="ArFontStyle"></th>
-                            <td mat-cell *matCellDef="let item" class="w-20 text-right">
-                                <button mat-raised-button color="warn"
-                                    (click)="open(deleteModal,item.serviceId)">Delete</button> |
-                                <button mat-raised-button color="accent"
-                                    (click)="editData(item.serviceId)">Edit</button>
-                            </td>
-                        </ng-container>
-                        <ng-container matColumnDef="offerTypeName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Type</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerTypeName }}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="offerStart">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Start</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerStartDate | date:
-                                'dd/MM/yyyy'}}</td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="offerEnd" class="w-30">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer End</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerEndDate | date:
-                                'dd/MM/yyyy'}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="offerAmount" class="w-20">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Amount</th>
-                            <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerAmount }}</td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
-                            [ngClass]="{'hidden':!isLoadingCompleted}" class="som_t_header"></tr>
-                        <tr mat-row *matRowDef="let offers; columns: columnsToDisplay"></tr>
-                    </table>
-                </div>
-                <div [ngClass]="{'hidden':!isLoadingCompleted}">
-                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
-                    </mat-paginator>
-                </div>
             </form>
+            <div class="table-container">
+                <table mat-table class="w-100" [dataSource]="offers" matSort>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle"></th>
+                        <td mat-cell *matCellDef="let item" class="w-20 text-right">
+                            <button mat-raised-button color="warn"
+                                (click)="open(deleteModal,item.serviceId)">Delete</button> |
+                            <button mat-raised-button color="accent"
+                                (click)="editData(item.serviceId)">Edit</button>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="offerTypeName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Type</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerTypeName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="offerStart">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Start</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerStartDate | date:
+                            'dd/MM/yyyy'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="offerEnd" class="w-30">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer End</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerEndDate | date:
+                            'dd/MM/yyyy'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="offerAmount" class="w-20">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Amount</th>
+                        <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerAmount }}</td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+                        [ngClass]="{'hidden':!isLoadingCompleted}" class="som_t_header"></tr>
+                    <tr mat-row *matRowDef="let offers; columns: columnsToDisplay"></tr>
+                </table>
+            </div>
+            <div [ngClass]="{'hidden':!isLoadingCompleted}">
+                <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
         </ng-template>
     </ngb-panel>
 </ngb-accordion>

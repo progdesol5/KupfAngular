@@ -32,7 +32,7 @@
       </div>
       <mat-form-field appearance="fill" class="w-100" floatLabel="never">
         <mat-label>Search</mat-label>
-        <input type="search" matInput formControlName="searchTerm" (keyup)="filterRecords()" class="ArFontStyle" />
+        <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords()" class="ArFontStyle" />
         <mat-icon matPrefix class="material-icons">search</mat-icon>
         <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
       </mat-form-field>
@@ -78,7 +78,7 @@
         </table>
       </div>
       <div [ngClass]="{'hidden':!isLoadingCompleted}">
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" showFirstLastButtons>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" (page)="onPaginationChange($event)" showFirstLastButtons>
         </mat-paginator>
       </div>
     </form>
