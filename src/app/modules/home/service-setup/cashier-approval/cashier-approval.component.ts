@@ -131,6 +131,7 @@ export class CashierApprovalComponent implements OnInit {
   }
   //#region Material Search and Clear Filter 
   filterRecords(pageIndex: any) {
+    console.log(pageIndex)
     if (this.formGroup.value.searchTerm != null && this.cashierApprovalDto) {
       this.cashierApprovalDto.filter = this.formGroup.value.searchTerm.trim();
     }
