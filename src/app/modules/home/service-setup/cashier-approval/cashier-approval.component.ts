@@ -145,7 +145,7 @@ export class CashierApprovalComponent implements OnInit {
     const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
     const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
 
-    this.financialService.GetCashierApprovals(this.userParams, periodCode, tenantId, locationId, false, this.formGroup.value.searchTerm).subscribe((response: any) => {
+    this.financialService.GetCashierApprovals(this.userParams, periodCode, tenantId, locationId, this.isShowAllChecked, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.cashierApprovalHeaders = JSON.parse(response.headers.get('pagination'));
       this.cashierApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
       this.cashierApprovalDto.paginator = this.paginator;

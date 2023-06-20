@@ -69,6 +69,10 @@ export class VoucherComponent implements OnInit {
       this.voucherDto.sort = this.sort;
       this.length = response.totalRecords;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = response.totalRecords;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
