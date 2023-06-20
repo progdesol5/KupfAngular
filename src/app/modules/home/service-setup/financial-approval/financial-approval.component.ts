@@ -438,7 +438,7 @@ export class FinancialApprovalComponent implements OnInit {
     const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
     const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
 
-    this.financialService.GetFinancialApprovals(this.userParams, periodCode, tenantId, locationId, false, this.formGroup.value.searchTerm).subscribe((response: any) => {
+    this.financialService.GetFinancialApprovals(this.userParams, periodCode, tenantId, locationId, this.isShowAllChecked, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.financialApprovalHeaders = JSON.parse(response.headers.get('pagination'));
       this.financialApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
       this.financialApprovalDto.paginator = this.paginator;
