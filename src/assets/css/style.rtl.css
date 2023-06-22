@@ -47284,10 +47284,17 @@ body[dir="rtl"] .engage-toolbar {
   .toolbar-enabled:not(.toolbar-fixed) .toolbar {
     margin-bottom: 30px;
   }
-  .header-fixed.toolbar-fixed .toolbar {
+  body[dir="rtl"].header-fixed.toolbar-fixed .toolbar {
+    padding: 0;
+    top: 65px;
+    right: 265px;
+    border-top: 1px solid #EFF2F5;
+  }
+  body[dir="ltr"].header-fixed.toolbar-fixed .toolbar {
     padding: 0;
     top: 65px;
     border-top: 1px solid #EFF2F5;
+    left: 265px;
   }
   body[dir="rtl"] .aside-enabled.aside-fixed.toolbar-fixed .toolbar {
     right: 265px;
