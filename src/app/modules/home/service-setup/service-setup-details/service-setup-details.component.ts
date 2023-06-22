@@ -216,8 +216,12 @@ export class ServiceSetupDetailsComponent implements OnInit {
   }
 
   //#region Material Search and Clear Filter
-  filterRecords(pageIndex: any) {
-    this.loadData(pageIndex);
+  filterRecords(pageIndex: number = -1) {
+    if (this.formGroup.value.searchTerm != null && this.serviceSetupDto) {
+      this.formGroup.value.searchTerm = this.serviceSetupDto.filter = this.formGroup.value.searchTerm.trim();
+    }
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });

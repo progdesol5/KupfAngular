@@ -70,7 +70,7 @@ export class LocalizationService {
   getAllFormHeaderLabels(userParams: any, query: string) { 
     //https://kupfapi.erp53.com/api/FormLabels/GetAllFormHeaderLabels
     let list = new HttpParams();
-    list = list.append('PageNumber', (userParams.pageNumber+1));
+    list = list.append('PageNumber', (userParams.pageNumber));
     list = list.append('PageSize', userParams.pageSize);
     list = list.append('Query', query);
     return this.httpClient.get<FormTitleHd[]>(this.baseUrl + `FormLabels/GetAllFormHeaderLabels`, {params:list});

@@ -130,36 +130,12 @@ export class CashierApprovalComponent implements OnInit {
     this.loadData(0, event.target.checked)
   }
   //#region Material Search and Clear Filter 
-  filterRecords(pageIndex: any) {
-    console.log(pageIndex)
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.cashierApprovalDto) {
-      this.cashierApprovalDto.filter = this.formGroup.value.searchTerm.trim();
+      this.formGroup.value.searchTerm = this.cashierApprovalDto.filter = this.formGroup.value.searchTerm.trim();
     }
-
-    this.userParams.pageNumber = pageIndex + 1;
-    this.financialService.setUserParams(this.userParams);
-
-    var data = JSON.parse(localStorage.getItem("user")!);
-    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
-    const locationId = data.map((obj: { locationId: any; }) => obj.locationId);
-    const periodCode = data.map((obj: { periodCode: any; }) => obj.periodCode);
-    const prevPeriodCode = data.map((obj: { prevPeriodCode: any; }) => obj.prevPeriodCode);
-
-    this.financialService.GetCashierApprovals(this.userParams, periodCode, tenantId, locationId, this.isShowAllChecked, this.formGroup.value.searchTerm).subscribe((response: any) => {
-      this.cashierApprovalHeaders = JSON.parse(response.headers.get('pagination'));
-      this.cashierApprovalDto = new MatTableDataSource<CashierApprovalDto>(response.body);
-      this.cashierApprovalDto.paginator = this.paginator;
-      this.cashierApprovalDto.sort = this.sort;
-      this.isLoadingCompleted = true;
-      setTimeout(() => {
-        this.paginator.pageIndex = pageIndex;
-        this.paginator.length = this.cashierApprovalHeaders.totalItems;
-      });
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
+    if( pageIndex == 0) this.loadData(0, this.isShowAllChecked);
+    else this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });

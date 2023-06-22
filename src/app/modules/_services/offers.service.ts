@@ -37,12 +37,14 @@ export class OffersService {
     return this.httpClient.delete(`${this.baseUrl}Offers/DeleteOffer?id=${id}`);    
   }
   //
-  GetOffers() {    
-    return this.httpClient.get<OffersDto[]>(this.baseUrl +`Offers/GetOffers`).pipe(
-      map(offersDto => {
-        this.offersDto = offersDto;
-        return offersDto;
-      })
-    )  
+  GetOffers(pageIndex: number, pageSize: number, query:string) {    
+    // return this.httpClient.get<OffersDto[]>(this.baseUrl +`Offers/GetOffers`).pipe(
+    //   map(offersDto => {
+    //     this.offersDto = offersDto;
+    //     return offersDto;
+    //   })
+    // )  
+    return this.httpClient.get<OffersDto[]>(this.baseUrl + `Offers/GetOffers/?PageNumber=${pageIndex}&PageSize=${pageSize}&Query=${query}`, {observe: 'response'});    
+
   }
 }

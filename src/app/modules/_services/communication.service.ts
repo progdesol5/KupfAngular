@@ -31,13 +31,14 @@ export class CommunicationService {
 
 
   // Get all service setup
-  GetIncomingLetters() {
-    return this.httpClient.get<IncommingCommunicationDto[]>(this.baseUrl + `Communication/GetIncomingLetters`).pipe(
-      map(incommingCommunicationDto => {
-        this.incommingCommunicationDto = incommingCommunicationDto;
-        return incommingCommunicationDto;
-      })
-    )
+  GetIncomingLetters(pageNumber: number, pageSize: number, query: string) {
+    // return this.httpClient.get<IncommingCommunicationDto[]>(this.baseUrl + `Communication/GetIncomingLetters`).pipe(
+    //   map(incommingCommunicationDto => {
+    //     this.incommingCommunicationDto = incommingCommunicationDto;
+    //     return incommingCommunicationDto;
+    //   })
+    // )
+    return this.httpClient.get<IncommingCommunicationDto[]>(this.baseUrl + `Communication/GetIncomingLetters?PageNumber=${pageNumber}&PageSize=${pageSize}&Query=${query}`, {observe: 'response'});
   }
 
   GetIncomingLetter(transId: number) {

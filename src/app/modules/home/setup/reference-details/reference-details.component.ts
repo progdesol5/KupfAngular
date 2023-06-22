@@ -244,8 +244,11 @@ export class ReferenceDetailsComponent implements OnInit {
       this.refTableDto = new MatTableDataSource<any>(response.body.refTableDto);
       this.refTableDto.paginator = this.paginator;
       this.refTableDto.sort = this.sort;
-      this.length = response.body.totalRecords;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = response.body.totalRecords;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
@@ -254,6 +257,7 @@ export class ReferenceDetailsComponent implements OnInit {
   }
 
   onPaginationChange(event: any) {
+    this.pageSize = event.pageSize;
     this.loadData(event.pageIndex);
   }
   // navigateToVoucherDetails(voucherId: number) {
@@ -264,8 +268,12 @@ export class ReferenceDetailsComponent implements OnInit {
   //     this.router.navigate([uri]));
   // }
   //#region Material Search and Clear Filter 
-  filterRecords() {
-    this.loadData(0);
+  filterRecords(pageIndex: number = -1) {
+    if (this.formGroup.value.searchTerm != null && this.refTableDto) {
+      this.formGroup.value.searchTerm = this.refTableDto.filter = this.formGroup.value.searchTerm.trim();
+    }
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { FunctionMst } from 'src/app/modules/models/FunctionMst';
 import { Login } from 'src/app/modules/models/login';
 import { FunctionMstService } from 'src/app/modules/_services/function-mst.service';
+import { UserParams } from 'src/app/modules/models/UserParams';
 
 @Component({
   selector: 'app-function-mst',
@@ -43,6 +44,7 @@ export class FunctionMstComponent implements OnInit {
 
   // True of any error
   isError: boolean = false;
+  functionMstHeaders: any = {};
 
   // formGroup
   formGroup: FormGroup;
@@ -67,6 +69,7 @@ export class FunctionMstComponent implements OnInit {
     { id: 0, name: 'No' },
     { id: 1, name: 'Yes' }
   ];
+  userParams: UserParams;
 
   constructor(
     private functionMstService: FunctionMstService,
@@ -75,9 +78,10 @@ export class FunctionMstComponent implements OnInit {
   ) {
        
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
     this.datePickerConfig = Object.assign({}, { containerClass: 'theme-dark-blue' })
+    this.userParams = this.functionMstService.getUserParams(); 
   }
 
   
@@ -87,7 +91,7 @@ export class FunctionMstComponent implements OnInit {
     this.initializeForm();
 
     // Load Data
-    this.loadData();
+    this.loadData(0);
 
   }
   // // Initialize Form
@@ -195,7 +199,7 @@ export class FunctionMstComponent implements OnInit {
         console.log(id);
         this.functionMstService.DeleteFunctionMst(id).subscribe(
           res => {
-            this.loadData();
+            this.loadData(0);
             this.toastr.success('Deleted Successfully', 'Deleted')
           },
           error => {
@@ -222,13 +226,21 @@ export class FunctionMstComponent implements OnInit {
   //#endregion
 
   //#region
-  loadData() {   
-    this.functionMst$ = this.functionMstService.getAllFunctionMst()
-    this.functionMst$.subscribe((resoponse: FunctionMst[]) => {
-      this.functionMst = new MatTableDataSource<FunctionMst>(resoponse);
+  loadData(pageIndex: number) {   
+    this.userParams.pageNumber = pageIndex + 1;
+    this.functionMstService.setUserParams(this.userParams);
+
+    this.functionMstService.getAllFunctionMst(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.functionMstHeaders = JSON.parse(response.headers.get('pagination'));
+      this.functionMst = new MatTableDataSource<FunctionMst>(response.body);
       this.functionMst.paginator = this.paginator;
       this.functionMst.sort = this.sort;
       this.isLoadingCompleted = true;
+
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = response.body.totalRecords;
+      });
     }, error => {
       // Incase of any error
       console.log(error);
@@ -237,16 +249,39 @@ export class FunctionMstComponent implements OnInit {
     })
   }
   //
-  filterRecords() {
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.functionMst) {
-      this.functionMst.filter = this.formGroup.value.searchTerm.trim();
+      this.formGroup.value.searchTerm = this.functionMst.filter = this.formGroup.value.searchTerm.trim();
     }
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
     this.filterRecords();
   }
   //#endregion
-
+  pageChanged(event: any) {
+    if (event.pageIndex == 0) {
+      this.userParams.pageNumber = event.pageIndex + 1
+    } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+    } else if (event.previousPageIndex > event.pageIndex) {
+      this.userParams.pageNumber = event.pageIndex;
+    } else {
+      this.userParams.pageNumber = event.pageIndex + 1
+    }
+    this.userParams.pageSize = event.pageSize;
+    this.functionMstService.setUserParams(this.userParams);
+    if (this.formGroup.value.searchTerm == null) {
+      this.loadData(event.pageIndex);
+    }
+    else if (this.formGroup.value.searchTerm.length > 0) {
+      this.filterRecords();
+    }
+    else {
+      this.loadData(event.pageIndex);
+    }
+  }
 
 }

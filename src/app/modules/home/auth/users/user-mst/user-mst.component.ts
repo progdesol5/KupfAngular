@@ -62,6 +62,7 @@ export class UserMstComponent implements OnInit {
   users$: Observable<SelectUsersDto[]>;
   //
   isFormSubmitted = false;
+  pageSize: number = 10;
   //
   constructor(
     private userMstService: UserMstService,
@@ -71,7 +72,7 @@ export class UserMstComponent implements OnInit {
     private fb: FormBuilder,
     private dbCommonService: DbCommonService) {
     this.formGroup = new FormGroup({
-      searchTerm: new FormControl(null)
+      searchTerm: new FormControl("")
     })
 
   }
@@ -84,7 +85,7 @@ export class UserMstComponent implements OnInit {
   ngOnInit(): void {
     //
     this.users$ = this.dbCommonService.GetUsers();
-    this.LoadData();
+    this.LoadData(0);
     //
     this.initializeChangePasswordForm();
     // 
@@ -103,7 +104,7 @@ export class UserMstComponent implements OnInit {
           this.isFormSubmitted = false;
           this.userForm.reset();
           // Refresh Grid
-          this.LoadData();
+          this.LoadData(0);
         }
       });
     } else {
@@ -116,7 +117,7 @@ export class UserMstComponent implements OnInit {
           this.isFormSubmitted = false;
           this.userForm.reset();
           // Refresh Grid
-          this.LoadData();
+          this.LoadData(0);
         }
       });
     }
@@ -210,13 +211,16 @@ export class UserMstComponent implements OnInit {
   }
 
 
-  LoadData() {
-    this.userMst$ = this.userMstService.GetUsersFromUserMst();
-    this.userMst$.subscribe((response: UserMstDto[]) => {
+  LoadData(pageIndex: number) {
+    this.userMstService.GetUsersFromUserMst(pageIndex + 1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.userMst = new MatTableDataSource<UserMstDto>(response);
       this.userMst.paginator = this.paginator;
       this.userMst.sort = this.sort;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = response.body.totalRecords;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
@@ -225,10 +229,16 @@ export class UserMstComponent implements OnInit {
   }
 
   //#region Material Search and Clear Filter
-  filterRecords() {
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.userMst) {
       this.userMst.filter = this.formGroup.value.searchTerm.trim();
     }
+    if( pageIndex == 0) this.LoadData(0);
+    else this.LoadData(this.paginator.pageIndex);
+  }
+  onPaginationChange(event: any) {
+    this.pageSize = event.pageSize;
+    this.LoadData(event.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
@@ -259,7 +269,7 @@ export class UserMstComponent implements OnInit {
           if (response === 1) {
             this.toastrService.success('User deleted successfully', 'Success');
             // Refresh Grid
-            this.LoadData();
+            this.LoadData(0);
           } else {
             this.toastrService.error('Something went wrong', 'Errro');
           }
