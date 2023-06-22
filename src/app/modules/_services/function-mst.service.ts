@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FunctionMst } from '../models/FunctionMst';
+import { UserParams } from '../models/UserParams';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,17 @@ export class FunctionMstService {
 baseUrl = environment.KUPFApiUrl;
 //
 functionMst: FunctionMst[] = [];
-constructor(private httpClient: HttpClient) { }
+userParams: UserParams;
+constructor(private httpClient: HttpClient) {
+  this.userParams = new UserParams();
+}
 
-
+getUserParams() {
+  return this.userParams;
+}
+setUserParams(params: UserParams) {
+  this.userParams = params;
+}
 AddFunctionMst(response: FunctionMst) {    
   return this.httpClient.post(this.baseUrl +`FunctionMst/AddFunctionMst`,response);
 }
@@ -29,14 +38,15 @@ GetFunctionMstById(id:any) {
     })
   )
 }
-getAllFunctionMst() {  
+getAllFunctionMst(userParams: UserParams, query:string) {  
   //if (this.functionMst.length > 0) return of(this.functionMst);
-  return this.httpClient.get<FunctionMst[]>(this.baseUrl +`FunctionMst/GetFunctionMst`).pipe(
-    map(functionMst => {
-      this.functionMst = functionMst;
-      return functionMst;
-    })
-  )
+  // return this.httpClient.get<FunctionMst[]>(this.baseUrl +`FunctionMst/GetFunctionMst`).pipe(
+  //   map(functionMst => {
+  //     this.functionMst = functionMst;
+  //     return functionMst;
+  //   })
+  // )
+  return this.httpClient.get<FunctionMst[]>(this.baseUrl + `FunctionMst/GetFunctionMst?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}`, {observe: 'response'});
 }
 
 }

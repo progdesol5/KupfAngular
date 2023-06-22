@@ -98,6 +98,7 @@ export class EngagesComponent implements OnInit {
         document.getElementsByTagName('body')[0].setAttribute('dir', 'ltr');
         document.getElementsByTagName('body')[0].setAttribute('direction', 'ltr');
         document.getElementsByTagName('body')[0].setAttribute('style', 'direction: ltr');
+        
         // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
         let currentUrl = this.router.url;
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;

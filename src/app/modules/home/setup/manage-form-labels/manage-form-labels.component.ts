@@ -104,7 +104,6 @@ export class ManageFormLabelsComponent implements OnInit {
     this.localizationService.setUserParams(this.userParams);
     this.localizationService.getAllFormHeaderLabels(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.formLabelHeaders.totalItems = response.totalRecords;
-      console.log(response.totalRecords);
       this.formTitleHd = new MatTableDataSource<FormTitleHd>(response.formTitleHDLanguageDto);
       this.formTitleHd.paginator = this.paginator;
       this.formTitleHd.sort = this.sort;
@@ -122,28 +121,12 @@ export class ManageFormLabelsComponent implements OnInit {
   }
 
   //#region Material Search and Clear Filter
-  filterRecords() {
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.formTitleHd) {
-      this.formTitleHd.filter = this.formGroup.value.searchTerm.trim();
+      this.formGroup.value.searchTerm = this.formTitleHd.filter = this.formGroup.value.searchTerm.trim();
     }
-
-    this.userParams.pageNumber = this.paginator.pageIndex + 1;
-    this.localizationService.setUserParams(this.userParams);
-
-    this.localizationService.getAllFormHeaderLabels(this.userParams, this.formTitleHd.filter).subscribe((response: any) => {
-      this.formLabelHeaders = JSON.parse(response.headers.get('pagination'));
-      this.formTitleHd = new MatTableDataSource<FormTitleHd>(response.body);
-      this.formTitleHd.paginator = this.paginator;
-      this.formTitleHd.sort = this.sort;
-      this.isLoadingCompleted = true;
-      setTimeout(() => {
-        this.paginator.length = this.formLabelHeaders.totalItems;
-      });
-    }, error => {
-      console.log(error);
-      this.dataLoadingStatus = 'Error fetching the data';
-      this.isError = true;
-    })
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
@@ -155,8 +138,7 @@ export class ManageFormLabelsComponent implements OnInit {
       this.userParams.pageNumber = event.pageIndex + 1
     } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
       this.userParams.pageNumber = event.pageIndex + 1;
-    }
-    else if (event.previousPageIndex > event.pageIndex) {
+    } else if (event.previousPageIndex > event.pageIndex) {
       this.userParams.pageNumber = event.pageIndex;
     } else {
       this.userParams.pageNumber = event.pageIndex + 1

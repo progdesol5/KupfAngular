@@ -62,12 +62,14 @@ UpdateUserPassword(data: UserMstDto){
 }
 
   // Get all user User Mst
-  GetUsersFromUserMst() {     
-    return this.httpClient.get<UserMstDto[]>(this.baseUrl +`UserMst/GetUserMst`).pipe(
-      map(userMst => {
-        this.userMst = userMst;
-        return userMst;
-      })
-    )
+  GetUsersFromUserMst(pageNumber: number, pageSize: number, query: string) {     
+    // return this.httpClient.get<UserMstDto[]>(this.baseUrl +`UserMst/GetUserMst`).pipe(
+    //   map(userMst => {
+    //     this.userMst = userMst;
+    //     return userMst;
+    //   })
+    // )
+    return this.httpClient.get<UserMstDto[]>(this.baseUrl + `UserMst/GetUserMst?PageNumber=${pageNumber}&PageSize=${pageSize}&Query=${query}`, {observe: 'response'});
+
   }
 }

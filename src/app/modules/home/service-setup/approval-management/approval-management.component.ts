@@ -434,12 +434,12 @@ export class ApprovalManagementComponent implements OnInit {
     }
   }
 //#region Material Search and Clear Filter 
-filterRecords() {
+filterRecords(pageIndex: number = -1) {
   if (this.formGroup.value.searchTerm != null && this.returnServiceApprovals) {
     this.formGroup.value.searchTerm = this.returnServiceApprovals.filter = this.formGroup.value.searchTerm.trim();
   }
-
-  this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
+  if( pageIndex == 0) this.loadData(0, this.isShowAllChecked);
+  else this.loadData(this.paginator.pageIndex, this.isShowAllChecked);
 }
 clearFilter() {
   this.formGroup?.patchValue({ searchTerm: "" });
@@ -451,8 +451,7 @@ pageChanged(event: any) {
     this.userParams.pageNumber = event.pageIndex + 1
   } else if (event.length <= (event.pageIndex * event.pageSize + event.pageSize)) {
     this.userParams.pageNumber = event.pageIndex + 1;
-  }
-  else if (event.previousPageIndex > event.pageIndex) {
+  } else if (event.previousPageIndex > event.pageIndex) {
     this.userParams.pageNumber = event.pageIndex;
   } else {
     this.userParams.pageNumber = event.pageIndex + 1

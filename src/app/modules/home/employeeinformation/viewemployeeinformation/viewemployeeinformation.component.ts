@@ -95,7 +95,7 @@ export class ViewemployeeinformationComponent implements OnInit {
   //
   currentPage = 0;
   totalRows = 0;
-  pageSizeOptions: number[] = [10, 20, 50, 100];
+  pageSizeOptions: number[] = [10, 20, 50];
   employeeHeaders: any = {};
   FilterArray: any = [
     { id: 2, name: 'Subscribed' },
@@ -274,11 +274,10 @@ export class ViewemployeeinformationComponent implements OnInit {
     if (!e) {
       this.loadData(0);
     }
-
-    this.filterItem = e;
+    this.filterItem = e ? e : 0;
     this.employeeService.setUserParams(this.userParams);
     //this.detailedEmployee = [];
-    this.employeeService.FilterEmployee(this.userParams, this.formGroup.value.searchTerm, e).subscribe((response: any) => {
+    this.employeeService.FilterEmployee(this.userParams, this.formGroup.value.searchTerm, this.filterItem).subscribe((response: any) => {
 
       this.employeeHeaders = JSON.parse(response.headers.get('pagination'));
 

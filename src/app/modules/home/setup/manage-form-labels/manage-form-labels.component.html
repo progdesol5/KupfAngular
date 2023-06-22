@@ -19,7 +19,7 @@
                 <form [formGroup]="formGroup">
                     <mat-form-field appearance="fill" class="w-100" floatLabel="never">
                         <mat-label>Search</mat-label>
-                        <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords()"
+                        <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                             class="ArFontStyle" />
                         <mat-icon matPrefix class="material-icons">search</mat-icon>
                         <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
@@ -54,8 +54,9 @@
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
                             [ngClass]="{'hidden':!isLoadingCompleted}" class="table_header_bg"></tr>
-                        <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"
-                            [style.display]="formTitleHd.language == 2 ? 'none' : '' "></tr>
+                        <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"></tr>
+                        <!-- <tr mat-row *matRowDef="let formTitleHd; columns: columnsToDisplay"
+                            [style.display]="formTitleHd.language == 2 ? 'none' : '' "></tr> -->
 
                     </table>
                 </div>

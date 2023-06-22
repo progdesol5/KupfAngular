@@ -79,8 +79,8 @@ export class VoucherComponent implements OnInit {
       this.isError = true;
     })
   }
-
   onPaginationChange(event: any) {
+    this.pageSize = event.pageSize;
     this.loadData(event.pageIndex);
   }
   // navigateToVoucherDetails(voucherId: number) {
@@ -91,8 +91,12 @@ export class VoucherComponent implements OnInit {
   //     this.router.navigate([uri]));
   // }
   //#region Material Search and Clear Filter 
-  filterRecords() {
-    this.loadData(0);
+  filterRecords(pageIndex: number = -1) {
+    if (this.formGroup.value.searchTerm != null && this.voucherDto) {
+      this.formGroup.value.searchTerm = this.voucherDto.filter = this.formGroup.value.searchTerm.trim();
+    }
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });

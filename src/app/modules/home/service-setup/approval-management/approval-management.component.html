@@ -42,7 +42,7 @@
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
                     <mat-label>Search</mat-label>
-                    <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords()"
+                    <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>

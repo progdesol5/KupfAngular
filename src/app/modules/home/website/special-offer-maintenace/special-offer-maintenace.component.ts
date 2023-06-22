@@ -102,6 +102,7 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
   isFormSubmitted = false;
   // 
   offerType$: Observable<SelectServiceTypeDto[]>;
+  pageSize: number = 10;
 
   constructor(private fb: FormBuilder,
     private offersService: OffersService,
@@ -147,7 +148,7 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
     //
     this.initOfferForm();
     //
-    this.LoadData();
+    this.LoadData(0);
     //
     this.offerType$ = this.dbCommonService.GetOffers();
   }
@@ -306,13 +307,16 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
     })    
   }
 
-  LoadData() {
-    this.offers$ = this.offersService.GetOffers();
-    this.offers$.subscribe((response: OffersDto[]) => {
-      this.offers = new MatTableDataSource<OffersDto>(response);
-      this.offers.paginator = this.paginator;
-      this.offers.sort = this.sort;
-      this.isLoadingCompleted = true;
+  LoadData(pageIndex: number) {
+      this.offersService.GetOffers(pageIndex + 1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
+        this.offers = new MatTableDataSource<OffersDto>(response);
+        this.offers.paginator = this.paginator;
+        this.offers.sort = this.sort;
+        this.isLoadingCompleted = true;
+        setTimeout(() => {
+          this.paginator.pageIndex = pageIndex;
+          this.paginator.length = response.body.totalRecords;
+        });
     }, error => {
       this.dataLoadingStatus = 'Error fetching the data';
       this.isError = true;
@@ -333,7 +337,7 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
             console.log(error);
           }, () => {
             // TO REFRESH / RELOAD THE PAGE WITHOUT REFRESH THE WHOLE PAGE.
-            this.LoadData();
+            this.LoadData(0);
           })
       }
     }, (reason) => {
@@ -353,14 +357,20 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
   }
   //#endregion
   //#region Material Search and Clear Filter
-  filterRecords() {
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.offers) {
       this.offers.filter = this.formGroup.value.searchTerm.trim();
     }
+    if( pageIndex == 0) this.LoadData(0);
+    else this.LoadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
     this.filterRecords();
+  }
+  onPaginationChange(event: any) {
+    this.pageSize = event.pageSize;
+    this.LoadData(event.pageIndex);
   }
   //#endregion
 }

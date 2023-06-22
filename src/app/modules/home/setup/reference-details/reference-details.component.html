@@ -11,77 +11,77 @@
   <!--end::Header-->
   <!--begin::Body-->
   <div class="card-body py-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-    <form [formGroup]="formGroup">
-      <div class="row mb-4">
-        <div class="col-md-4">
-          <label class="form-label" for="form3Example1">Reference Type</label>
-          <ng-select [items]="refType$ | async" bindLabel="refType" formControlName="dropDownRefType"
-            (change)="onRefTypeChange($event)">
-          </ng-select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label" for="form3Example2">Reference Sub Type</label>
-          <ng-select [items]="refSubType$" bindLabel="refSubType" formControlName="dropDownRefSubType" [multiple]="false"
-            (change)="onRefSubTypeChange($event)">
-          </ng-select>
-        </div>
-        <div class="col-md-4">
-          <button mat-raised-button color="primary" [disabled]="!isRefSubTypeEmpty" (click)="open(mymodal)"
-            style="margin-top: 30px">{{bodyLabel[1].title}}</button>
-        </div>
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <label class="form-label" for="form3Example1">Reference Type</label>
+        <ng-select [items]="refType$ | async" bindLabel="refType"
+          (change)="onRefTypeChange($event)">
+        </ng-select>
       </div>
+      <div class="col-md-4">
+        <label class="form-label" for="form3Example2">Reference Sub Type</label>
+        <ng-select [items]="refSubType$" bindLabel="refSubType" [multiple]="false"
+          (change)="onRefSubTypeChange($event)">
+        </ng-select>
+      </div>
+      <div class="col-md-4">
+        <button mat-raised-button color="primary" [disabled]="!isRefSubTypeEmpty" (click)="open(mymodal)"
+          style="margin-top: 30px">{{bodyLabel[1].title}}</button>
+      </div>
+    </div>
+    <form [formGroup]="formGroup">
       <mat-form-field appearance="fill" class="w-100" floatLabel="never">
         <mat-label>Search</mat-label>
-        <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords()" class="ArFontStyle" />
+        <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)" class="ArFontStyle" />
         <mat-icon matPrefix class="material-icons">search</mat-icon>
         <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
       </mat-form-field>
-      <div class="table-container">
-        <table mat-table class="w-100" [dataSource]="refTableDto" matSort>
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef class="ArFontStyle">Action</th>
-            <td mat-cell *matCellDef="let item" class="w-10 text-right">
-              <div *ngIf="item.infrastructure == 'Y'">                            
-                <button mat-raised-button color="warn" [disabled]="true" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
-                &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal,item.refid)">Edit</button>
-              </div>   
-              <div *ngIf="item.infrastructure == 'N'">
-                <button mat-raised-button color="warn" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
-                &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal)">Edit</button>
-              </div>   
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Sr">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">Ref Subtype-Ref Type-REf ID
-            </th>
-            <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.refid }} {{item.reftype }}
-              {{item.refsubtype }}</td>
-          </ng-container>
-          <ng-container matColumnDef="shortName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Short Name</th>
-            <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.shortname}}</td>
-          </ng-container>
-          <ng-container matColumnDef="englishName1">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">English Name 1</th>
-            <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
-              {{item.refname1}}</td>
-          </ng-container>
-          <ng-container matColumnDef="arabicName2">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Arabic Name 2</th>
-            <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
-              {{item.refname1}}</td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
-            [ngClass]="{'hidden':!isLoadingCompleted}" class="setup-search-header"></tr>
-          <tr mat-row *matRowDef="let refTableDto; columns: columnsToDisplay"></tr>
-        </table>
-      </div>
-      <div [ngClass]="{'hidden':!isLoadingCompleted}">
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" (page)="onPaginationChange($event)" showFirstLastButtons>
-        </mat-paginator>
-      </div>
     </form>
+    <div class="table-container">
+      <table mat-table class="w-100" [dataSource]="refTableDto" matSort>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef class="ArFontStyle">Action</th>
+          <td mat-cell *matCellDef="let item" class="w-10 text-right">
+            <div *ngIf="item.infrastructure == 'Y'">                            
+              <button mat-raised-button color="warn" [disabled]="true" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
+              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal,item.refid)">Edit</button>
+            </div>   
+            <div *ngIf="item.infrastructure == 'N'">
+              <button mat-raised-button color="warn" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
+              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal)">Edit</button>
+            </div>   
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Sr">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">Ref Subtype-Ref Type-REf ID
+          </th>
+          <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.refid }} {{item.reftype }}
+            {{item.refsubtype }}</td>
+        </ng-container>
+        <ng-container matColumnDef="shortName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Short Name</th>
+          <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.shortname}}</td>
+        </ng-container>
+        <ng-container matColumnDef="englishName1">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">English Name 1</th>
+          <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
+            {{item.refname1}}</td>
+        </ng-container>
+        <ng-container matColumnDef="arabicName2">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Arabic Name 2</th>
+          <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
+            {{item.refname1}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
+          [ngClass]="{'hidden':!isLoadingCompleted}" class="setup-search-header"></tr>
+        <tr mat-row *matRowDef="let refTableDto; columns: columnsToDisplay"></tr>
+      </table>
+    </div>
+    <div [ngClass]="{'hidden':!isLoadingCompleted}">
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[10,20,30]" (page)="onPaginationChange($event)" showFirstLastButtons>
+      </mat-paginator>
+    </div>
   </div>
   <!--begin::Body-->
   <div class="card-footer">

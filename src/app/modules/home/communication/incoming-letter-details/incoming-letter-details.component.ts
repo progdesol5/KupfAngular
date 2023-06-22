@@ -69,6 +69,7 @@ export class IncomingLetterDetailsComponent implements OnInit {
 
   // FormId
   formId: string;
+  pageSize: number = 10;
 
   /*----------------------------------------------------*/
   //#endregion
@@ -89,7 +90,7 @@ export class IncomingLetterDetailsComponent implements OnInit {
     this.formTitle = this.common.getFormTitle();
     this.formTitle = '';
 
-    this.loadData();
+    this.loadData(0);
 
     //#region TO SETUP THE FORM LOCALIZATION    
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
@@ -126,13 +127,16 @@ export class IncomingLetterDetailsComponent implements OnInit {
 
 
 
-  loadData() {
-    this.incommingCommunicationDto$ = this._communicationService.GetIncomingLetters();
-    this.incommingCommunicationDto$.subscribe((response: IncommingCommunicationDto[]) => {
+  loadData(pageIndex: number) {
+    this._communicationService.GetIncomingLetters(pageIndex + 1, this.pageSize, this.formGroup.value.searchTerm).subscribe((response: any) => {
       this.incommingCommunicationDto = new MatTableDataSource<IncommingCommunicationDto>(response);
       this.incommingCommunicationDto.paginator = this.paginator;
       this.incommingCommunicationDto.sort = this.sort;
       this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = response.body.totalRecords;
+      });
     }, error => {
       console.log(error);
       this.dataLoadingStatus = 'Error fetching the data';
@@ -141,16 +145,21 @@ export class IncomingLetterDetailsComponent implements OnInit {
   }
 
 
-  filterRecords() {
+  filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.incommingCommunicationDto) {
       this.incommingCommunicationDto.filter = this.formGroup.value.searchTerm.trim();
     }
+    if( pageIndex == 0) this.loadData(0);
+    else this.loadData(this.paginator.pageIndex);
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
     this.filterRecords();
   }
-
+  onPaginationChange(event: any) {
+    this.pageSize = event.pageSize;
+    this.loadData(event.pageIndex);
+  }
 
   openDeleteModal(content: any, id: number) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -161,7 +170,7 @@ export class IncomingLetterDetailsComponent implements OnInit {
           if (response === 1) {
               this.toastrService.success('Record deleted successfully', 'Success');
             // Refresh Grid
-            this.loadData();
+            this.loadData(0);
           } else {
             this.toastrService.error('Something went wrong', 'Error');
           }
