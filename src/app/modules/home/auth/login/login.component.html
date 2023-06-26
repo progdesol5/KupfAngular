@@ -10,11 +10,14 @@
     <a routerLink="/" class="mb-6">
       <img alt="Logo" src="assets/media/logos/SSF logo.png" style="width: 500px;height: 80px;" />
     </a>
-    <div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">      
-      <form class="form w-100" [formGroup]="loginForm">
+    <div class="w-lg-500px p-10 p-lg-15 mx-auto">      
+      <form class="form w-100" [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
         <!--begin::Heading-->
         <div class="text-center mb-7">
-          <h1 class="text-dark mb-3 fw-bolder">Sign In to KUPF</h1>
+          <h1 class="text-dark mb-3">Sign In</h1>
+        </div>
+        <div class="text-center mb-7">
+          <h3 class="text-gray-400 mb-3 fw-bolder">Enter your details to login to your account</h3>
         </div>
         <!--Tenant ID-->
         <!-- <div class="row">
@@ -29,7 +32,7 @@
           <input type="number" class="form-control form-control-lg form-control-solid" value="21"/>
         </div> -->
         <!-- end::Alert info-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
             <label class="form-label fs-6 fw-bolder text-dark ArFontStyle" lang="AR-SA">تسجيل الدخول
 </label>
@@ -37,28 +40,36 @@
           <div class="col-md-6 text-left">
             <label class="form-label fs-6 fw-bolder text-dark ">Login ID</label>
           </div>
+        </div> -->
+        <div class="row mb-10">
+          <input type="text" class="form-control form-control-lg form-control-solid" formControlName="tenentId"
+            required placeholder="Tenant Id"/>
+          <div *ngIf="(tenentId?.invalid && tenentId?.touched) || tenentId?.dirty">
+            <span *ngIf="tenentId.errors?.required" class="text-danger">Please enter tenent Id</span>
+          </div>
         </div>
-        <div class="fv-row mb-10">
-          <input type="text" class="form-control form-control-lg form-control-solid" formControlName="username"
-            required value="prog1"/>
-          <div *ngIf="(username?.invalid && username?.touched) || username?.dirty">
-            <span *ngIf="username.errors?.required" class="text-danger">Please enter username</span>
+        <div class="row mb-10">
+          <input type="email" class="form-control form-control-lg form-control-solid" formControlName="useremail"
+            required placeholder="Email"/>
+          <div *ngIf="(useremail?.invalid && useremail?.touched) || useremail?.dirty">
+            <span *ngIf="useremail.errors?.required" class="text-danger">Please enter user email</span>
+            <span *ngIf="useremail.errors?.email" class="text-danger">Email is invalid</span>
           </div>
         </div>
         <!--end::Form group-->
 
         <!--begin::Form group-->
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-6">
             <label class="form-label fw-bolder text-dark fs-6 mb-0 ArFontStyle" lang="AR-SA">كلمه السر</label>
           </div>
           <div class="col-md-6 text-left">
             <label class="form-label fw-bolder text-dark fs-6 mb-0">Password </label>
           </div>
-        </div>
-        <div class="fv-row mb-10">
+        </div> -->
+        <div class="row mb-10">
           <input type="password" class="form-control form-control-lg form-control-solid" formControlName="password"
-            required value="Shakir"/>
+            required placeholder="Password"/>
           <span class="text-danger" *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty 
             || loginForm.controls['password'].touched)">
             Please enter password
@@ -89,8 +100,7 @@
         </div>
         <!--begin::Action-->
         <div class="text-center">
-          <button type="submit"  class="btn btn-lg btn-primary w-100 mb-5"
-            (click)="login()">
+          <button type="submit" class="btn btn-primary mb-5 mt-5">
               <ng-container *ngIf="isLoading$ | async">
                 <span class="indicator-progress" [style.display]="'block'">
                   Please wait...
@@ -98,7 +108,7 @@
                 </span>
               </ng-container>
             <ng-container *ngIf="!(isLoading$ | async)">
-              <span class="indicator-label">Login</span>
+              <span class="indicator-label">Sign In</span>
             </ng-container>
           </button>
         </div>

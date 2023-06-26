@@ -341,15 +341,15 @@ export class AddServiceSetupComponent implements OnInit {
     });
 
     // Get Tenant Id
-    // var data = JSON.parse(localStorage.getItem("user")!);
-    // const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+    var data = JSON.parse(localStorage.getItem("user")!);
+    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
 
     //  TO CONVER OBJECT ARRAY AS SIMPLE ARRAY. 
     let formData = {
       ...this.parentForm.value.addServiceSetupForm,
       ...this.parentForm.value.approvalDetailsForm,
       ...this.parentForm.value.financialForm,     
-      tenentID: 21, cruP_ID: 0
+      tenentID: tenantId[0], cruP_ID: 0
     }
     const finalformData = new FormData();
 
