@@ -49,11 +49,10 @@
           </div>
         </div>
         <div class="row mb-10">
-          <input type="email" class="form-control form-control-lg form-control-solid" formControlName="useremail"
-            required placeholder="Email"/>
-          <div *ngIf="(useremail?.invalid && useremail?.touched) || useremail?.dirty">
-            <span *ngIf="useremail.errors?.required" class="text-danger">Please enter user email</span>
-            <span *ngIf="useremail.errors?.email" class="text-danger">Email is invalid</span>
+          <input type="email" class="form-control form-control-lg form-control-solid" formControlName="username"
+            required placeholder="Username"/>
+          <div *ngIf="(username?.invalid && username?.touched) || username?.dirty">
+            <span *ngIf="username.errors?.required" class="text-danger">Please enter username</span>
           </div>
         </div>
         <!--end::Form group-->

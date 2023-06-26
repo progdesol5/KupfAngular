@@ -65,13 +65,13 @@ initForm() {
   this.loginForm = this.fb.group({
     //username: prog1, password: Shakir
       tenentId: new FormControl('', Validators.required),
-      useremail: new FormControl('',[Validators.required, Validators.email]),
+      username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       locations:['']
   });
 }
 // To access username in .html file.
-get useremail(){return this.loginForm.get('useremail')}
+get username(){return this.loginForm.get('username')}
 get tenentId(){return this.loginForm.get('tenentId')}
 
 //If user has multiple locations so login to the selected location...
@@ -98,11 +98,11 @@ ngOnDestroy() {
 // User Login
 async login(form: any) {
   if(form.valid){
-    await this.loginService.Login([this.loginForm.value.tenentId,this.loginForm.value.useremail,this.loginForm.value.password])
+    await this.loginService.Login([this.loginForm.value.tenentId,this.loginForm.value.username,this.loginForm.value.password])
       .subscribe((response: Login[])=>{
       this.loginDto = response
       if(this.loginDto.length == 0){
-        this.toastr.error('Invalid tenentId, useremail or password','Error');
+        this.toastr.error('Invalid tenentId, username or password','Error');
         this.isSuccess = false;
         this.loginService.isLoading = false;
       }
