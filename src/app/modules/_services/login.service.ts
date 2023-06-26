@@ -56,7 +56,7 @@ export class LoginService {
     this.isLoading = true;
     return this.httpClient.post<Login[]>(this.baseUrl + `Login/EmployeeLogin`,{
       tenentId:model[0],
-      useremail:model[1],
+      username:model[1],
       password:model[2]
     }).pipe(
         map((loginDto: Login[]) => {
