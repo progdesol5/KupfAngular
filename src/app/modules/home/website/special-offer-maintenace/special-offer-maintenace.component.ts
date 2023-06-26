@@ -167,13 +167,17 @@ export class SpecialOfferMaintenaceComponent implements OnInit {
     })
     this.parentForm.setControl('offerForm', this.offerForm);
   }
+  
   get _offerForm() { return this.offerForm.controls; }
   onOfferFormSubmit() {
+    var data = JSON.parse(localStorage.getItem("user")!);
+    const tenantId = data.map((obj: { tenantId: any; }) => obj.tenantId);
+
     this.isFormSubmitted = true;
     let formData = {
       ...this.parentForm.value.offerForm,
       ...this.parentForm.value.editorForm,
-      tenentID: 21, cruP_ID: 0
+      tenentID: tenantId[0], cruP_ID: 0
     }
    
     const finalformData = new FormData();

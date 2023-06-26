@@ -58,17 +58,21 @@ selectedCar: number;
     
 ngOnInit(): void {  
   this.initForm();
+  this.isLoading$ = this.loginService.isLoading$;
 }
 
 initForm() {
   this.loginForm = this.fb.group({
-       username: new FormControl('prog1',Validators.required),
-       password: ['Shakir', Validators.required],
-       locations:['']
+    //username: prog1, password: Shakir
+      tenentId: new FormControl('', Validators.required),
+      useremail: new FormControl('',[Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+      locations:['']
   });
 }
 // To access username in .html file.
-get username(){return this.loginForm.get('username')}
+get useremail(){return this.loginForm.get('useremail')}
+get tenentId(){return this.loginForm.get('tenentId')}
 
 //If user has multiple locations so login to the selected location...
 onLocationChange(e:any){
@@ -92,48 +96,53 @@ ngOnDestroy() {
 }
 
 // User Login
-async login() {
-  await this.loginService.Login([this.loginForm.value.username,this.loginForm.value.password])
-    .subscribe((response: Login[])=>{
-    this.loginDto = response
-    if(this.loginDto.length == 0){
-      this.toastr.error('Invalid username or password','Error');
-      this.isSuccess = false;
-    }
-    else if(this.loginDto.length == 1){ 
-      this.toastr.success('Login Success','Success');       
-      this.isSuccess = false;
-      if(localStorage.getItem('user') != null){
-        localStorage.removeItem("user");
-        localStorage.setItem("user",JSON.stringify(this.loginDto));
-      }else{
-        localStorage.setItem("user",JSON.stringify(this.loginDto));
+async login(form: any) {
+  if(form.valid){
+    await this.loginService.Login([this.loginForm.value.tenentId,this.loginForm.value.useremail,this.loginForm.value.password])
+      .subscribe((response: Login[])=>{
+      this.loginDto = response
+      if(this.loginDto.length == 0){
+        this.toastr.error('Invalid tenentId, useremail or password','Error');
+        this.isSuccess = false;
+        this.loginService.isLoading = false;
       }
-      // TO get UserMenu Options by UserId...
-      this.loginService.GetUserFunctionsByUserId(this.loginDto[0].userId).subscribe((response:any[])=>{
-        this.menuHeading = response;   
-         
-        if(localStorage.getItem('userMenu') != null){
-          localStorage.removeItem("userMenu");
-          localStorage.setItem('userMenu',JSON.stringify(this.menuHeading));
-          this.commonService.menuSessionUdpated.next({});
+      else if(this.loginDto.length == 1){ 
+        this.toastr.success('Login Success','Success');       
+        this.isSuccess = false;
+        if(localStorage.getItem('user') != null){
+          localStorage.removeItem("user");
+          localStorage.setItem("user",JSON.stringify(this.loginDto));
         }else{
-         
-          localStorage.setItem('userMenu',JSON.stringify(this.menuHeading));
-          this.commonService.menuSessionUdpated.next({});
+          localStorage.setItem("user",JSON.stringify(this.loginDto));
         }
-        
-      });
-      this.router.navigateByUrl('/dashboard')      
-    }
-    else if(this.loginDto.length > 1){      
-      this.toastr.success('Login Success','Success'); 
-      this.router.navigateByUrl('/dashboard')   
-      this.locations = this.loginDto;
-      this.isSuccess = true;
-      //this.cd.detectChanges();
-    }
-  })
+        // TO get UserMenu Options by UserId...
+        this.loginService.GetUserFunctionsByUserId(this.loginDto[0].userId).subscribe((response:any[])=>{
+          this.menuHeading = response;   
+           
+          if(localStorage.getItem('userMenu') != null){
+            localStorage.removeItem("userMenu");
+            localStorage.setItem('userMenu',JSON.stringify(this.menuHeading));
+            this.commonService.menuSessionUdpated.next({});
+          }else{
+           
+            localStorage.setItem('userMenu',JSON.stringify(this.menuHeading));
+            this.commonService.menuSessionUdpated.next({});
+          }
+          
+        });
+        this.router.navigateByUrl('/dashboard')      
+      }
+      else if(this.loginDto.length > 1){      
+        this.toastr.success('Login Success','Success'); 
+        this.router.navigateByUrl('/dashboard')   
+        this.locations = this.loginDto;
+        this.isSuccess = true;
+        //this.cd.detectChanges();
+      }
+    })
+  } else {
+    Object.values(this.loginForm.controls).forEach(control => control.markAsTouched());
+  }
 }
 
 }
