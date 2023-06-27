@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './modules/home/auth/login/login.component';
 import { AuthGuard } from './modules/auth/services/auth.guard';
+import { LoginAuthGuard } from './modules/auth/services/login.auth.guard';
+
 export const routes: Routes = [
   // {
   //   path: 'auth',
@@ -16,7 +18,7 @@ export const routes: Routes = [
   // {path:'',redirectTo:'dashboard', pathMatch:'full'},
   // {path:'login',component:LoginComponent},
   { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginAuthGuard] },
   
 
   {
@@ -30,6 +32,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  providers: [AuthGuard],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

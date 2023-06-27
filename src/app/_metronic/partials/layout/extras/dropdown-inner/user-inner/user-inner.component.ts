@@ -15,6 +15,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   language: LanguageFlag;
   user$: Observable<UserType>;
+  isLoading$: Observable<boolean>;
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
@@ -27,11 +28,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
-  }
-
-  logout() {
-    this.auth.logout();
-    document.location.reload();
+    this.isLoading$ = this.loginService.isLoading$;
   }
 
   selectLanguage(lang: string) {
@@ -50,9 +47,9 @@ export class UserInnerComponent implements OnInit, OnDestroy {
       }
     });
   }
- Logout(){
-  this.loginService.logout();
-  localStorage.removeItem('user');
+ logout(){
+  this.auth.logout();
+  this.loginService.isLoading = false;
  }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
