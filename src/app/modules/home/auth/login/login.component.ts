@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth';
 import { Login } from 'src/app/modules/models/login';
 import { MenuHeading } from 'src/app/modules/models/MenuHeading';
 import { UserFunctionDto } from 'src/app/modules/models/UserFunctions/UserFunctionDto';
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { DbCommonService } from 'src/app/modules/_services/db-common.service';
 import { LoginService } from 'src/app/modules/_services/login.service';
+import { UserModel } from 'src/app/modules/auth';
 
 @Component({
   selector: 'app-login',
@@ -40,13 +42,13 @@ constructor(
   private fb: FormBuilder,
   private router: Router,
   private loginService: LoginService,
+  private authService: AuthService,
   private toastr: ToastrService,
   private OccupationService: DbCommonService,
   private modalService: NgbModal,
   private cd: ChangeDetectorRef,
   private commonService: CommonService
 ) {
-  
 }
 selectedCar: number;
     cars = [
@@ -115,6 +117,9 @@ async login(form: any) {
         }else{
           localStorage.setItem("user",JSON.stringify(this.loginDto));
         }
+        const newUser = new UserModel();
+        newUser.setUser(this.loginDto[0]);
+        this.authService.currentUserValue = newUser;
         // TO get UserMenu Options by UserId...
         this.loginService.GetUserFunctionsByUserId(this.loginDto[0].userId).subscribe((response:any[])=>{
           this.menuHeading = response;   
