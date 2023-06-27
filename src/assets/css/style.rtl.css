@@ -47162,7 +47162,7 @@ body {
     padding-top: 65px;
   }
   .header-fixed.toolbar-fixed .wrapper {
-    padding-top: calc(65px + var(--kt-toolbar-height));
+    padding-top: calc(65px + 55px);
   }
 }
 @media (max-width: 991.98px) {
@@ -47273,7 +47273,7 @@ body[dir="rtl"] .engage-toolbar {
 }
 @media (min-width: 992px) {
   .toolbar-fixed .toolbar {
-    height: var(--kt-toolbar-height);
+    height: 55px;
     position: fixed;
     top: 0;
     left: 0;
