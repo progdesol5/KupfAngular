@@ -12,7 +12,7 @@ import { switchMap, timeout } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  private readonly timeoutDuration = 1 * 60 * 1000; // 10 minutes in milliseconds
+  private readonly timeoutDuration = 10 * 60 * 1000; // 10 minutes in milliseconds
   constructor(private authService: AuthService, private router: Router, private loginService: LoginService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
