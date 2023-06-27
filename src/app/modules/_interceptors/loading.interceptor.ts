@@ -16,7 +16,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     this.busyService.busy();
-    if (request.url.includes('/Login')) {
+    if (request.url.includes('/Login/EmployeeLogin')) {
       return next.handle(request).pipe(
         delay(1000),
         finalize(()=>{
