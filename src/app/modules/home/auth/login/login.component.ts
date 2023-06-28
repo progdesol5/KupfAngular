@@ -117,9 +117,14 @@ async login(form: any) {
         }else{
           localStorage.setItem("user",JSON.stringify(this.loginDto));
         }
-        const newUser = new UserModel();
-        newUser.setUser(this.loginDto[0]);
-        this.authService.currentUserValue = newUser;
+        const userJson = localStorage.getItem('user');
+        if (userJson) {
+          const userArray: UserModel[] = JSON.parse(userJson);
+          if (userArray.length > 0) {
+            this.authService.currentUserValue = userArray[0];
+            console.log(this.authService.currentUserValue)
+          }
+        }
         // TO get UserMenu Options by UserId...
         this.loginService.GetUserFunctionsByUserId(this.loginDto[0].userId).subscribe((response:any[])=>{
           this.menuHeading = response;   

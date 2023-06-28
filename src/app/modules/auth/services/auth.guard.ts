@@ -48,8 +48,6 @@ export class AuthGuard implements CanActivate {
       // Subscribe to the timeoutObservable to handle the timeout error
       timeoutObservable.subscribe({
         error: () => {
-          console.log('error timeout')
-          console.log(timeLeft)
           // Logout and navigate to the login page when the timeout expires
           this.authService.logout();
           this.loginService.isLoading = false;

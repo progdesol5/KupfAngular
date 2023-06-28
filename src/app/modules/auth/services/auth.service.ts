@@ -41,6 +41,14 @@ export class AuthService implements OnDestroy {
     this.isLoading$ = this.isLoadingSubject.asObservable();
     const subscr = this.getUserByToken().subscribe();
     this.unsubscribe.push(subscr);
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      const userArray: UserModel[] = JSON.parse(userJson);
+      if (userArray.length > 0) {
+        this.currentUserValue = userArray[0];
+        console.log(this.currentUserValue)
+      }
+    }
   }
 
   // public methods

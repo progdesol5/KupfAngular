@@ -59,4 +59,10 @@ export class EmployeeService {
   FilterEmployee(userParams: UserParams, query: string, filterVal: any) {
     return this.httpClient.get(this.baseUrl + `Employee/FilterEmployee?PageNumber=${userParams.pageNumber}&PageSize=${userParams.pageSize}&Query=${query}&filterVal=${filterVal}`, { observe: 'response' });
   }
+  DownloadSampleFile(sampleFileName: string) {
+    return this.httpClient.get(this.baseUrl + `Employee/DownloadSampleFile?fileName=${sampleFileName}`, { responseType: 'blob' });
+  }
+  UploadEmployeeExcelFile(formData: FormData) {
+    return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`, formData);
+  }
 }

@@ -25,7 +25,6 @@ export class LoadingInterceptor implements HttpInterceptor {
       );;
     }
     const token = this.authService.getToken(); // Get the token from your authentication service
-    console.log('token', token)
     if (token) {
       request = request.clone({
         setHeaders: {

@@ -14,6 +14,7 @@ export class UserModel extends AuthModel {
   companyName: string;
   phone: string;
   address?: AddressModel;
+  tenantId: number;
   socialNetworks?: SocialNetworksModel;
   // personal information
   firstname: string;
