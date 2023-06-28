@@ -21,10 +21,29 @@
             <div class="row gx-9 gy-6">
                 <form autocomplete="off">
                     <div class="row mb-4">                       
+                        <div class="col-lg-9 fv-row">
+                            <div class="mt-4">
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">Select Sample Filetype</label>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <ng-select 
+                                            [(ngModel)]="selectedSampleFile"
+                                            [ngModelOptions]="{ standalone: true }">
+                                            <ng-option *ngFor="let sampleFileType of sampleFileTypes" [value]="sampleFileType.value">{{ sampleFileType.text }}</ng-option>
+                                        </ng-select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <button type="button" class="btn btn-secondary float-right" lang="AR-SA" (click)="downloadFile()">Download Sample File</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">                       
                         <div class="col-lg-6 fv-row">
                             <div class="mt-4">
                                 <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[0].title}}</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" (change)="onFileChange($event.target.files)">
                                 <span><small class="text-danger ArFontStyle" lang="AR-SA"></small></span>
                               </div>
                         </div>
@@ -38,6 +57,6 @@
     </div>
     <!--end::Tab content-->
     <div class="card-footer d-flex justify-content-end py-6 px-9 " *ngFor="let bodyLabel of formBodyLabels; let i = index">
-        <button type="button" class="btn btn-primary float-right ArFontStyle btn-bg" lang="AR-SA"> {{bodyLabel[4].title}}</button>
+        <button type="button" class="btn btn-primary float-right ArFontStyle btn-bg" lang="AR-SA" (click)="uploadEmployeeExcelFile()"> {{bodyLabel[4].title}}</button>
     </div>
 </div>

@@ -3,12 +3,21 @@ import { Observable } from 'rxjs';
 import { FormTitleDt } from 'src/app/modules/models/formTitleDt';
 import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 import { LocalizationService } from 'src/app/modules/_services/localization.service';
+import { EmployeeService } from 'src/app/modules/_services/employee.service';
+import { AuthService } from 'src/app/modules/auth';
+import { ToastrService } from 'ngx-toastr';
+
+interface SampleFile {
+  value: string;
+  text: string;
+}
 
 @Component({
   selector: 'app-import-employee-master',
   templateUrl: './import-employee-master.component.html',
   styleUrls: ['./import-employee-master.component.scss']
 })
+
 export class ImportEmployeeMasterComponent implements OnInit {
  
 // /*********************/
@@ -40,12 +49,20 @@ export class ImportEmployeeMasterComponent implements OnInit {
 
     // FormId
     formId: string;
+    file: File | null = null;
+    sampleFileTypes: SampleFile[] = [
+      {value: 'ImpEmpServiceData', text: 'Important Employee Service Data'}
+    ];
+    selectedSampleFile: string = this.sampleFileTypes[0].value;
 
     /*----------------------------------------------------*/  
   //#endregion
 
-
-  constructor() { }
+  constructor(
+    private employeeService: EmployeeService,
+    private authService: AuthService,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     //#region TO SETUP THE FORM LOCALIZATION    
@@ -77,7 +94,51 @@ export class ImportEmployeeMasterComponent implements OnInit {
     }
     //#endregion
   }
+  onFileChange(files: FileList):void {
+    const tempFile = files.item(0) || null;
+    if (tempFile && this.isExcelFile(tempFile.name)) {
+      this.file = tempFile;
+    } else {
+      this.toastr.warning('Invalid file type. Only XLSX, XLS, and CSV files are allowed.'); 
+    }
+  }
+  isExcelFile(fileName: string): boolean {
+    return /\.(xlsx|xls|csv)$/i.test(fileName);
+  }
+  downloadFile(): void {
+    // Send a GET request to the server to download the file
+    this.employeeService.DownloadSampleFile(this.selectedSampleFile).subscribe((response: any) => {
+      // Create a URL for the response blob
+      const url = URL.createObjectURL(response);
   
+      // Create a link element and click it to trigger the download
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = this.selectedSampleFile;
+      link.click();
+  
+      // Release the URL object
+      URL.revokeObjectURL(url);
+    });
+  }
+  uploadEmployeeExcelFile(): void {
+    const currentUser = this.authService.currentUserValue;
+    if(currentUser && this.file) {
+      const formData = new FormData();
+      formData.append('file', this.file);
+      formData.append('tenantId', currentUser.tenantId.toString());
+      formData.append('username', currentUser.username);
+      this.employeeService.UploadEmployeeExcelFile(formData).subscribe(
+        (response: any) => {
+          console.log(response)
+        }),
+        (error: any) => {
+          console.log(error)
+        }
+    } else {
+      this.toastr.warning('Invalid file or user information')
+    }
+  }
   // ngAfterViewInit() {
   //   // TO get the form id...
   //   this.id = this.hidden.nativeElement.value;
