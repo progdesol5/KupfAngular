@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -63,6 +63,10 @@ export class EmployeeService {
     return this.httpClient.get(this.baseUrl + `Employee/DownloadSampleFile?fileName=${sampleFileName}`, { responseType: 'blob' });
   }
   UploadEmployeeExcelFile(formData: FormData) {
-    return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`, formData);
+    const headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
+    });
+    return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`,formData, {headers: headers});
   }
+  
 }
