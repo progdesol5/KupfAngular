@@ -66,9 +66,9 @@ ngOnInit(): void {
 initForm() {
   this.loginForm = this.fb.group({
     //username: prog1, password: Shakir
-      tenentId: new FormControl('', Validators.required),
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      tenentId: new FormControl('21', Validators.required),
+      username: new FormControl('prog1', Validators.required),
+      password: new FormControl('Shakir', Validators.required),
       locations:['']
   });
 }
