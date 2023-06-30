@@ -42,11 +42,30 @@
             <label class="form-label fs-6 fw-bolder text-dark ">Login ID</label>
           </div>
         </div> -->
+        <div class="row">
+          <div class="col-md-6 text-left">
+            <label class="form-label fs-6 fw-bolder text-dark">Tenant Id</label>
+          </div>          
+          <div class="col-md-6 text-right">
+            <label class="form-label fs-6 fw-bolder text-dark ArFontStyle" lang="AR-SA">معرف المستأجر</label>
+          </div>
+        </div>
         <div class="row mb-10">
           <input type="text" class="form-control form-control-lg form-control-solid" formControlName="tenentId"
             required placeholder="Tenant Id"/>
           <div *ngIf="(tenentId?.invalid && tenentId?.touched) || tenentId?.dirty">
             <span *ngIf="tenentId.errors?.required" class="text-danger">Please enter tenent Id</span>
+          </div>
+        </div>
+        
+        <div class="row">
+          
+          <div class="col-md-6 text-left">
+            <label class="form-label fs-6 fw-bolder text-dark ">Username</label>
+          </div>
+          <div class="col-md-6 text-right">
+            <label class="form-label fs-6 fw-bolder text-dark ArFontStyle" lang="AR-SA">اسم المستخدم
+            </label>
           </div>
         </div>
         <div class="row mb-10">
@@ -59,14 +78,15 @@
         <!--end::Form group-->
 
         <!--begin::Form group-->
-        <!-- <div class="row">
-          <div class="col-md-6">
-            <label class="form-label fw-bolder text-dark fs-6 mb-0 ArFontStyle" lang="AR-SA">كلمه السر</label>
-          </div>
+        <div class="row">
+          
           <div class="col-md-6 text-left">
             <label class="form-label fw-bolder text-dark fs-6 mb-0">Password </label>
           </div>
-        </div> -->
+          <div class="col-md-6 text-right">
+            <label class="form-label fw-bolder text-dark fs-6 mb-0 ArFontStyle" lang="AR-SA">كلمه المرور</label>
+          </div>
+        </div>
         <div class="row mb-10">
           <input type="password" class="form-control form-control-lg form-control-solid" formControlName="password"
             required placeholder="Password"/>
