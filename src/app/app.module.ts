@@ -24,6 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatePipe } from '@angular/common';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 // #fake-end#
 
@@ -45,6 +47,8 @@ function appInitializer(authService: AuthService) {
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot(),
     HttpClientModule,
