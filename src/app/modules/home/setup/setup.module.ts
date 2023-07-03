@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { UserFunctionsComponent } from '../auth/users/user-functions/user-functions.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MaterialModule,
     NgbModule,
     NgSelectModule,
+    TranslateModule
   ],
   exports:[
     NgSelectModule,

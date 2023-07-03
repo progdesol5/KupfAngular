@@ -66,6 +66,19 @@
         "employee": "موظف",
         "mobile": "متحرك",
         "service": "خدمة",
-        "edit": "يحرر"
+        "edit": "يحرر",
+        "draft": "مسودة",
+        "deliver": "يسلم",
+        "jvView": "عرض JV",
+        "subscriptionDetail": "تفاصيل الاشتراك",
+        "addSubscription": "إضافة اشتراك",
+        "printSubscription": "الاشتراك في الطباعة",
+        "employeeNameEmpNoPF": "اسم الموظف Emp # لا PF",
+        "dateSubscribed": "تاريخ الاشتراك",
+        "voucher": "فاتورة",
+        "employeeNameEnglishArabic": "اسم الموظف انجليزي / عربي",
+        "civilIdEmployeePF": "الهوية المدنية / الموظف / PF",
+        "transactionId": "رقم المعاملة",
+        "jvId": "JvId"
     }
 }

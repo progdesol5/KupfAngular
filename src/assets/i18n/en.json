@@ -67,6 +67,19 @@
         "employee": "Employee",
         "mobile": "Mobile",
         "service": "Service",
-        "edit": "Edit"
+        "edit": "Edit",
+        "draft": "Draft",
+        "deliver": "Deliver",
+        "jvView": "JV View",
+        "subscriptionDetail": "Subscription Detail",
+        "addSubscription": "Add Subscription",
+        "printSubscription": "Print Subscription",
+        "employeeNameEmpNoPF": "Employee Name Emp# No PF",
+        "dateSubscribed": "Date Subscribed",
+        "voucher": "Voucher",
+        "employeeNameEnglishArabic": "Employee Name English/Arabic",
+        "civilIdEmployeePF": "Civil Id/Employee/PF",
+        "transactionId": "Transaction Id",
+        "jvId": "JvId"
     }
 }

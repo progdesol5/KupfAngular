@@ -4,12 +4,12 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 headerWebOrange">     
         <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-white ArFontStyle" lang="AR-SA" id="SubscriptionDetails">{{label.headerName}}</h3>
+            <h3 class="text-white ArFontStyle" lang="AR-SA" id="SubscriptionDetails">{{ 'content.subscriptionDetail' | translate }}</h3>
         </div>  
         <h3 class="card-title align-items-start flex-column" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary ArFontStyle btn_orange_peach" lang="AR-SA" routerLink="/references/add-subscription">{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle btn_orange_peach" lang="AR-SA" (click)="reloadPage()">{{bodyLabel[1].title}}</button>
+                <button type="button" class="btn btn-prim   ary ArFontStyle btn_orange_peach" lang="AR-SA" routerLink="/references/add-subscription">{{ 'content.addSubscription' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn_orange_peach" lang="AR-SA" (click)="reloadPage()">{{ 'content.printSubscriptin' | translate }}</button>
             </div> 
         </h3>
     </div>
@@ -109,13 +109,13 @@
                 <!--begin::Table head-->
                 <thead class="bg-light-primary">
                     <tr class="fw-bolder t_header_orangeTexasRose">
-                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA" >{{bodyLabel[2].title}}</th>
-                        <th class="min-w-100px ArFontStyle" lang="AR-SA" >{{bodyLabel[3].title}}</th>
-                        <th class="min-w-100px ArFontStyle" lang="AR-SA" >{{bodyLabel[4].title}}</th>
-                        <th class="min-w-140px ArFontStyle" lang="AR-SA" >{{bodyLabel[5].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA" >{{bodyLabel[6].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA" >{{bodyLabel[7].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</th>                        
+                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA" >{{ 'content.actions' | translate}}</th>
+                        <th class="min-w-100px ArFontStyle" lang="AR-SA" >{{ 'content.employeeNameEmpNoPF' | translate}}</th>
+                        <th class="min-w-100px ArFontStyle" lang="AR-SA" >{{ 'content.status' | translate}}</th>
+                        <th class="min-w-140px ArFontStyle" lang="AR-SA" >{{ 'content.mobile' | translate}}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA" >{{ 'content.dateSubscribed' | translate}}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA" >{{ 'content.services' | translate}}</th>
+                        <!-- <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</th>                         -->
                     </tr>
                 </thead>
                 <!--end::Table head-->

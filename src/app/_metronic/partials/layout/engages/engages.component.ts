@@ -127,6 +127,7 @@ export class EngagesComponent implements OnInit {
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'ar') {
         this.selectedLanguage = 'ar';
+        this.ifAlreadySelected = true;
         localStorage.setItem('lang', language);
         // Set Language value 
         localStorage.setItem('langType', '2');
