@@ -23,6 +23,7 @@ import { PageTitleComponent } from './components/header/page-title/page-title.co
 import { HeaderMenuComponent } from './components/header/header-menu/header-menu.component';
 import { DrawersModule, DropdownMenusModule, ModalsModule, EngagesModule} from '../partials';
 import {EngagesComponent} from "../partials/layout/engages/engages.component";
+import { NgxTranslateModule } from 'src/app/modules/i18n';
 
 const routes: Routes = [
   {
@@ -59,7 +60,7 @@ const routes: Routes = [
     EngagesModule,
     DropdownMenusModule,
     NgbTooltipModule,
-    TranslateModule,
+    NgxTranslateModule
   ],
   exports: [RouterModule],
 })

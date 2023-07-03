@@ -78,9 +78,14 @@ export class AuthService implements OnDestroy {
     });
   }
   getToken() {
-    const user = JSON.parse(localStorage.getItem('user') || '{}')
-    const token = user[0].token;
-    return token;
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      const token = parsedUser[0].token;
+      return token
+    } else {
+      return null;
+    }
   }
 
   getUserByToken(): Observable<UserType> {

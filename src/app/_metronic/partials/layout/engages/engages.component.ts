@@ -13,7 +13,7 @@ export class EngagesComponent implements OnInit {
   ifAlreadySelected: boolean;
   currentURL: string = '';
   selectedLanguage: any;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private translate: TranslateService) { }
 
   // async reload(url: string): Promise<boolean> {
   //   await this.router.navigateByUrl('.', { skipLocationChange: true });
@@ -88,6 +88,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.translate.use(language);
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'en') {
         this.selectedLanguage = 'en';
@@ -122,6 +123,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.translate.use(language);
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'ar') {
         this.selectedLanguage = 'ar';

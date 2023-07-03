@@ -18,6 +18,7 @@ import { EmployeeService } from 'src/app/modules/_services/employee.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { Pagination } from 'src/app/modules/models/pagination';
 import { UserParams } from 'src/app/modules/models/UserParams';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-approval-management',
@@ -123,6 +124,7 @@ export class ApprovalManagementComponent implements OnInit {
     private datepipe: DatePipe,
     private toastrService: ToastrService,
     private employeeService: EmployeeService,
+    private translate: TranslateService,
     private commonService: CommonService) {
     this.formGroup = new FormGroup({
       searchTerm: new FormControl("")

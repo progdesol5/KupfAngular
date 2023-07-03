@@ -1,61 +1,43 @@
-// Localization is based on '@ngx-translate/core';
-// Please be familiar with official documentations first => https://github.com/ngx-translate/core
-
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-
-export interface Locale {
-  lang: string;
-  data: any;
-}
-
-const LOCALIZATION_LOCAL_STORAGE_KEY = 'language';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class TranslationService {
-  // Private properties
-  private langIds: any = [];
+  constructor(
+    private http: HttpClient,
+    private translate: TranslateService
+  ) {}
 
-  constructor(private translate: TranslateService) {
-    // add new langIds to the list
-    this.translate.addLangs(['en']);
+  loadTranslations(): Observable<any> {
+    const translationUrls = [
+        '/assets/i18n/en.json',
+        '/assets/i18n/ar.json'
+    ];
 
-    // this language will be used as a fallback when a translation isn't found in the current language
-    this.translate.setDefaultLang('en');
-  }
+    return new Observable(observer => {
+      let translationData = {};
 
-  loadTranslations(...args: Locale[]): void {
-    const locales = [...args];
-
-    locales.forEach((locale) => {
-      // use setTranslation() with the third argument set to true
-      // to append translations instead of replacing them
-      this.translate.setTranslation(locale.lang, locale.data, true);
-      this.langIds.push(locale.lang);
+      translationUrls.forEach(translationUrl => {
+        this.http.get(translationUrl).subscribe(
+          data => {
+            translationData = { ...translationData, ...data };
+            if (Object.keys(translationData).length === translationUrls.length) {
+              this.translate.setTranslation('en', translationData);
+              this.translate.setTranslation('ar', translationData);
+              observer.next(true);
+              observer.complete();
+            }
+          },
+          error => {
+            console.error(error);
+            observer.error(error);
+          }
+        );
+      });
     });
-
-    // add new languages to the list
-    this.translate.addLangs(this.langIds);
-    this.translate.use(this.getSelectedLanguage());
-  }
-
-  setLanguage(lang: string) {
-    if (lang) {
-      this.translate.use(this.translate.getDefaultLang());
-      this.translate.use(lang);
-      localStorage.setItem(LOCALIZATION_LOCAL_STORAGE_KEY, lang);
-    }
-  }
-
-  /**
-   * Returns selected language
-   */
-  getSelectedLanguage(): any {
-    return (
-      localStorage.getItem(LOCALIZATION_LOCAL_STORAGE_KEY) ||
-      this.translate.getDefaultLang()
-    );
   }
 }

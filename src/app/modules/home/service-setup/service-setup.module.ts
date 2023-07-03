@@ -31,6 +31,7 @@ import { VoucherComponent } from './voucher/voucher.component';
 import { VoucherDetailsComponent } from './voucher-details/voucher-details.component';
 import { GeneralVoucherComponent } from './general-voucher/general-voucher.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { TranslateModule } from '@ngx-translate/core';
 // import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
@@ -62,8 +63,9 @@ import {MatMenuModule} from '@angular/material/menu';
     FormsModule,
     SearchTabModule,    
     SharedModule,
-    NgxTranslateModule,
+    // NgxTranslateModule,
     MaterialModule,
+    TranslateModule,
     NgSelectModule,
     NgbModule,
     MatMenuModule,

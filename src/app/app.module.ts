@@ -1,10 +1,10 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatePipe } from '@angular/common';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslationService } from './modules/i18n';
 
 // #fake-end#
 
@@ -35,6 +37,9 @@ function appInitializer(authService: AuthService) {
     });
   };
 }
+// export function HttpLoaderFactory(http: HttpClient) {
+//   return new TranslateHttpLoader(http);
+// }
 
 @NgModule({
   declarations: [
@@ -46,7 +51,6 @@ function appInitializer(authService: AuthService) {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    TranslateModule.forRoot(),
     HttpClientModule,
     ClipboardModule,
     ToastrModule.forRoot({
@@ -63,25 +67,15 @@ function appInitializer(authService: AuthService) {
           dataEncapsulation: false,
         })
       : [],
-    // #fake-end#
     AppRoutingModule,
     InlineSVGModule.forRoot(),
     NgbModule,    
     FormsModule,
     ReactiveFormsModule,
     NgxTranslateModule,
-    // TranslateModule.forRoot({  
-    //   defaultLanguage: 'en',
-    //   loader: {  
-    //      provide: TranslateLoader,  
-    //      useFactory: httpTranslateLoader,  
-    //      deps: [HttpClient]  
-    //      }  
-    //   }),
-      
-      NgxSpinnerModule, 
-      NgSelectModule,
-      AngularEditorModule
+    NgxSpinnerModule, 
+    NgSelectModule,
+    AngularEditorModule,
   ],
   
   exports:[
@@ -89,7 +83,7 @@ function appInitializer(authService: AuthService) {
   NgxTranslateModule,
   NgxSpinnerModule,
   NgSelectModule,
-  ],//providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  ],
   providers: [
     {
       provide: APP_INITIALIZER,     
@@ -98,11 +92,14 @@ function appInitializer(authService: AuthService) {
       deps: [AuthService]      
     },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
-    DatePipe
-  
-    
+    DatePipe,
+    // TranslationService
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
-// AOT compilation support  
+export class AppModule {
+  constructor(private translate: TranslateService) {
+    // Set default language
+    translate.setDefaultLang('en');
+  }
+}

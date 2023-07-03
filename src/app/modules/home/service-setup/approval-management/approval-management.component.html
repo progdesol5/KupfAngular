@@ -3,8 +3,8 @@
 <div class="card mb-5 mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel3bgColor">
-        <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-dark ArFontStyle" lang="AR-SA">{{label.headerName}}</h3>
+        <div class="card-toolbar">
+            <h3 class="text-dark">{{ 'asideMenu.managerApprovals' | translate }}</h3>
         </div>
     </div>
     <!--end::Header-->
@@ -23,7 +23,7 @@
             <div class="form-group form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1"
                 (change)="onShowAllChange($event)" style="float:right">
-                <label class="form-check-label" for="exampleCheck1">Show All</label>
+                <label class="form-check-label" for="exampleCheck1">{{ 'content.showAll' | translate}}</label>
             </div>
             <!-- <div class="col-lg-4 fv-row">
                 <select class="form-control form-control-solid">
@@ -41,7 +41,7 @@
         <div class="row gx-9 gy-6">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.search' | translate}}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -51,77 +51,77 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="returnServiceApprovals" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{bodyLabel[1].title}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{ 'content.actions' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="w-20 text-right actionTdClass">
                             <a href="javascript:void(0)" class="text-info fw-bolder"
                                 routerLink="/service-setup/view-service-detail/{{item.transId}}"
                                 [id]="item.transId">
-                                View
+                                {{ 'content.view' | translate}}
                             </a>
                             &nbsp;
                             <a href="javascript:void(0)" class="text-success fw-bolder"
                                 (click)="openApproveServiceModal(approveServiceModal,$event)" [id]="item.transId"
                                 [hidden]="isShowAllChecked">
-                                Approve
+                                {{ 'content.approve' | translate}}
                             </a>
                             &nbsp;
                             <a href="javascript:void(0)" class="text-danger fw-bolder"
                                 (click)="openRejectServiceModal(rejectServiceModal,$event)" [id]="item.transId"
                                 [hidden]="isShowAllChecked">
-                                Reject
+                                {{ 'content.reject' | translate}}
                             </a>
                             &nbsp;
                             <a href="javascript:void(0)" class="text-primary fw-bolder"
                                 (click)="openContactModal(employeePerformanceModal,$event,item)"
                                 [id]="item.employeeId">
-                                Details
+                                {{ 'content.details' | translate}}
                             </a>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="transId">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            Civil ID / Employee / PF / TransID </th>
+                            {{ 'content.civil' | translate}} </th>
                         <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle idTdClass">{{item.transId}}
                             {{item.pfid}} {{item.employeeId}} {{item.empCidNum}} </td>
                     </ng-container>
                     <div *ngIf="lang == 'en'">
                         <ng-container matColumnDef="employeeName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[3].title}}</th>
+                                {{ 'content.arabicName' | translate}}</th>
                             <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}</td>
                         </ng-container>
                     </div>
                     <div *ngIf="lang == 'ar'">
                         <ng-container matColumnDef="employeeName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[3].title}}</th>
+                                {{ 'content.arabicName' | translate}}</th>
                             <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.arabicName}}</td>
                         </ng-container>
                     </div>
                     <ng-container matColumnDef="serviceType">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            Services</th>
+                            {{ 'content.services' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="source">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[8].title}}</th>
+                            {{ 'content.source' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.source}}</td>
                     </ng-container>
                     <ng-container matColumnDef="totalInstallment">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[5].title}}</th>
+                            {{ 'content.totalInstall' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle text-center">
                             {{item.totalInstallments}}</td>
                     </ng-container>
                     <ng-container matColumnDef="amount">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[6].title}}</th>
+                            {{ 'content.amount' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.totalAmount}}</td>
                     </ng-container>
                     <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            Status</th>
+                            {{ 'content.status' | translate}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.status}}</td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
