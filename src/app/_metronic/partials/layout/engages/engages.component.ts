@@ -13,7 +13,9 @@ export class EngagesComponent implements OnInit {
   ifAlreadySelected: boolean;
   currentURL: string = '';
   selectedLanguage: any;
-  constructor(private router: Router, private translate: TranslateService) { }
+  constructor(private router: Router, private translate: TranslateService) {
+    translate.use('en');
+  }
 
   // async reload(url: string): Promise<boolean> {
   //   await this.router.navigateByUrl('.', { skipLocationChange: true });

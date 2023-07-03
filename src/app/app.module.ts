@@ -102,6 +102,6 @@ function appInitializer(authService: AuthService) {
 export class AppModule {
   constructor(private translate: TranslateService) {
     // Set default language
-    translate.setDefaultLang('en');
+    translate.use('en');
   }
 }
