@@ -5,12 +5,12 @@
     <div class="card-header card-header-stretch pb-0 t_header_orm1">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddSpecialOffer">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddSpecialOffer">{{ 'content.offerDetails' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary ArFontStyle btn-website">{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle btn-website_cancel">{{bodyLabel[1].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn-website">{{ 'content.saveOffer' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn-website_cancel">{{ 'content.cancel' | translate }}</button>
               </div>
               
         </h3>
@@ -30,12 +30,12 @@
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[2].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{ 'content.uploadImage' | translate }}</label>
                                 <input class="form-control" type="file" id="formFile">
                               </div>
                         </div> 
                         <div class="col-lg-6 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.offer' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">ConsumerLoanType</option>
@@ -52,15 +52,15 @@
                     <div class="row mb-4">                
                         
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.offerStart' | translate }}</label>
                             <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.offerEnd' | translate }}</label>
                             <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.amount' | translate }}</label>
                             <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                     </div>
@@ -76,7 +76,7 @@
 <div class="card mb-5 mb-xl-8">
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 t_header_orm2" *ngFor="let bodyLabel of formBodyLabels; let i = index">       
-        <h3 class="m-0 ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</h3>
+        <h3 class="m-0 ArFontStyle" lang="AR-SA">{{ 'content.offerDetails' | translate }}</h3>
     </div>
     <!--end::Header-->
     <!--begin::Body-->
@@ -174,11 +174,11 @@
                 <!--begin::Table head-->
                 <thead class="orm_subt_header">
                     <tr class="fw-bolder" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</th>
-                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</th>
+                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{ 'content.actions' | translate }}</th>
+                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{ 'content.offer' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.offerStart' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.offerEnd' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.amount' | translate }}</th>
                     </tr>
                 </thead>
                 <!--end::Table head-->

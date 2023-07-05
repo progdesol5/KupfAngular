@@ -2,24 +2,24 @@
     <ngb-panel>
         <ng-template ngbPanelTitle>
             <h3 class="m-0 ArFontStyle" lang="AR-SA"
-                [ngClass]="{'headcolor_addServiceSetup': accordialHTMLForms === 'addServiceSetup'}">Website Display
-                Content - محتوى عرض الموقع</h3>
+                [ngClass]="{'headcolor_addServiceSetup': accordialHTMLForms === 'addServiceSetup'}">{{ 'content.websiteDisplayContent' | translate }}
+            </h3>
         </ng-template>
         <ng-template ngbPanelContent>
             <form [formGroup]="editorForm" id="editorForm" autocomplete="off">
                 <div class="row mb-4">
                     <div class="row mb-6">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle">Web Name English
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.webNameEnglish' | translate }}
                             </label>
-                            <input type="text" class="form-control" placeholder="Web Name English"
+                            <input type="text" class="form-control" placeholder="{{ 'content.webNameEnglish' | translate }}"
                                 formControlName="webEnglish" />
                                
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle">Web Name Arabic
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.webNameArabic' | translate }}
                             </label>
-                            <input type="text" class="form-control" placeholder="Web Name Arabic"
+                            <input type="text" class="form-control" placeholder="{{ 'content.webNameArabic' | translate }}"
                                 formControlName="webArabic" />
                         </div>
                     </div>
@@ -33,44 +33,40 @@
                             </div>
                         </div>
                         <!--begin::Label-->
-                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> Is Electronic Form </label>
+                        <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.isElectronicForm' | translate }}</label>
                     </div>
                     <div class="row mb-6">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Electronic
-                                    Form 1 - نموذج إلكتروني
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{ 'content.electronicForm' | translate }} 1
                                 </span></label><br>
                             <input #file1 type="file" class="form-control form-control-lg  mb-3 mb-lg-0" [hidden]="true"
                                 (change)="onElectronicForm1Select($event)" title="testing" />
                             <div class="d-flex">
-                                <button class="btn btn-sm btn-upload" (mousedown)="file1.click()">Choose file</button>
+                                <button class="btn btn-sm btn-upload" (mousedown)="file1.click()">{{ 'content.chooseFile' | translate }}</button>
                                 <div class="border border-secondary rounded p-3 w-100" style="height: 43px;">
                                     {{!electricform1? "No file choosen":electricform1}}</div>
                             </div>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Electronic
-                                    Form URL 1 - عنوان URL للنموذج الإلكتروني</span></label>
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{ 'content.electronicFormUrl' | translate }} 1</span></label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                                 formControlName="electronicForm1URL" />
                         </div>
                     </div>
                     <div class="row mb-6">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Electronic
-                                    Form 2 - نموذج إلكتروني
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{ 'content.electronicForm' | translate }} 2
                                 </span></label>
                             <input #file2 type="file" class="form-control form-control-lg  mb-3 mb-lg-0" [hidden]="true"
                                 (change)="onElectronicForm2Select($event)" />
                             <div class="d-flex">
-                                <button class="btn btn-sm btn-upload" (mousedown)="file2.click()">Choose file</button>
+                                <button class="btn btn-sm btn-upload" (mousedown)="file2.click()">{{ 'content.chooseFile' | translate }}</button>
                                 <div class="border border-secondary rounded p-3 w-100" style="height: 43px;">
                                     {{!electricform2? "No file choosen":electricform2}}</div>
                             </div>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">Electronic
-                                    Form URL 2 - عنوان URL للنموذج الإلكتروني</span></label>
+                            <label class="col-lg-8 col-form-label fw-bold fs-6 ArFontStyle"><span class="">{{ 'content.electronicFormUrl' | translate }} 2</span></label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                                 formControlName="electronicForm2URL" />
                         </div>
@@ -78,11 +74,10 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <h3 class="mt-2"><strong class="ArFontStyle"> English Website Content - محتوى الموقع باللغة
-                                الإنجليزية</strong></h3>
+                        <h3 class="mt-2"><strong class="ArFontStyle">{{ 'content.englishWebsiteContent' | translate }}</strong></h3>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Web URL English Page"
+                        <input type="text" class="form-control" placeholder="{{ 'content.webUrlEnglishPage' | translate }}"
                             formControlName="englishWebPageName" />
                     </div>
                 </div>
@@ -91,10 +86,10 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <h3><strong class="ArFontStyle">Arabic Website Content - محتوى الموقع العربي</strong></h3>
+                        <h3><strong class="ArFontStyle">{{ 'content.arabicWebsiteContent' | translate }}</strong></h3>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Web URL Arabic Page"
+                        <input type="text" class="form-control" placeholder="{{ 'content.webUrlEnglishPage' | translate }}"
                             formControlName="arabicWebPageName" />
                     </div>
                 </div>

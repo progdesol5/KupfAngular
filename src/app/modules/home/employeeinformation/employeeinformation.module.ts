@@ -18,6 +18,7 @@ import { MaterialModule } from '../../material/material.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditemployeeinformationComponent } from './editemployeeinformation/editemployeeinformation.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { EditemployeeinformationComponent } from './editemployeeinformation/edit
     MaterialModule,
     NgSelectModule,
     NgbModule,
+    TranslateModule
   ],
   exports:[
     BsDatepickerModule,

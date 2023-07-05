@@ -13,6 +13,7 @@ import { UserMstComponent } from './users/user-mst/user-mst.component';
 import { FunctionMstComponent } from './users/function-mst/function-mst.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     NgbModule,
     BsDatepickerModule.forRoot(),
     NgSelectModule,
+    TranslateModule
   ],
   exports:[
     BsDatepickerModule,

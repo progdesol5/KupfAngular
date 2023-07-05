@@ -6,7 +6,7 @@
 *ngFor="let label of formHeaderLabels; let i = index" class="offer_details">
     <ngb-panel>
         <ng-template ngbPanelTitle>
-            <h3 class="m-0 ArFontStyle" lang="AR-SA">Add Offer</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA">{{ 'content.addOffer'| translate }}</h3>
         </ng-template>
         <ng-template ngbPanelContent>
             <div class="row">
@@ -17,9 +17,9 @@
                     <div class="btn-group" role="group" aria-label="Basic example"
                         *ngFor="let bodyLabel of formBodyLabels; let i = index">
                         <button mat-raised-button color="primary" class="float-left" (click)="onOfferFormSubmit()"
-                            form="userForm" [disabled]="!offerForm.valid">{{bodyLabel[0].title}}</button> &nbsp;&nbsp;
+                            form="userForm" [disabled]="!offerForm.valid">{{ 'content.saveOffer' | translate }}</button> &nbsp;&nbsp;
                         <button mat-raised-button color="accent" class="float-left"
-                            (click)="resetForm()">{{bodyLabel[1].title}}</button>
+                            (click)="resetForm()">{{ 'content.cancel' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -31,39 +31,38 @@
                                 <div class="mt-4">
                                     <input type="hidden" formControlName="serviceId" />
                                     <label for="formFile" class="form-label ArFontStyle"
-                                        lang="AR-SA">{{bodyLabel[2].title}}</label><br>
+                                        lang="AR-SA">{{ 'content.uploadImage' | translate }}</label><br>
                                     <input #file type="file" class="form-control form-control-lg  mb-3 mb-lg-0"
                                         [hidden]="true" formControlName="offerImage" 
                                         (change)="onOfferFileSelectChange($event)" title="testing" />
                                     <div class="d-flex">
-                                        <button class="btn btn-sm btn-upload" (mousedown)="file.click()">Choose
-                                            file</button>
+                                        <button class="btn btn-sm btn-upload" (mousedown)="file.click()">{{ 'content.chooseFile' | translate }}</button>
                                         <div class="border border-secondary rounded p-3 w-100" style="height: 43px;">
                                             {{!offerFile? "No file choosen":offerFile}}
                                         </div>
                                     </div>
                                     <span class="text-danger"
                                     *ngIf="(_offerForm.offerImage.touched || isFormSubmitted) && _offerForm.offerImage.errors?.required">
-                                    Offer image is required
+                                    {{ 'content.offerImageValidation' | translate }}
                                 </span>
                                 </div>
                             </div>
                             <div class="col-lg-6 fv-row">
                                 <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                    lang="AR-SA">{{bodyLabel[3].title}}</label>
+                                    lang="AR-SA">{{ 'content.offer' | translate }}</label>
                                 <ng-select [items]="offerType$ | async" bindValue="refId" bindLabel="shortname"
                                     formControlName="offerType" (change)="onOfferTypeChange($event)" lang="AR-SA">
                                 </ng-select>
                                 <span class="text-danger"
                                     *ngIf="(_offerForm.offerType.touched || isFormSubmitted) && _offerForm.offerType.errors?.required">
-                                    Offer is required
+                                    {{ 'content.offerValidation'}}
                                 </span>
                             </div>
                         </div>
                         <div class="row mb-4">
                             <div class="col-lg-4 fv-row">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                    lang="AR-SA">{{bodyLabel[4].title}}</label>
+                                    lang="AR-SA">{{ 'content.offerStart' | translate }}</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         <i class="fas fa-calendar"></i>
@@ -74,12 +73,12 @@
                                 </div>
                                 <span class="text-danger"
                                     *ngIf="(_offerForm.offerStartDate.touched || isFormSubmitted) && _offerForm.offerStartDate.errors?.required">
-                                    Start date is required
+                                    {{ 'content.dateValidation' | translate }}
                                 </span>
                             </div>
                             <div class="col-lg-4 fv-row">
                                 <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                    lang="AR-SA">{{bodyLabel[5].title}}</label>
+                                    lang="AR-SA">{{ 'content.offerEnd' | translate }}</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
                                         <i class="fas fa-calendar"></i>
@@ -89,7 +88,7 @@
                                 </div>
                                 <span class="text-danger"
                                     *ngIf="(_offerForm.offerEndDate.touched || isFormSubmitted) && _offerForm.offerEndDate.errors?.required">
-                                    End date is required
+                                    {{ 'content.dateValidation' | translate }}
                                 </span>
                             </div>
                                 <div class="col-lg-4 fv-row">
@@ -99,7 +98,7 @@
                                         formControlName="offerAmount" name="offerAmount" id="offerAmount" />
                                         <span class="text-danger"
                                         *ngIf="(_offerForm.offerAmount.touched || isFormSubmitted) && _offerForm.offerAmount.errors?.required">
-                                        Amount is required
+                                        {{ 'content.amountValidation' | translate }}
                                 </span>
                                 </div>
                                 
@@ -120,12 +119,12 @@
 <ngb-accordion #ngbOfferDetails="ngbAccordion" activeIds="ngb-panel-1" opened="true">
     <ngb-panel id="ngb-panel-1">
         <ng-template ngbPanelTitle>
-            <h3 class="m-0 ArFontStyle" lang="AR-SA">Offer Details</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA">{{ 'content.offerDetails' | translate }}</h3>
         </ng-template>
         <ng-template ngbPanelContent>
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.search' | translate }}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -138,28 +137,28 @@
                         <th mat-header-cell *matHeaderCellDef class="ArFontStyle"></th>
                         <td mat-cell *matCellDef="let item" class="w-20 text-right">
                             <button mat-raised-button color="warn"
-                                (click)="open(deleteModal,item.serviceId)">Delete</button> |
+                                (click)="open(deleteModal,item.serviceId)">{{ 'content.delete' | translate }}</button> |
                             <button mat-raised-button color="accent"
-                                (click)="editData(item.serviceId)">Edit</button>
+                                (click)="editData(item.serviceId)">{{ 'content.edit' | translate }}</button>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="offerTypeName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Type</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.offerType' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerTypeName }}</td>
                     </ng-container>
                     <ng-container matColumnDef="offerStart">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Start</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.offerStart' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerStartDate | date:
                             'dd/MM/yyyy'}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="offerEnd" class="w-30">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer End</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.offerEnd' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerEndDate | date:
                             'dd/MM/yyyy'}}</td>
                     </ng-container>
                     <ng-container matColumnDef="offerAmount" class="w-20">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Offer Amount</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.offerAmount' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.offerAmount }}</td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
@@ -178,18 +177,18 @@
 <!--Delete Modal-->
 <ng-template #deleteModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete Offer</h4>
+        <h4 class="modal-title" id="modal-basic-title">{{ 'content.deleteOffer' | translate }}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <form>
             <div class="mb-3">
-                <span>Do you want to delete this record</span>
+                <span>{{ 'content.deleteConfirm' | translate }}</span>
             </div>
         </form>
     </div>
     <div class="modal-footer text-right">
-        <button mat-raised-button color="warn" (click)="modal.close('yes')">Yes</button> &nbsp;&nbsp;
-        <button mat-raised-button color="accent" (click)="modal.close('Save click')">No</button>
+        <button mat-raised-button color="warn" (click)="modal.close('yes')">{{ 'content.yes' | translate }}</button> &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="modal.close('Save click')">{{ 'content.no' | translate }}</button>
     </div>
 </ng-template>

@@ -6,15 +6,15 @@
             <div class="btn-group" role="group" aria-label="Basic example"
                 *ngFor="let bodyLabel of formBodyLabels; let i = index">
                 <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i1" lang="AR-SA"
-                    (click)="saveClick()">{{bodyLabel[0].title}}</button>
+                    (click)="saveClick()">{{ 'content.saveIncoming' | translate }}</button>
                 <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i2"
                     routerLink="/communication/incoming-letter-details"
-                    lang="AR-SA">{{bodyLabel[1].title}}</button>
+                    lang="AR-SA">{{ 'content.cancel' | translate }}</button>
                 <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i3" lang="AR-SA"
                     routerLink="/communication/incoming-letter-details"
-                    routerLinkActive="active">{{bodyLabel[2].title}}</button>
+                    routerLinkActive="active">{{ 'content.back' | translate }}</button>
                 <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i4 "
-                    lang="AR-SA">{{bodyLabel[3].title}}</button>
+                    lang="AR-SA">{{ 'content.incomingPrintLabel' | translate }}</button>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 <ngb-accordion #acc="ngbAccordion" class="mb-2" activeIds="ngb-panel-0">
     <ngb-panel id="ngb-panel-0">
         <ng-template ngbPanelTitle>
-            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">Add Incomming Letters</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">{{ 'content.addIncomingLetters' | translate }}</h3>
         </ng-template>
         <ng-template ngbPanelContent>
             <div id="kt_billing_payment_tab_content" class="card-body tab-content"
@@ -35,18 +35,18 @@
                                 <div class="row">
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[4].title}}</label>
+                                            lang="AR-SA">{{ 'content.letterType' | translate }}</label>
                                         <ng-select [items]="letterType$ | async" bindLabel="shortName" bindValue="refId"
                                             lang="AR-SA" formControlName="letterType">
                                         </ng-select>
                                         <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.letterType.errors?.required">
-                                                Letter type is required
+                                                {{ 'content.letterTypeValidation' | translate }}
                                             </span>
                                     </div>
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[5].title}}</label>
+                                            lang="AR-SA">{{ 'content.documentDate' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -57,48 +57,48 @@
                                         </div>
                                         <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.receivedSentDate.errors?.required">
-                                                Document date is required
+                                                {{ 'content.documentDateValidation' | translate }}
                                             </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[6].title}}</label>
+                                            lang="AR-SA">{{ 'content.receivingParty' | translate }}</label>
                                         <ng-select [items]="partyType$ | async" bindLabel="refname1" bindValue="refId"
                                             lang="AR-SA" formControlName="senderReceiverParty">
                                         </ng-select>
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && inCommunicationFrm.senderReceiverParty.errors?.required">
-                                            Receiving party is required
+                                            {{ 'content.receivingPartyValidation' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[7].title}}</label>
+                                            lang="AR-SA">{{ 'content.representative' | translate }}</label>
                                         <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                                             formControlName="representative" />
                                             <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.representative.errors?.required">
-                                                Representative type is required
+                                                {{ 'content.representativeValidation' | translate }}
                                             </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[8].title}}</label>
+                                            lang="AR-SA">{{ 'content.approvedBy' | translate }}</label>
                                         <ng-select [items]="users$ | async" bindLabel="firstName" bindValue="userId"
                                             formControlName="employeeId">
                                         </ng-select>
                                         <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.employeeId.errors?.required">
-                                                Approved by is required
+                                                {{ 'content.approvedByValidation' | translate }}
                                             </span>
                                     </div>
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[9].title}}</label>
+                                            lang="AR-SA">{{ 'content.date' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -110,42 +110,42 @@
                                         </div>
                                         <span class="text-danger"
                                         *ngIf="isFormSubmitted && inCommunicationFrm.letterDated.errors?.required">
-                                        Date is required
+                                        {{ 'conten.dateValidation' | translate }}
                                     </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[10].title}}</label>
+                                            lang="AR-SA">{{ 'content.filedAt' | translate }}</label>
                                         <ng-select [items]="filledAt$ | async" bindLabel="shortName" bindValue="refId"
                                             lang="AR-SA" formControlName="filledAt">
                                         </ng-select>
                                         <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.filledAt.errors?.required">
-                                                Filled type is required
+                                                {{ 'content.filedAtValidation' | translate }}
                                             </span>
                                     </div>
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[11].title}}</label>
+                                            lang="AR-SA">{{ 'content.description' | translate }}</label>
                                         <textarea class="form-control form-control-lg  mb-3 mb-lg-0"
                                             formControlName="description"></textarea>
                                             <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.description.errors?.required">
-                                                Description is required
+                                                {{ 'content.descriptionValidation' | translate }}
                                             </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 fv-row">
                                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[12].title}}</label>
+                                            lang="AR-SA">{{ 'content.searchTags' | translate }}</label>
                                         <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                                             formControlName="searchTag" />
                                             <span class="text-danger"
                                                 *ngIf="isFormSubmitted && inCommunicationFrm.searchTag.errors?.required">
-                                                Search tag is required
+                                                {{ 'content.searchTagsValidation' | translate }}
                                             </span>
                                     </div>
                                 </div>

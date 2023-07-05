@@ -5,13 +5,13 @@
     <div class="card-header card-header-stretch pb-0 panel1bgColor">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddOutgoingLetters">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddOutgoingLetters">{{ 'content.addOutGoingLetter' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column">
             <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i1" lang="AR-SA">{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i2" lang="AR-SA">{{bodyLabel[1].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i3" lang="AR-SA" routerLink="/communication/outgoing-letter-details" routerLinkActive="active">{{bodyLabel[2].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i1" lang="AR-SA">{{ 'content.saveOutGoing' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i2" lang="AR-SA">{{ 'content.cancel' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle fluro_btn_shade_i3" lang="AR-SA" routerLink="/communication/outgoing-letter-details" routerLinkActive="active">{{ 'content.back' | translate}}</button>
               </div>
               
         </h3>
@@ -30,7 +30,7 @@
                 <form autocomplete="off">
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.letterType' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Type 1</option>
@@ -39,13 +39,13 @@
                             </select>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.documentDate' | translate }}</label>
                             <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>                        
                     </div>
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.senderParty' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Type 1</option>
@@ -54,13 +54,13 @@
                             </select>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[6].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.representative' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                     </div>
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.approvedBy' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Option 1</option>
@@ -69,13 +69,13 @@
                             </select>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[8].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.date' | translate }}</label>
                             <input type="date" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>                        
                     </div>
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[9].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.filedAt' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Option 1</option>
@@ -84,14 +84,14 @@
                             </select>
                         </div>
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[10].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.description' | translate }}</label>
                             
                             <textarea class="form-control form-control-lg  mb-3 mb-lg-0"></textarea>
                         </div>                        
                     </div>
                     <div class="row mb-4">                        
                         <div class="col-lg-6 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[11].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.searchTags' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>                        
                     </div>

@@ -2,7 +2,7 @@
 <div class="card mb-5 mb-xl-8">
     <div class="card-header border-0 pt-5 panelBgColor">
         <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA">{{ 'content.employeeDetail' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column viewEmployee"
             *ngFor="let bodyLabel of formBodyLabels; let i = index">
@@ -18,7 +18,7 @@
                             fill="currentColor"></path>
                     </svg>
                 </span>
-                {{bodyLabel[0].title}}</a>
+                {{ 'content.addContact' | translate }}</a>
         </h3>
     </div>
     <div class="card-body py-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
@@ -35,7 +35,7 @@
         <div class="row gx-9 gy-6">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.search' | translate }}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -45,30 +45,30 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="detailedEmployee" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{bodyLabel[1].title}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{ 'content.actions' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-20 text-right actionTdClass">
-                            <button mat-raised-button color="warn" (click)="open(content,item)">Delete</button> |
+                            <button mat-raised-button color="warn" (click)="open(content,item)">{{ 'content.delete' | translate }}</button> |
                             <button mat-raised-button color="accent"
                                 routerLink="/employee/add-employee/{{item.employeeId}}"
-                                id={{item.employeeId}}>Edit</button>
+                                id={{item.employeeId}}>{{ 'content.edit' | translate }}</button>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="IdPfIdCivilId">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-25 ArFontStyle">
-                            {{bodyLabel[2].title}}</th>
+                            {{ 'content.civilIdEmployeePF' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.pfid}}
                             {{item.employeeId}} {{item.empCidNum}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="mobileNo">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{bodyLabel[4].title}}
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.mobile' | translate }}
                         </th>
                         <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.mobileNumber}}</td>
                     </ng-container>
                     <div *ngIf="lang == 'en'">
                         <ng-container matColumnDef="employeeName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[8].title}}</th>
+                                {{ 'content.employeeName' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">
                                 {{item.englishName}}</td>
                         </ng-container>
@@ -76,27 +76,27 @@
                     <div *ngIf="lang == 'ar'">
                         <ng-container matColumnDef="employeeName">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[8].title}}</th>
+                                {{ 'content.employeeName' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">
                                 {{item.arabicName}}</td>
                         </ng-container>
                     </div>
                     <ng-container matColumnDef="source">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{bodyLabel[6].title}}
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.source' | translate }}
                         </th>
                         <td mat-cell *matCellDef="let item" class="w-01 ArFontStyle">Online</td>
                     </ng-container>
                     <div *ngIf="lang == 'en'">
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[7].title}}</th>
+                                {{ 'content.department' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.refName1}}</td>
                         </ng-container>
                     </div>
                     <div *ngIf="lang == 'ar'">
                         <ng-container matColumnDef="department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                                {{bodyLabel[7].title}}</th>
+                                {{ 'content.department' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.refName2}}</td>
                         </ng-container>
                     </div>

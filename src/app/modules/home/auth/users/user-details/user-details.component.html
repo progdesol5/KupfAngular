@@ -4,13 +4,13 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel1bgColor">
         <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-white ArFontStyle" lang="AR-SA">{{label.headerName}}</h3>
+            <h3 class="text-white ArFontStyle" lang="AR-SA">{{ 'content.systemUserDetails' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column">
             <div class="btn-group" role="group" aria-label="Basic example"
                 *ngFor="let bodyLabel of formBodyLabels; let i = index">
                 <button type="button" class="btn btn-primary ArFontStyle ad-user-style" lang="AR-SA"
-                    routerLink="/users/add-user">{{bodyLabel[0].title}}</button>
+                    routerLink="/users/add-user">{{ 'content.addUser' | translate }}</button>
             </div>
         </h3>
     </div>
@@ -111,12 +111,12 @@
                 <!--begin::Table head-->
                 <thead class="bg-secondary ud_thead" >
                     <tr class="fw-bolder" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{bodyLabel[1].title}}</th>
-                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{bodyLabel[2].title}}</th>
-                        <th class="min-w-140px ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</th>
+                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{ 'content.actions' | translate }}</th>
+                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{ 'content.fullName' | translate }}</th>
+                        <th class="min-w-140px ArFontStyle" lang="AR-SA">{{ 'content.tenant' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.location' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.email' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.userName' | translate }}</th>
                     </tr>
                 </thead>
                 <!--end::Table head-->

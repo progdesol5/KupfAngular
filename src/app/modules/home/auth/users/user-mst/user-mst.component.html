@@ -1,24 +1,24 @@
 <ngb-accordion #ngbSearchUser="ngbAccordion" activeIds="ngb-panel-0" class="searchUsermst">
-    <ngb-panel title="Search User">
+    <ngb-panel title="{{ 'content.searchUser' | translate }}">
         <ng-template ngbPanelContent>
 
             <div class="row mb-4">
                 <div class="col-lg-4 fv-row">
-                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Tenant Id</label>
+                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.tenantId' | translate }}</label>
                     <select class="form-control bg-light" aria-label="Select example">
-                        <option selected disabled>--Select Tenant--</option>
+                        <option selected disabled>--{{ 'content.selectTenant' | translate }}--</option>
                         <option value="21">21</option>
                     </select>
                 </div>
                 <div class="col-lg-4 fv-row">
-                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Location</label>
+                    <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.location' | translate }}</label>
                     <select class="form-control bg-light" aria-label="Select example">
-                        <option selected disabled>--Select Location--</option>
+                        <option selected disabled>--{{ 'content.selectLocation' | translate }}--</option>
                         <option value="1">1</option>
                     </select>
                 </div>
                 <div class="col-lg-4 fv-row">
-                    <button mat-raised-button color="accent" style="margin-top: 45px">Go</button>
+                    <button mat-raised-button color="accent" style="margin-top: 45px">{{ 'content.go' | translate }}</button>
                 </div>
             </div>
         </ng-template>
@@ -26,7 +26,7 @@
 </ngb-accordion>
 <br />
 <ngb-accordion #ngbAddUser="ngbAccordion" activeIds="ngb-panel-0" opened="true" class="addUsermst">
-    <ngb-panel title="Add User">
+    <ngb-panel title="{{ 'content.addUser' | translate }}">
         <ng-template ngbPanelContent>
             <div class="row mb-4">
                 <div class="col-lg-6 fv-row">
@@ -36,9 +36,9 @@
                     <div class="text-left">
                         <!--[disabled]="!userForm.valid" -->
                         <button mat-raised-button color="primary" class="float-left" (click)="onUserFormSubmit()"
-                            [disabled]="!userForm.valid" form="userForm">Add</button> |
+                            [disabled]="!userForm.valid" form="userForm">{{ 'content.add' | translate }}</button> |
                         <button mat-raised-button color="accent" class="float-left"
-                            (click)="resetForm()">Cancel</button>
+                            (click)="resetForm()">{{ 'content.cancel' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -46,23 +46,21 @@
                 <div class="row mb-4">
                     <div class="col-lg-6 fv-row">
                         <input type="hidden" formControlName="userId" />
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">First Name</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.firstName' | translate }}</label>
                         <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                             formControlName="firstName" name="firstName" id="firstName" />
-                        <span class="text-danger" *ngIf="isFormSubmitted && u.firstName.errors?.required">First name is
-                            required</span>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.firstName.errors?.required">{{ 'content.firstNameValidation' | translate }}</span>
                     </div>
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Last Name</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.lastName' | translate }}</label>
                         <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="lastName"
                             name="lastName" id="lastName" />
-                        <span class="text-danger" *ngIf="isFormSubmitted && u.lastName.errors?.required">Last name is
-                            required</span>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.lastName.errors?.required">{{ 'content.lastNameValidation' | translate }}</span>
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Email</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.email' | translate }}</label>
                         <div class="input-group mb-5">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-envelope"></i>
@@ -70,12 +68,11 @@
                             <input type="email" class="form-control form-control-lg  mb-3 mb-lg-0"
                                 formControlName="email" name="email" id="email" lang="AR-SA"/>
                         </div>
-                        <span class="text-danger" *ngIf="isFormSubmitted && u.email.errors?.required">Email is
-                            required</span>
-                        <span class="text-danger" *ngIf="u.email.invalid && u.email.touched">Invalid Email</span>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.email.errors?.required">{{ 'content.emailValidation' | translate }}</span>
+                        <span class="text-danger" *ngIf="u.email.invalid && u.email.touched">{{ 'content.invalidEmail' | translate }}</span>
                     </div>
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Mobile Number</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.mobile' | translate }}</label>
                         <div class="input-group mb-5">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-mobile-alt"></i>
@@ -83,13 +80,12 @@
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0"
                                 formControlName="mobile" name="mobile" id="mobile" />
                         </div>
-                        <span class="text-danger" *ngIf="isFormSubmitted && u.mobile.errors?.required">Mobile is
-                            required</span>
+                        <span class="text-danger" *ngIf="isFormSubmitted && u.mobile.errors?.required">{{ 'content.mobileValidation' | translate }}</span>
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">User Type</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.userType' | translate }}</label>
                         <!-- <select class="form-control" formControlName="userType">
                             <option disabled selected>--Select User--</option>
                             <option *ngFor="let user of users$ | async" value="{{user.userId}}">{{user.firstName}}</option>
@@ -98,10 +94,10 @@
                             formControlName="userType">
                         </ng-select>
                         <span class="text-danger" *ngIf="isFormSubmitted && u.userType.errors?.required">
-                            Please select user type</span>
+                            {{ 'content.userTypeValidation' | translate }}</span>
                     </div>
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Login Id</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.loginId' | translate }}</label>
                         <div class="input-group mb-5">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-user"></i>
@@ -110,12 +106,12 @@
                                 formControlName="loginId" name="loginId" id="loginId" />
                         </div>
                         <span class="text-danger" *ngIf="isFormSubmitted && u.loginId.errors?.required">
-                            Please enter login Id</span>
+                            {{ 'content.loginIdValidation' | translate }}</span>
                     </div>
                 </div>
                 <div class="row mb-4">
                     <div class="col-lg-6 fv-row">
-                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Password</label>
+                        <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.password' | translate }}</label>
                         <div class="input-group mb-5">
                             <span class="input-group-text" id="basic-addon1">
                                 <i class="fas fa-key"></i>
@@ -125,7 +121,7 @@
                         </div>
                         <span class="text-danger" *ngIf="isFormSubmitted && u.password.touched && u.password.invalid 
                         && u.password.errors && u.password.errors['required']">
-                            Please enter password</span>
+                            {{ 'content.Please enter password' | translate }}</span>
                     </div>
                     <div class="col-lg-6 fv-row">
                         <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">Confirm Password</label>
@@ -138,11 +134,11 @@
                         </div>
                         <span class="text-danger" *ngIf="isFormSubmitted && u.cpassword.touched && u.cpassword.invalid && 
                         u.cpassword.errors && u.cpassword.errors['required']">
-                            Please enter confirm password</span>
+                            {{ 'content.passwordConfirmValidation' | translate }}</span>
 
                         <span class="text-danger" *ngIf="u.cpassword.errors &&
                          u.cpassword.errors['confirmedValidator']">
-                            Password and confirm password not matched</span>
+                            {{ 'content.passwordConfirmMatchValidation' | translate }}</span>
                     </div>
                 </div>
             </form>
@@ -156,7 +152,7 @@
         <ng-template ngbPanelContent>
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.search' | translate }}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -166,32 +162,32 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="userMst" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">Action</th>
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{ 'content.actions' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="text-right w-10">
                             <select class="form-control form-control-solid" (change)="onChange($event)"
                                 style="max-width:200px">
-                                <option selected disabled>--Select--</option>
-                                <option value="{{item.userId}}">Edit</option>
-                                <option value="{{item.userId}}">Delete</option>
-                                <option value="{{item.userId}}">Change Password</option>
-                                <option value="{{item.userId}}">User Rights</option>
+                                <option selected disabled>--{{ 'content.select' | translate }}--</option>
+                                <option value="{{item.userId}}">{{ 'content.edit' | translate }}</option>
+                                <option value="{{item.userId}}">{{ 'content.delete' | translate }}</option>
+                                <option value="{{item.userId}}">{{ 'content.changePassword' | translate }}</option>
+                                <option value="{{item.userId}}">{{ 'content.userRights' | translate }}</option>
                             </select>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="firstName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">First Name</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.firstName' | translate} }</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.firstName }}</td>
                     </ng-container>
                     <ng-container matColumnDef="lastName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Last Name</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.lastName' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.lastName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="loginId" class="w-30">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Login Id</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.loginId' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.loginId}}</td>
                     </ng-container>
                     <ng-container matColumnDef="isActive" class="w-20">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Is Active</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.isActive' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.activeuser ?
                             'Active':'Inactive'}}</td>
                     </ng-container>

@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchTabModule } from '../_partials/search-tab.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SearchTabModule } from '../_partials/search-tab.module';
     MaterialModule,
     NgSelectModule,
     SearchTabModule, 
+    TranslateModule
     
   ],
   exports:[

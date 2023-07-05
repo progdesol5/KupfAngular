@@ -4,7 +4,7 @@
   <!--begin::Header-->
   <div class="card-header border-0 pt-5 setup-bg-header">
     <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-      <h3 class="text-dark ArFontStyle theader" lang="AR-SA" id="RefTableEntry">{{label.headerName}}</h3>
+      <h3 class="text-dark ArFontStyle theader" lang="AR-SA" id="RefTableEntry">{{ 'content.refTableEntry' | translate }}</h3>
     </div>
 
   </div>
@@ -13,25 +13,25 @@
   <div class="card-body py-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
     <div class="row mb-4">
       <div class="col-md-4">
-        <label class="form-label" for="form3Example1">Reference Type</label>
+        <label class="form-label" for="form3Example1">{{ 'content.referenceType' | translate }}</label>
         <ng-select [items]="refType$ | async" bindLabel="refType"
           (change)="onRefTypeChange($event)">
         </ng-select>
       </div>
       <div class="col-md-4">
-        <label class="form-label" for="form3Example2">Reference Sub Type</label>
+        <label class="form-label" for="form3Example2">{{ 'content.referenceSubType' | translate }}</label>
         <ng-select [items]="refSubType$" bindLabel="refSubType" [multiple]="false"
           (change)="onRefSubTypeChange($event)">
         </ng-select>
       </div>
       <div class="col-md-4">
         <button mat-raised-button color="primary" [disabled]="!isRefSubTypeEmpty" (click)="open(mymodal)"
-          style="margin-top: 30px">{{bodyLabel[1].title}}</button>
+          style="margin-top: 30px">{{ 'content.subCategoryReference' | translate }}</button>
       </div>
     </div>
     <form [formGroup]="formGroup">
       <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-        <mat-label>Search</mat-label>
+        <mat-label>{{ 'content.search' | translate }}</mat-label>
         <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)" class="ArFontStyle" />
         <mat-icon matPrefix class="material-icons">search</mat-icon>
         <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
@@ -40,35 +40,35 @@
     <div class="table-container">
       <table mat-table class="w-100" [dataSource]="refTableDto" matSort>
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef class="ArFontStyle">Action</th>
+          <th mat-header-cell *matHeaderCellDef class="ArFontStyle">{{ 'content.actions' | translate }}</th>
           <td mat-cell *matCellDef="let item" class="w-10 text-right">
             <div *ngIf="item.infrastructure == 'Y'">                            
-              <button mat-raised-button color="warn" [disabled]="true" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
-              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal,item.refid)">Edit</button>
+              <button mat-raised-button color="warn" [disabled]="true" (click)="openDeleteModal(deleteModal,item.refid)">{{ 'content.delete' | translate }}</button>
+              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal,item.refid)">{{ 'content.edit' | translate  }}</button>
             </div>   
             <div *ngIf="item.infrastructure == 'N'">
-              <button mat-raised-button color="warn" (click)="openDeleteModal(deleteModal,item.refid)">Delete</button>
-              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal)">Edit</button>
+              <button mat-raised-button color="warn" (click)="openDeleteModal(deleteModal,item.refid)">{{ 'content.delete' | translate }}</button>
+              &nbsp; <button mat-raised-button color="accent" (click)="openEditModal(editModal)">{{ 'content.edit' | translate  }}</button>
             </div>   
           </td>
         </ng-container>
         <ng-container matColumnDef="Sr">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">Ref Subtype-Ref Type-REf ID
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">{{ 'content.refSubTypeRefTypeRefId' | translate }}
           </th>
           <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.refid }} {{item.reftype }}
             {{item.refsubtype }}</td>
         </ng-container>
         <ng-container matColumnDef="shortName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Short Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.shortName' | translate }}</th>
           <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.shortname}}</td>
         </ng-container>
         <ng-container matColumnDef="englishName1">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">English Name 1</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.englishName'}} 1</th>
           <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
             {{item.refname1}}</td>
         </ng-container>
         <ng-container matColumnDef="arabicName2">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">Arabic Name 2</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">{{ 'content.arabicName'}} 1</th>
           <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">
             {{item.refname1}}</td>
         </ng-container>

@@ -6,7 +6,7 @@
         <div class="card-title">
             <h3 class="m-0 ArFontStyle" lang="AR-SA" id="PrintLabels"
             [ngClass]="{'labelHeader': labelBackground === 'Communication', 'labelHeaderSetup': labelBackground === 'Setup'}"
-            >{{label.headerName}}</h3>
+            >{{ 'asideMenu.printLabel' | translate }}</h3>
         </div>
     </div>
     <div *ngFor="let bodyLabel of formBodyLabels; let i = index">
@@ -16,7 +16,7 @@
                     <form autocomplete="off">
                         <div class="row mb-4">
                             <div class="col-lg-6 fv-row">
-                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[1].title}}</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.selectLetter' | translate }}</label>
                                 <select class="form-control form-control-solid">
                                     <option>-Select</option>
                                     <option>Letter 1</option>
@@ -25,7 +25,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-6 fv-row">
-                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[2].title}}</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.labelTemplate' | translate }}</label>
                                 <select class="form-control form-control-solid">
                                     <option>-Select</option>
                                     <option>Lable 1</option>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-lg-6 fv-row">
-                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</label>
+                                <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.copies' | translate }}</label>
                                 <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" />
                             </div>
                         </div>
@@ -48,7 +48,7 @@
             <div class="d-flex">
                 <a href="#" class="btn btn-primary me-3 ArFontStyle"
                 [ngClass]="{'bg-btn-print-labels': labelBackground === 'Communication', 'bg-btn-print-labels-Setup': labelBackground === 'Setup'}"
-                lang="AR-SA">{{bodyLabel[4].title}}</a>
+                lang="AR-SA">{{ 'asideMenu.printLabel' | translate }}</a>
             </div>
         </div>
     </div>

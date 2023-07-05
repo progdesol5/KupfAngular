@@ -4,15 +4,15 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel1bgColor">
         <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-white ArFontStyle header_color" lang="AR-SA" id="IncomingLetterDetails">{{label.headerName}}
+            <h3 class="text-white ArFontStyle header_color" lang="AR-SA" id="IncomingLetterDetails">{{ 'content.incomingLetterDetails' | translate }}
             </h3>
         </div>
         <h3 class="card-title align-items-start flex-column" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA"
-                    routerLink="/communication/add-incoming-letter">{{bodyLabel[0].title}}</button>
+                    routerLink="/communication/add-incoming-letter">{{ 'content.addIncomingLetter' | translate }}</button>
                 <button type="button" class="btn btn-primary ArFontStyle light-sea-green"
-                    lang="AR-SA">{{bodyLabel[1].title}}</button>
+                    lang="AR-SA">{{ 'content.printIncomingLetterDetail' | translate }}</button>
             </div>
         </h3>
     </div>
@@ -21,7 +21,7 @@
         <div class="table-responsive mt-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.search' | translate }}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -32,42 +32,42 @@
                 <table mat-table class="w-100" [dataSource]="incommingCommunicationDto" matSort>
                     <ng-container matColumnDef="letterdated">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[3].title}}</th>
+                            {{ 'content.dated' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle"> {{item.letterdated}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle w-10">{{bodyLabel[2].title}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle w-10">{{ 'content.actions' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-10 text-right">
                             <button mat-raised-button color="warn"
-                                (click)="openDeleteModal(deleteModal,item.mytransid)">Delete</button>
+                                (click)="openDeleteModal(deleteModal,item.mytransid)">{{ 'content.delete' | translate }}</button>
                             &nbsp; <button mat-raised-button color="accent"
                                 routerLink="/communication/add-incoming-letter/{{item.mytransid}}"
-                                id={{item.mytransid}}>Edit</button>
+                                id={{item.mytransid}}>{{ 'content.edit' | translate }}</button>
                         </td>
                     </ng-container>
 
                     <ng-container matColumnDef="lettertype">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[4].title}}</th>
+                            {{ 'content.letterType' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">{{item.lettertype}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="filledat">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[5].title}}</th>
+                            {{ 'content.filedAt' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle"> {{item. filledat}}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="searchtag">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">
-                            {{bodyLabel[6].title}}
+                            {{ 'content.searchTags' | translate }}
                         </th>
                         <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.searchtag }}</td>
                     </ng-container>
                     <ng-container matColumnDef="description">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-5 ArFontStyle">
-                            {{bodyLabel[7].title}}</th>
+                            {{ 'content.description' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">{{item.description}}</td>
                     </ng-container>
 
@@ -87,18 +87,18 @@
 <!--Delete Modal-->
 <ng-template #deleteModal let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete</h4>
+        <h4 class="modal-title" id="modal-basic-title">{{ 'content.delete' | translate }}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <form>
             <div class="mb-3">
-                <span>Do you want to delete this record</span>
+                <span>{{ 'content.deleteConfirm' | translate }}</span>
             </div>
         </form>
     </div>
     <div class="modal-footer text-right">
-        <button mat-raised-button color="warn" (click)="modal.close('yes')">Yes</button> &nbsp;&nbsp;
-        <button mat-raised-button color="accent" (click)="modal.close('Save click')">No</button>
+        <button mat-raised-button color="warn" (click)="modal.close('yes')">{{ 'content.yes' | translate }}</button> &nbsp;&nbsp;
+        <button mat-raised-button color="accent" (click)="modal.close('Save click')">{{ 'content.no'| translate }}</button>
     </div>
 </ng-template>

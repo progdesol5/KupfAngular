@@ -5,13 +5,13 @@
     <div class="card-header card-header-stretch pb-0 bg-header">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddCarousal">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="AddCarousal">{{ 'content.addCarousel' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column">
             <div class="btn-group" role="group" aria-label="Basic example"  *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                <button type="button" class="btn btn-primary ArFontStyle btn-website" lang="AR-SA">{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle btn-website_cancel" lang="AR-SA">{{bodyLabel[1].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle btn-website_back" lang="AR-SA" routerLink="/website-maintenace/carousal-details">{{bodyLabel[2].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn-website" lang="AR-SA">{{ 'content.saveCarousel' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn-website_cancel" lang="AR-SA">{{ 'content.cancel' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle btn-website_back" lang="AR-SA" routerLink="/website-maintenace/carousal-details">{{ 'content.back' | translate }}</button>
               </div>
               
         </h3>
@@ -30,7 +30,7 @@
                 <form autocomplete="off">  
                     <div class="row mb-4" >
                         <div class="col-lg-4 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.tenantId' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Service 1</option>
@@ -38,7 +38,7 @@
                             </select>
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.carouselId' | translate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">Service 1</option>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-lg-4 fv-row">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{ 'content.uploadImage' | translate }}</label>
                                 <input class="form-control" type="file" id="formFile">
                               </div>
                         </div>
@@ -55,13 +55,13 @@
                     <div class="row mb-4">
                         <div class="col-lg-4 fv-row">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{ 'content.tillDate' | translate }}</label>
                                 <input class="form-control" type="date">
                               </div>
                         </div>
                         <div class="col-lg-4 fv-row">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{ 'content.fromdate' | translate }}</label>
                                 <input class="form-control" type="date">
                               </div>
                         </div>

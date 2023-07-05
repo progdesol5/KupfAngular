@@ -7,16 +7,16 @@
         *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <!-- Save Button -->
         <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure mx-1" lang="AR-SA"
-          (click)="submitForm()">{{bodyLabel[0].title}}</button>
+          (click)="submitForm()">{{ 'content.saveEmployee' | translate }}</button>
           <!-- [disabled]="!addEmployeeForm.valid || !jobDetailsForm.valid" -->
         <!-- <button type="button" class="btn btn-primary float-left ArFontStyle cyan-azure" lang="AR-SA"
           (click)="submitForm()">{{bodyLabel[0].title}}</button> -->
         <!-- Cancel Button -->
         <button type="button" class="btn btn-primary float-left ArFontStyle moonstone-blue mx-1"
-          lang="AR-SA">{{bodyLabel[1].title}}</button>
+          lang="AR-SA">{{ 'content.cancel' | translate }}</button>
         <!-- Back Button -->
         <button type="button" class="btn btn-primary float-left ArFontStyle beau-blue mx-1"
-          routerLink="/employee/view-employee" routerLinkActive="active" lang="AR-SA">{{bodyLabel[2].title}}</button>
+          routerLink="/employee/view-employee" routerLinkActive="active" lang="AR-SA">{{ 'content.back' | translate }}</button>
       </div>
     </div>
   </div>
@@ -25,23 +25,23 @@
 <ngb-accordion #acc="ngbAccordion" class="mb-2 addEmployee" activeIds="ngb-panel-0">
   <ngb-panel id="ngb-panel-0">
     <ng-template ngbPanelTitle *ngFor="let label of formHeaderLabels; let i = index">
-      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{label.headerName}}</h3>
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{ 'content.addEditEmployee' | translate }}</h3>
     </ng-template>
     <ng-template ngbPanelContent>
       <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <form autocomplete="off" [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()" id="employeeForm">
           <div class="row mb-6">
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Employee ID</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.employeeId' | translate }}</label>
               <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" name="employeeId"
                 formControlName="employeeId" maxlength="10" [readOnly]="isOK" />
               <span class="text-danger"
                 *ngIf="(empForm.employeeId.touched || isFormSubmitted) && empForm.employeeId.errors?.required || empForm['employeeId'].hasError('min')">
-                Employee Id is required
+                {{ 'content.employeeIdValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Join Date</label>
+              <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.joinDate' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-calendar"></i>
@@ -51,7 +51,7 @@
               </div>
               <span class="text-danger"
                 *ngIf="(empForm.joinedDate.touched || isFormSubmitted) && empForm.joinedDate.errors?.required">
-                Joined date is required
+                {{ 'content.joinDateValidation' | translate }}
               </span>
             </div>
           </div>
@@ -60,29 +60,29 @@
 
             <div class="col-lg-6 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[4].title}}</label>
+                lang="AR-SA">{{ 'content.employeeName' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="englishName"
                 formControlName="englishName" />
               <span class="text-danger"
                 *ngIf="(empForm.englishName.touched || isFormSubmitted) && empForm.englishName.errors?.required">
-                English Name is required
+                {{ 'content.employeeNameValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-6 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[5].title}}</label>
+                lang="AR-SA">{{ 'content.arabicName' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="arabicName"
                 formControlName="arabicName" />
               <span class="text-danger"
                 *ngIf="(empForm.arabicName.touched || isFormSubmitted) && empForm.arabicName.errors?.required">
-                Arabic Name is required
+                {{ 'content.arabicNameValidation' | translate }}
               </span>
             </div>
           </div>
           <div class="row mb-6">
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[6].title}}</label>
+                lang="AR-SA">{{ 'content.dateOfBirth' | translate }}</label>
               <div class="input-group mb-5">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-calendar"></i>
@@ -92,44 +92,44 @@
               </div>
               <span class="text-danger"
                 *ngIf="(empForm.empBirthday.touched || isFormSubmitted) && empForm.empBirthday.errors?.required">
-                Birthday is required
+                {{ 'content.dateOfBirthValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-3 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.gender' | translate }}</label>
               <ng-select formControlName="empGender">
                 <ng-option *ngFor="let item of genderArray" [value]="item.id">{{item.name}}</ng-option>
               </ng-select>
               <span class="text-danger"
                 *ngIf="(empForm.empGender.touched || isFormSubmitted) && empForm.empGender.errors?.required">
-                Gender is required
+                {{ 'content.genderValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-3 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[8].title}}</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.maritalStatus' | translate }}</label>
               <ng-select formControlName="empMaritalStatus">
                 <ng-option *ngFor="let item of maritalStatusArray" [value]="item.id">{{item.name}}</ng-option>
               </ng-select>
               <span class="text-danger"
                 *ngIf="(empForm.empMaritalStatus.touched || isFormSubmitted) && empForm.empMaritalStatus.errors?.required">
-                Marital Status is required
+                {{ 'content.maritalStatusValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-3 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Country</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.country' | translate }}</label>
               <ng-select formControlName="nationCode" [items]="countries$ | async" bindLabel="counamE1"
                 bindValue="countryid" (change)="onCountryChange($event)">
               </ng-select>
               <span class="text-danger"
                 *ngIf="(empForm.nationCode.touched || isFormSubmitted) && empForm.nationCode.errors?.required">
-                Country is required
+                {{ 'content.countryValidation' | translate }}
               </span>
             </div>
           </div>
           <div class="row mb-6">
             <div class="col-lg-4 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[9].title}}</label>
+                lang="AR-SA">{{ 'content.mobile' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-mobile-alt"></i>
@@ -139,12 +139,12 @@
               </div>
               <span class="text-danger"
                 *ngIf="(empForm.mobileNumber.touched || isFormSubmitted) && empForm.mobileNumber.errors?.required">
-                Mobile number is required
+                {{ 'content.mobileValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-4 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[10].title}}</label>
+                lang="AR-SA">{{ 'content.landLine' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-phone"></i>
@@ -155,7 +155,7 @@
             </div>
             <div class="col-lg-4 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[11].title}}</label>
+                lang="AR-SA">{{ 'content.email' | translate }}</label>
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-envelope"></i>
@@ -165,20 +165,20 @@
               </div>
               <span class="text-danger"
                 *ngIf="(empForm.empWorkEmail.touched || isFormSubmitted) && empForm.empWorkEmail.errors?.required">
-                Email is required
+                {{ 'content.emailValidation' | translate }}
               </span>
             </div>
           </div>
           <div class="row mb-6">
             <div class="col-lg-6 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[12].title}}</label>
+                lang="AR-SA">{{ 'content.nextOfTheKinName' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="next2KinName"
                 formControlName="next2KinName" />
             </div>
             <div class="col-lg-6 fv-row">
               <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[13].title}}</label>
+                lang="AR-SA">{{ 'content.nextOfTheKinMobile' | translate }}</label>
               <div class="input-group mb-5">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-mobile-alt"></i>
@@ -198,7 +198,7 @@
               </div>
             </div>
             <!--begin::Label-->
-            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> KU Employee </label>
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.kuEmployee' | translate }}</label>
             <div class="col-lg-1 d-flex align-items-center">
               <div class="form-check form-check-solid form-switch fv-row">
                 <input class="form-check-input w-45px h-30px" type="checkbox" id="isOnSickLeave"
@@ -207,7 +207,7 @@
               </div>
             </div>
             <!--begin::Label-->
-            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> On Sick Leave </label>
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.onSickLeave' | translate }}</label>
           </div>
           <div class="row mb-6">
             <!--begin::Label-->
@@ -219,7 +219,7 @@
               </div>
             </div>
             <!--begin::Label-->
-            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle"> Member of Fund </label>
+            <label class="col-lg-5 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.memberOfFund' | translate }}</label>
 
           </div>
         </form>
@@ -232,73 +232,73 @@
 <ngb-accordion #acc="ngbAccordion" class="mb-2 mt-4 job_details_accordian" activeIds="ngb-panel-0">
   <ngb-panel>
     <ng-template ngbPanelTitle *ngFor="let bodyLabel of formBodyLabels; let i = index">
-      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{bodyLabel[14].title}}</h3>
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{ 'content.jobDetails' | translate }}</h3>
     </ng-template>
     <ng-template ngbPanelContent>
       <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <form autocomplete="off" [formGroup]="jobDetailsForm">
           <div class="row mb-6">
             <div class="col-lg-4 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[15].title}}</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.department' | translate }}</label>
               <ng-select [items]="departments$ | async" bindLabel="shortname" bindValue="refid"
                 formControlName="department">
               </ng-select>
               <span class="text-danger"
                 *ngIf="(jobForm.department.touched || isFormSubmitted) && jobForm.department.errors?.required">
-                Department is required
+                {{ 'content.departmentValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-4 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[16].title}}</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.contractType' | translate }}</label>
               <ng-select [items]="contractType$ | async" bindLabel="shortname" bindValue="refid"
                 formControlName="contractType">
               </ng-select>
               <span class="text-danger"
                 *ngIf="(jobForm.contractType.touched || isFormSubmitted) && jobForm.contractType.errors?.required">
-                Contract type is required
+                {{ 'content.contractTypeValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-4 fv-row">
-              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{bodyLabel[17].title}}</label>
+              <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.occupation' | translate }}</label>
               <ng-select [items]="occupations$ | async" bindLabel="shortname" bindValue="refid"
                 formControlName="departmentName">
               </ng-select>
               <span class="text-danger"
                 *ngIf="(jobForm.departmentName.touched || isFormSubmitted) && jobForm.departmentName.errors?.required">
-                Occupation is required
+                {{ 'content.occupationValidation' | translate }}
               </span>
             </div>
           </div>
           <div class="row mb-6">
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[18].title}}</label>
+                lang="AR-SA">{{ 'content.monthlySalary' | translate }}</label>
               <input type="number" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="salary" />
               <span class="text-danger"
                 *ngIf="(jobForm.salary.touched || isFormSubmitted) && jobForm.salary.errors?.required || jobForm['salary'].hasError('min')">
-                Salary is required
+                {{ 'content.salaryValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[19].title}}</label>
+                lang="AR-SA">{{ 'content.civilId' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" formControlName="empCidNum"
                 maxlength="12" />
 
               <span class="text-danger"
                 *ngIf="(jobForm.empCidNum.touched || isFormSubmitted) && jobForm.empCidNum.errors?.required || jobForm['empCidNum'].hasError('minlength') || jobForm['empCidNum'].hasError('maxlength')">
-                (12 digit) CID is required
+                {{ 'content.civilIdValidation' | translate }}
               </span>
             </div>
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[20].title}}</label>
+                lang="AR-SA">{{ 'content.paci' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
                 formControlName="empPaciNum" />
             </div>
             <div class="col-lg-3 fv-row">
               <label class="col-lg-6 col-form-label fw-bold fs-6 ArFontStyle"
-                lang="AR-SA">{{bodyLabel[21].title}}</label>
+                lang="AR-SA">{{ 'content.otherId' | translate }}</label>
               <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" name="nameInArabic"
                 formControlName="empOtherId" />
             </div>
@@ -313,18 +313,18 @@
 <ngb-accordion #acc="ngbAccordion" class="mb-2 membership_details_accordian" activeIds="ngb-panel-0">
   <ngb-panel>
     <ng-template ngbPanelTitle *ngFor="let bodyLabel of formBodyLabels; let i = index">
-      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{bodyLabel[22].title}}</h3>
+      <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialDetails">{{ 'content.memberShipDetails' | translate }}</h3>
     </ng-template>
     <ng-template ngbPanelContent>
       <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index">
         <form autocomplete="off" [formGroup]="membershipForm">
           <div class="row">
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[23].title}}</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{ 'content.memberShip' | translate }}</label>
               <input type="text" class="form-control" name="nameInArabic" formControlName="membership" />
             </div>
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[24].title}}</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{ 'content.dateOfJoining' | translate }}</label>
               <div class="input-group mb-5">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-calendar"></i>
@@ -333,20 +333,20 @@
                   formControlName="membershipJoiningDate" />
                   <span class="text-danger"
                 *ngIf="membershipForm.controls['membership'].valid && membershipForm.controls['membershipJoiningDate'].invalid">
-                Joining field is required
+                {{ 'content.dateOfJoiningValidation' | translate }}
               </span>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[25].title}}</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{ 'content.termination' | translate }}</label>
               <ng-select [items]="terminations$ | async" bindLabel="shortname" bindValue="refid"
                 formControlName="termination">
               </ng-select>
             </div>
             <div class="col-lg-6 fv-row">
-              <label class="col-lg-4 col-form-label fw-bold fs-6">{{bodyLabel[26].title}}</label>
+              <label class="col-lg-4 col-form-label fw-bold fs-6">{{ 'content.terminationDate' | translate }}</label>
               <div class="input-group mb-5">
                 <span class="input-group-text" id="basic-addon1">
                   <i class="fas fa-calendar"></i>

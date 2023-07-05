@@ -4,13 +4,13 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel1bgColor" >     
         <div class="card-toolbar"  *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-dark ArFontStyle header_color" lang="AR-SA" id="OutgoingLetterDetails">{{label.headerName}}</h3>
+            <h3 class="text-dark ArFontStyle header_color" lang="AR-SA" id="OutgoingLetterDetails">{{ 'content.outGoingLetterDetails' | translate }}</h3>
         </div>
        
         <h3 class="card-title align-items-start flex-column" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA" routerLink="/communication/add-outgoing-letter" >{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA" >{{bodyLabel[1].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA" routerLink="/communication/add-outgoing-letter" >{{ 'content.addOutGoingLetter' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle light-sea-green" lang="AR-SA" >{{ 'content.printOutGoingLetter' | translate }}</button>
               </div>
         </h3>
     </div>
@@ -111,12 +111,12 @@
                 <!--begin::Table head-->
                 <thead class="bg-secondary t_row_header">
                     <tr class="fw-bolder" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{bodyLabel[2].title}}</th>
-                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{bodyLabel[3].title}}</th>
-                        <th class="min-w-140px ArFontStyle" lang="AR-SA">{{bodyLabel[4].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[5].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[6].title}}</th>
-                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{bodyLabel[7].title}}</th>
+                        <th class="min-w-80px text-center ArFontStyle" lang="AR-SA">{{ 'content.actions' | translate }}</th>
+                        <th class="min-w-100px ArFontStyle" lang="AR-SA">{{ 'content.date' | translate }}</th>
+                        <th class="min-w-140px ArFontStyle" lang="AR-SA">{{ 'content.letterType' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.filedAt' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.searchTags' | translate }}</th>
+                        <th class="min-w-120px ArFontStyle" lang="AR-SA">{{ 'content.description' | translate }}</th>
                     </tr>
                 </thead>
                 <!--end::Table head-->

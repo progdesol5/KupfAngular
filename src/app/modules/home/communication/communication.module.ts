@@ -15,6 +15,7 @@ import { MaterialModule } from '../../material/material.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchTabModule } from '../_partials/search-tab.module';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   declarations: [
     PrintLabelsComponent,
@@ -30,11 +31,12 @@ import { SearchTabModule } from '../_partials/search-tab.module';
     ReactiveFormsModule, 
     FormsModule,
     SharedModule,
-    NgxTranslateModule,
+    // NgxTranslateModule,
     SearchTabModule,        
     MaterialModule,
     NgSelectModule,
     NgbModule,
+    TranslateModule
 
   ]
 })

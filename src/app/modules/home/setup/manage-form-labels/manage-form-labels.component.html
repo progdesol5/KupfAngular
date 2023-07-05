@@ -3,7 +3,7 @@
     <div class="card-header card-header-stretch pb-0 panel1bgColor">
         <!--begin::Title-->
         <div class="card-title">
-            <h3 class="m-0 text-white ArFontStyle header_color" lang="AR-SA">Manage App Language</h3>
+            <h3 class="m-0 text-white ArFontStyle header_color" lang="AR-SA">{{ 'content.manageAppLanguage' | translate }}</h3>
         </div>
         <!--end::Title-->
     </div>
@@ -18,7 +18,7 @@
             <div class="row gx-9 gy-6">
                 <form [formGroup]="formGroup">
                     <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                        <mat-label>Search</mat-label>
+                        <mat-label>{{ 'content.search' | translate }}</mat-label>
                         <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                             class="ArFontStyle" />
                         <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -28,28 +28,28 @@
                 <div class="table-container">
                     <table mat-table class="w-100" [dataSource]="formTitleHd" matSort [dir]="direction">
                         <ng-container matColumnDef="formID">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Form Id</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'content.formId' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.formID}}</td>
                         </ng-container>
 
                         <ng-container matColumnDef="formName">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Form Name</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'content.formName' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.formName}}</td>
                         </ng-container>
                         <ng-container matColumnDef="headerNameEn">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Header Name En</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'content.headerNameEn' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.headerName}}</td>
                         </ng-container>
                         <ng-container matColumnDef="subHeaderNameEn">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sub Header En</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'content.subHeaderEn' | translate }}</th>
                             <td mat-cell *matCellDef="let item" class="w-25 ArFontStyle">{{item.subHeaderName}}</td>
                         </ng-container>
                         <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef>Action</th>
+                            <th mat-header-cell *matHeaderCellDef>{{ 'content.actions' | translate }}</th>
                             <td mat-cell *matCellDef="let item">
                                 <button mat-raised-button color="accent"
                                     routerLink="/references/update-labels/{{item.formID}}"
-                                    id={{item.formID}}>Select</button>
+                                    id={{item.formID}}>{{ 'content.select' | translate }}</button>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"

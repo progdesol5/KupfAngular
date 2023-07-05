@@ -3,13 +3,13 @@
     <div class="card-header card-header-stretch pb-0 panel1bgColor">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 text-white ArFontStyle">{{label.headerName}}</h3>
+            <h3 class="m-0 text-white ArFontStyle">{{ 'content.addSystemUser' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column">
             <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                <button type="button" class="btn btn-primary ArFontStyle english-vermillion">{{bodyLabel[0].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle candy-pink">{{bodyLabel[1].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle ruddy-pink" routerLink="/users/user-details">{{bodyLabel[2].title}}</button>
+                <button type="button" class="btn btn-primary ArFontStyle english-vermillion">{{ 'content.saveUser' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle candy-pink">{{ 'content.cancel' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle ruddy-pink" routerLink="/users/user-details">{{ 'content.back' | translate }}</button>
             </div>
 
         </h3>
@@ -28,15 +28,15 @@
                 <form autocomplete="off">
                     <div class="row mb-4">
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[3].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.fullName' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[4].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.tenant' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[5].title}}</label>
+                            <label class="col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.location'| tranlate }}</label>
                             <select class="form-control bg-light" aria-label="Select example">
                                 <option>-Select-</option>
                                 <option value="1">ConsumerLoanType</option>
@@ -53,15 +53,15 @@
                     <div class="row mb-4">
 
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[6].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.email' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[7].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.userName' | translate }}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                         <div class="col-lg-4 fv-row">
-                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{bodyLabel[8].title}}</label>
+                            <label class="col-lg-4 col-form-label fw-bold fs-6 ArFontStyle">{{ 'content.password' | translate}}</label>
                             <input type="text" class="form-control form-control-lg  mb-3 mb-lg-0" />
                         </div>
                     </div>
@@ -79,7 +79,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel1bgColorRights">
         <div class="card-title">
-            <h3 class="m-0 text-white ArFontStyle">{{bodyLabel[9].title}}</h3>
+            <h3 class="m-0 text-white ArFontStyle">{{ 'content.userRights' | translate }}</h3>
         </div>
     </div>
     <!--end::Header-->
@@ -89,15 +89,15 @@
             <div class="col-lg-4 fv-row">          
                 <div class="d-flex fw-bold h-100 ">                    
                     <div class="form-check form-check-custom form-check-solid me-9 ">
-                        <input class="form-check-input" type="checkbox" value="" id="email">
-                        <label class="form-check-label ms-3 ArFontStyle" for="email">{{bodyLabel[10].title}}</label>
+                        <input class="form-check-input" type="checkbox" value="" id="membership">
+                        <label class="form-check-label ms-3 ArFontStyle" for="membership">{{ 'content.memberShip' | translate }}</label>
                     </div>            
                 </div>
             </div>
             <div class="col-lg-4 fv-row">     
                 <div class="form-check form-check-custom form-check-solid ">
-                    <input class="form-check-input" type="checkbox" value="" id="phone">
-                    <label class="form-check-label ms-3 ArFontStyle" for="phone">{{bodyLabel[11].title}}</label>
+                    <input class="form-check-input" type="checkbox" value="" id="account">
+                    <label class="form-check-label ms-3 ArFontStyle" for="account">{{ 'content.account' | translate }}</label>
                 </div>  
             </div>
         </div>       
@@ -105,15 +105,15 @@
             <div class="col-lg-4 fv-row">          
                 <div class="d-flex fw-bold h-100">                    
                     <div class="form-check form-check-custom form-check-solid me-9 ">
-                        <input class="form-check-input" type="checkbox" value="" id="email">
-                        <label class="form-check-label ms-3 ArFontStyle" for="email">{{bodyLabel[12].title}}</label>
+                        <input class="form-check-input" type="checkbox" value="" id="reports">
+                        <label class="form-check-label ms-3 ArFontStyle" for="reports">{{ 'content.reports' | translate }}</label>
                     </div>            
                 </div>
             </div>
             <div class="col-lg-4 fv-row">     
                 <div class="form-check form-check-custom form-check-solid ">
-                    <input class="form-check-input" type="checkbox" value="" id="phone">
-                    <label class="form-check-label ms-3 ArFontStyle" for="phone">{{bodyLabel[13].title}}</label>
+                    <input class="form-check-input" type="checkbox" value="" id="setup">
+                    <label class="form-check-label ms-3 ArFontStyle" for="setup">{{ 'content.setup' | translate }}</label>
                 </div>  
             </div>
         </div> 
@@ -122,7 +122,7 @@
                 <div class="d-flex fw-bold h-100 ">                    
                     <div class="form-check form-check-custom form-check-solid me-9 ">
                         <input class="form-check-input" type="checkbox" value="" id="email">
-                        <label class="form-check-label ms-3 ArFontStyle" for="email ">{{bodyLabel[14].title}}</label>
+                        <label class="form-check-label ms-3 ArFontStyle" for="email ">{{ 'content.voucher' | translate }}</label>
                     </div>            
                 </div>
             </div>        </div> 

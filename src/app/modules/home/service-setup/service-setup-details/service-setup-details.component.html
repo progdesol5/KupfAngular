@@ -4,14 +4,14 @@
     <div class="card-header border-0 pt-5 panelBgColor1">
        <!-- TO GET FORM ID AND SETTINGUP LANGAUGE. -->
         <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-dark ArFontStyle header-color" lang="AR-SA" id="ServiceSetupDetail">{{label.headerName}}</h3>
+            <h3 class="text-dark ArFontStyle header-color" lang="AR-SA" id="ServiceSetupDetail">{{ 'content.serviceSetupDetail' | translate }}</h3>
         </div>
         <h3 class="card-title align-items-start flex-column">
             <div class="btn-group" role="group" aria-label="Basic example"
                 *ngFor="let bodyLabel of formBodyLabels; let i = index">
                 <button type="button" class="btn btn-primary ArFontStyle english-vermillion" lang="AR-SA"
-                    routerLink="/service-setup/add-service-setup">{{bodyLabel[1].title}}</button>
-                <button type="button" class="btn btn-primary ArFontStyle candy-pink" lang="AR-SA">{{bodyLabel[3].title}}</button>
+                    routerLink="/service-setup/add-service-setup">{{ 'content.add' | translate }}</button>
+                <button type="button" class="btn btn-primary ArFontStyle candy-pink" lang="AR-SA">{{ 'content.cancel' | translate }}</button>
             </div>
         </h3>
     </div>
@@ -108,7 +108,7 @@
         <div class="table-responsive mt-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ 'content.searh' | translate }}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -118,19 +118,19 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="serviceSetupDto" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle w-10">{{bodyLabel[0].title}}</th>
+                        <th mat-header-cell *matHeaderCellDef class="ArFontStyle w-10">{{ 'content.actions' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-10 text-right">
                             <button mat-raised-button color="warn"
-                                (click)="openDeleteModal(deleteModal,item.serviceId)">Delete</button>
+                                (click)="openDeleteModal(deleteModal,item.serviceId)">{{ 'content.delete' | translate }}</button>
                             &nbsp; <button mat-raised-button color="accent"
                                 routerLink="/service-setup/add-service-setup/{{item.serviceId}}"
-                                id={{item.serviceId}}>Edit</button>
+                                id={{item.serviceId}}>{{ 'content.edit' | translate }}</button>
                         </td>
                     </ng-container>
                     <div *ngIf="lang == 'en'">
                         <ng-container matColumnDef="services">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">
-                                {{bodyLabel[2].title}}
+                                {{ 'content.services' | translate }}
                             </th>
                             <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.serviceName1 }}</td>
                         </ng-container>
@@ -138,31 +138,31 @@
                     <div *ngIf="lang == 'ar'">
                         <ng-container matColumnDef="services">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-10 ArFontStyle">
-                                {{bodyLabel[2].title}}
+                                {{ 'content.services' | translate }}
                             </th>
                             <td mat-cell *matCellDef="let item" class="w-10 ArFontStyle">{{item.serviceName2 }}</td>
                         </ng-container>
                     </div>
                     <ng-container matColumnDef="serviceType">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="w-5 ArFontStyle">
-                            {{bodyLabel[4].title}}</th>
+                            {{ 'content.serviceType' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">{{item.serviceTypeName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="minMax">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[5].title}}</th>
+                            {{ 'content.minMax' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">
                             {{item.minInstallment}}-{{item.maxInstallment}}</td>
                     </ng-container>
                     <ng-container matColumnDef="discountAllow">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[6].title}}</th>
+                            {{ 'content.discountAllow' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">
                             {{item.allowDiscountAmount}}</td>
                     </ng-container>
                     <ng-container matColumnDef="forEmployee">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header class="ArFontStyle">
-                            {{bodyLabel[7].title}}</th>
+                            {{ 'content.forEmployee' | translate }}</th>
                         <td mat-cell *matCellDef="let item" class="w-5 ArFontStyle">
                             {{item.allowedNonEmployes?  'Yes':'No'}}</td>
                     </ng-container>
@@ -192,7 +192,7 @@
     <div class="modal-body">
         <form>
             <div class="mb-3">
-                <span>Do you want to delete this record</span>
+                <span>{{ 'content.deleteConfirm' | translate }}</span>
             </div>
         </form>
     </div>

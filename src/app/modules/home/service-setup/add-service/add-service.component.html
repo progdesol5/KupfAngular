@@ -3,10 +3,10 @@
    *ngIf="!isViewOnly">
     <div [ngClass]="{'header-container': isSearched == true}">
         <div class="sm-container" *ngIf="isSearched">
-            <div class="responsive-font"><strong>Name: </strong>{{employeeForm?.controls.englishName.value}} /
+            <div class="responsive-font"><strong>{{ 'content.name' | translate }}: </strong>{{employeeForm?.controls.englishName.value}} /
                 {{employeeForm?.controls.arabicName.value}} ,
-                <strong> Salary: </strong> {{employeeForm?.controls.salary.value}} ,
-                <strong>Subscription Date: </strong> 01/3/2023
+                <strong> {{ 'content.salary' | translate }}: </strong> {{employeeForm?.controls.salary.value}} ,
+                <strong>{{ 'content.subscriptionDate' | translate }}: </strong> 01/3/2023
             </div>
         </div>
         <div class="btn-container">
@@ -16,13 +16,13 @@
                     <div class="btn-group " role="group" aria-label="Basic example"
                         *ngFor="let bodyLabel of formBodyLabels; let i = index">
                         <button type="button" class="btn btn-primary float-left ArFontStyle dark-sea-green" lang="AR-SA"
-                            (click)="saveFinancialService()">Save</button>
+                            (click)="saveFinancialService()">{{'content.save' | translate }}</button>
 
                         <button type="button" class="btn btn-primary float-left ArFontStyle caledon" lang="AR-SA"
-                            routerLink="/service-setup/service-details">{{bodyLabel[1].title}}</button>
+                            routerLink="/service-setup/service-details">{{ 'content.cancel' | translate }}</button>
 
                         <button type="button" class="btn btn-primary float-left ArFontStyle tea-green" lang="AR-SA"
-                            routerLink="/service-setup/service-details">{{bodyLabel[2].title}}</button>
+                            routerLink="/service-setup/service-details">{{ 'content.back' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
         <ngb-accordion #acc="ngbAccordion" class="mb-2" activeIds="ngb-panel-1">
             <ngb-panel id="ngb-panel-1">
                 <ng-template ngbPanelTitle>
-                    <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">Search Employee</h3>
+                    <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">{{ 'content.searchEmployee' | translate }}</h3>
                 </ng-template>
                 <ng-template ngbPanelContent>
                     <div id="kt_account_email_preferences" class="collapse show"
@@ -51,31 +51,31 @@
                                 <div class="row mb-4">
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example1 " lang="AR-SA"
-                                            [style]='arabicFont'>PF Id</label>
+                                            [style]='arabicFont'>{{ 'content.pfId' | translate }}</label>
                                         <input type="number" class="form-control" formControlName="pfId" name="pfId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                            [style]='arabicFont'>CID</label>
+                                            [style]='arabicFont'>{{ 'content.cid' | translate }}</label>
                                         <input type="number" class="form-control" formControlName="cId" name="cId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                            [style]='arabicFont'>Employee Id</label>
+                                            [style]='arabicFont'>{{ 'content.employeeId' | translate }}</label>
                                         <input type="number" class="form-control" formControlName="employeeId"
                                             name="employeeId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-primary mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchEmployee()">Search Employee</button>
+                                            [style]='arabicFont' (click)="SearchEmployee()">{{ 'content.searchEmployee' | translate }}</button>
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-success mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchSponsor()">Search Sponsor</button>
+                                            [style]='arabicFont' (click)="SearchSponsor()">{{ 'content.searchSponsor' | translate }}</button>
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-success mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchNewSubscriber()">New Subscriber</button>
+                                            [style]='arabicFont' (click)="SearchNewSubscriber()">{{ 'content.newSubscriber' | translate }}</button>
                                     </div>
                                 </div>
                             </form>
@@ -85,20 +85,19 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example1 " lang="AR-SA"
-                                        [style]='arabicFont'>PF
-                                        Id</label>
+                                        [style]='arabicFont'>{{ 'content.pfId' | translate }}</label>
                                     <input type="text" class="form-control" formControlName="employeePFId"
                                         name="employeePFId" readonly style="background-color: #43ffcb !important;" />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                        [style]='arabicFont'>CID</label>
+                                        [style]='arabicFont'>{{ 'content.cid' | translate }}</label>
                                     <input type="text" class="form-control" formControlName="employeeCID"
                                         name="employeeCID" readonly style="background-color: #43ffcb !important;" />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                        [style]='arabicFont'>Employee Id</label>
+                                        [style]='arabicFont'>{{ 'content.employeeId' | translate }}</label>
                                     <input type="text" class="form-control" formControlName="employeeFormEmployeeId"
                                         name="employeeFormEmployeeId" readonly
                                         style="background-color: #43ffcb !important;" />
@@ -109,21 +108,19 @@
                                     <input type="hidden" class="form-control" formControlName="employeeId"
                                         name="employeeId" />
                                     <label class="form-label" for="englishName " lang="AR-SA"
-                                        [style]='arabicFont'>English
-                                        Name</label>
+                                        [style]='arabicFont'>{{ 'content.englishName' | translate }}</label>
                                     <input type="text" class="form-control" formControlName="englishName"
                                         name="englishName" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="arabicName " lang="AR-SA" [style]='arabicFont'>Arabic
-                                        Name
+                                    <label class="form-label" for="arabicName " lang="AR-SA" [style]='arabicFont'>{{'content.arabicName' | translate }}
                                     </label>
                                     <input type="text" class="form-control" formControlName="arabicName"
                                         name="arabicName" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="empGender " lang="AR-SA"
-                                        [style]='arabicFont'>Gender</label>
+                                        [style]='arabicFont'>{{'content.gender' | translate }}</label>
                                     <ng-select formControlName="empGender" [disabled]="true">
                                         <ng-option *ngFor="let item of genderArray" [value]="item.id"
                                             [disabled]="true">{{item.name}}</ng-option>
@@ -132,22 +129,20 @@
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="joinedDate" lang="AR-SA" [style]='arabicFont'>Joining
-                                        Date</label>
+                                    <label class="form-label" for="joinedDate" lang="AR-SA" [style]='arabicFont'>{{'content.joiningDate' | translate }}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="joinedDate"
                                         name="joinedDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="mobileNumber " lang="AR-SA"
-                                        [style]='arabicFont'>Mobile</label>
+                                        [style]='arabicFont'>{{ 'content.mobile' | translate }}</label>
                                     <input type="text" id="mobileNumber" class="form-control"
                                         formControlName="mobileNumber" name="mobileNumber" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="empMaritalStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Marital
-                                        Status</label>
+                                        [style]='arabicFont'>{{'content.maritalStatus' | translate }}</label>
                                     <!-- <input type="text" id="empMaritalStatus" class="form-control"
                                             formControlName="empMaritalStatus" name="empMaritalStatus" lang="AR-SA" readonly /> -->
                                     <ng-select formControlName="empMaritalStatus" [disabled]="true">
@@ -159,42 +154,39 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="nationName " lang="AR-SA"
-                                        [style]='arabicFont'>Nation</label>
+                                        [style]='arabicFont'>{{'content.nation' | translate }}</label>
                                     <input type="text" id="CountryNameEnglish" class="form-control"
                                         formControlName="CountryNameEnglish" name="CountryNameEnglish" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="contractType " lang="AR-SA"
-                                        [style]='arabicFont'>Contract
-                                        Type</label>
+                                        [style]='arabicFont'>{{'content.contractType' | translate }}</label>
                                     <input type="text" id="contractType" class="form-control"
                                         formControlName="contractType" name="contractType" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="kinName" lang="AR-SA" [style]='arabicFont'>Kin
-                                        Name</label>
+                                    <label class="form-label" for="kinName" lang="AR-SA" [style]='arabicFont'>{{'content.kinName' | translate }}</label>
                                     <input type="text" id="kinName" class="form-control" formControlName="kinName"
                                         name="kinName" lang="AR-SA" readonly />
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="kinMobile " lang="AR-SA" [style]='arabicFont'>Kin
-                                        Mobile</label>
+                                    <label class="form-label" for="kinMobile " lang="AR-SA" [style]='arabicFont'>{{'content.kinMobile' | translate }}</label>
                                     <input type="text" id="kinMobile" class="form-control" formControlName="kinMobile"
                                         name="kinMobile" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionAmount " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Amount</label>
+                                        [style]='arabicFont'>{{'content.subscriptionAmount' | translate }}</label>
                                     <input type="text" id="subscriptionAmount" class="form-control"
                                         formControlName="subscriptionAmount" name="subscriptionAmount" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionPaid " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Paid</label>
+                                        [style]='arabicFont'>{{ 'content.subscriptionPaid' | translate }}</label>
                                     <input type="text" id="subscriptionPaid" class="form-control"
                                         formControlName="subscriptionPaid" name="subscriptionPaid" lang="AR-SA"
                                         readonly />
@@ -203,22 +195,21 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="lastSubscriptionPaid " lang="AR-SA"
-                                        [style]='arabicFont'>Last
-                                        Subscription Paid</label>
+                                        [style]='arabicFont'>{{'content.lastSubscriptionPaid' | translate }}</label>
                                     <input type="number" id="lastSubscriptionPaid" class="form-control"
                                         formControlName="lastSubscriptionPaid" name="lastSubscriptionPaid" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionDueAmount " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Due Amount</label>
+                                        [style]='arabicFont'>{{ 'content.subscriptionDueAmount' | translate }}</label>
                                     <input type="number" id="subscriptionDueAmount" class="form-control"
                                         formControlName="subscriptionDueAmount" name="subscriptionDueAmount"
                                         lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Status</label>
+                                        [style]='arabicFont'>{{ 'content.subscriptionStatus' | translate }}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                                         formControlName="subscriptionStatus" name="subscriptionStatus" lang="AR-SA"
@@ -230,22 +221,20 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="terminationDate " lang="AR-SA"
-                                        [style]='arabicFont'>Termination Date</label>
+                                        [style]='arabicFont'>{{ 'content.terminationDate' | translate }}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="terminationDate"
                                         name="terminationDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="endDate " lang="AR-SA" [style]='arabicFont'>End
-                                        Date</label>
+                                    <label class="form-label" for="endDate " lang="AR-SA" [style]='arabicFont'>{{ 'content.endDate' | translate }}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="endDate"
                                         name="endDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="employeeStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Employee
-                                        Status</label>
+                                        [style]='arabicFont'>{{ 'content.employeeStatus' | translate }}</label>
                                     <input type="number" id="employeeStatus" class="form-control"
                                         formControlName="employeeStatus" name="employeeStatus" lang="AR-SA" readonly />
                                 </div>
@@ -253,7 +242,7 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="employeeStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Salary</label>
+                                        [style]='arabicFont'>{{ 'content.salary' | translate  }}</label>
                                     <input type="number" id="employeeStatus" class="form-control"
                                         formControlName="salary" name="salary" lang="AR-SA" readonly />
                                 </div>
@@ -272,10 +261,10 @@
                 <div class="card-header card-header-stretch pb-0 panel1bgColor">
                     <!--begin::Title-->
                     <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-                        <h3 class="m-0 ArFontStyle" lang="AR-SA" id="MembershipTransactions">{{label.headerName}}</h3>
+                        <h3 class="m-0 ArFontStyle" lang="AR-SA" id="MembershipTransactions">{{ 'asideMenu.addService' | translate }}</h3>
                     </div>
                     <div class="card-title">
-                        <h3 class="m-0 text-danger ArFontStyle" lang="AR-SA">Service Status</h3>
+                        <h3 class="m-0 text-danger ArFontStyle" lang="AR-SA">{{ 'content.serviceStatus' | translate }}</h3>
                     </div>
                     <!--end::Title-->
                 </div>
@@ -295,31 +284,30 @@
                                 <div class="row mb-6">
                                     <div class="col-lg-4 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[3].title}}</label>
+                                            lang="AR-SA">{{'content.serviceType' | translate }}</label>
                                         <ng-select [items]="selectServiceType" bindLabel="shortname"
                                             formControlName="serviceType" bindValue="refId" lang="AR-SA"
                                             (change)="onServiceTypeChange($event)" [(ngModel)]="serviceTypeSelected">
                                         </ng-select>
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.serviceType.errors?.required">
-                                            Service Type is required
+                                            {{ 'content.serviceValidationMessage' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-4 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[4].title}}</label>
+                                            lang="AR-SA">{{ 'content.subServiceType' | translate }}</label>
                                         <ng-select [items]="selectServiceSubType" bindLabel="shortName"
                                             formControlName="serviceSubType" bindValue="refId" lang="AR-SA"
                                             (change)="onServiceSubTypeChange($event)">
                                         </ng-select>
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.serviceSubType.errors?.required">
-                                            Service Sub Type is required
+                                            {{ 'content.subServiceValidationMessage' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-4 fv-row">
-                                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">Transaction
-                                            Date</label>
+                                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.transactionDate' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -339,62 +327,62 @@
                                 <div class="row mb-6">
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[6].title}}</label>
+                                            lang="AR-SA">{{ 'content.amount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg mb-lg-0"
                                             (keyup)="calculateInstallments()" formControlName="totamt"
                                             [readonly]="isViewOnly" />
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.totamt.errors?.required">
-                                            Amount is required
+                                            {{ 'content.amountValidation' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA"><small
-                                                class="text-danger" style="font-size:10px">Incase of Gift By Default=Y
+                                                class="text-danger" style="font-size:10px">{{'content.incaseofGiftByDefault' | translate }}
                                             </small>
-                                            {{bodyLabel[9].title}}
+                                            {{ 'content.giftAmount' | translate }}
                                         </label>
                                         <input type="number" class="form-control form-control-lg mb-lg-0"
                                             formControlName="allowDiscountAmount" (keyup)="calculateInstallments()" />
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.allowDiscountAmount.errors?.required">
-                                            Discount Amount is required
+                                            {{ 'content.giftAmountValidation' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle" for="subscriptionStatus "
-                                            lang="AR-SA" [style]='arabicFont'>Down Payment</label>
+                                            lang="AR-SA" [style]='arabicFont'>{{'content.downPayment' | translate }}</label>
                                         <input type="number" id="downPayment" class="form-control"
                                             formControlName="downPayment" (keyup)="calculateInstallments()"
                                             name="downPayment" lang="AR-SA" [readonly]="isViewOnly" />
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[8].title}}</label>
+                                            lang="AR-SA">{{ 'content.installmentAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg mb-lg-0" value="0.00"
                                             formControlName="installmentAmount" />
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.installmentAmount.errors?.required">
-                                            Installment Amount is required
+                                            {{'content.installmentAmountValidation' | translate }}
                                         </span>
 
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[7].title}}</label>
+                                            lang="AR-SA">{{ 'content.noOfInstallments' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg mb-lg-0"
                                             formControlName="totinstallments" (keyup)="calculateInstallments()"
                                             [readonly]="isViewOnly" />
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.totinstallments.errors?.required">
-                                            No of Installment(s) is required
+                                            {{ 'content.noOfInstallmentsValidation' | translate }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[10].title}}</label>
+                                            lang="AR-SA">{{ 'content.startingDeductionMonth' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -406,12 +394,12 @@
                                         </div>
                                         <span class="text-danger"
                                             *ngIf="isFormSubmitted && addServiceFrm.installmentsBegDate.errors?.required">
-                                            Installment Begin Date is required
+                                            {{ 'content.installmentBeginDateValidation' | translate }}
                                         </span>
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[11].title}}</label>
+                                            lang="AR-SA">{{ 'content.untilMonth' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -422,15 +410,14 @@
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle"
-                                            lang="AR-SA">{{bodyLabel[5].title}}</label>
+                                            lang="AR-SA">{{'content.expectedTransactionNumber' | translate}}</label>
                                         <input type="text" class="form-control form-control-lg mb-lg-0"
                                             formControlName="searialNo" disabled />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 fv-row">
-                                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">PF
-                                            Id</label>
+                                        <label class="col-form-label fw-bold fs-6 ArFontStyle" lang="AR-SA">{{ 'content.pfId' | translate}}</label>
                                         <input type="text" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="pfId" />
                                     </div>
@@ -438,11 +425,11 @@
                                         <div class="text-left " style="margin-top: 3rem">
                                             <button type="button"
                                                 class="btn btn-primary float-left ArFontStyle dark-sea-green"
-                                                lang="AR-SA" (click)="saveFinancialService()">Save</button>
+                                                lang="AR-SA" (click)="saveFinancialService()">{{ 'content.save' | translate }}</button>
                                             &nbsp;
                                             <button ype="button"
                                                 class="btn btn-primary float-left ArFontStyle tea-green" lang="AR-SA"
-                                                (click)="getFinancialCalculation()">Get</button>
+                                                (click)="getFinancialCalculation()">{{ 'content.get' | translate }}</button>
                                         </div>
 
                                     </div>
@@ -457,21 +444,19 @@
                 <ngb-accordion #acc="ngbAccordion" class="financial_calculation" activeIds="ngb-panel-0">
                     <ngb-panel>
                         <ng-template ngbPanelTitle>
-                            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialCalculation">Financial
-                                Calculation - الحساب المالي</h3>
+                            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="FinancialCalculation">{{'content.financialCalculation' | translate }}</h3>
                         </ng-template>
                         <ng-template ngbPanelContent>
                             <div class="row">
                                 <div class="text-left">
                                     <button mat-raised-button color="primary"
-                                        (click)="calculateFinancialAmount()">Calculate</button>
+                                        (click)="calculateFinancialAmount()">{{ 'content.calculate' | translate }}</button>
                                 </div>
                             </div>
                             <form autocomplete="off" [formGroup]="financialCalculationForm">
                                 <div class="row">
                                     <div class="col-lg-3 fv-row">
-                                        <label class="col-form-label fw-bold fs-6 ArFontStyle label-color">Year Of
-                                            Service</label>
+                                        <label class="col-form-label fw-bold fs-6 ArFontStyle label-color">{{ 'content.yearOfService' | translate }}</label>
                                         <input type="text" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="yearOfService" readonly
                                             style="background-color: #e9e9e9;" />
@@ -479,24 +464,21 @@
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">No
-                                            Of
-                                            Transactions</label>
+                                            lang="AR-SA">{{ 'content.noOfTransactions' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="noOfTransactions" readonly
                                             style="background-color: #e9e9e9;" />
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Paid
-                                            Subscription Amount</label>
+                                            lang="AR-SA">{{ 'content.paidSubscriptionAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="subscriptionPaidAmount" readonly
                                             style="background-color: #e9e9e9;" />
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Subscription Due Amount</label>
+                                            lang="AR-SA">{{'content.subscriptionDueAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="subscriptionDueAmount" readonly
                                             style="background-color: #e9e9e9;" />
@@ -506,8 +488,7 @@
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(-)
-                                            Loan
-                                            Amount Balance</label>
+                                            {{ 'content.loanBalance' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="loanPendingAmount" readonly
                                             style="background-color: #e9e9e9;" />
@@ -515,7 +496,7 @@
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(-)
-                                            Financial Aid (1 %)</label>
+                                            {{ 'content.financialAid' | translate }} (1 %)</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="financialAid" readonly
                                             style="background-color: #e9e9e9;" />
@@ -523,16 +504,14 @@
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(-)
-                                            PF
-                                            Fund Revenue (10 %)</label>
+                                            {{ 'content.pfFundRevenue' | translate }} (10 %)</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="pfFundRevenue" readonly
                                             style="background-color: #e9e9e9;" />
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Update
-                                            To Date</label>
+                                            lang="AR-SA">{{ 'content.updateToDate' | translate }}</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon1">
                                                 <i class="fas fa-calendar"></i>
@@ -548,13 +527,13 @@
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(+)
-                                            Adjustment Amount</label>
+                                            {{ 'content.adjustmentAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="adjustmentAmount" (keyup)="calculateFinancialAmount()" />
                                     </div>
                                     <div class="col-lg-9 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Remarks</label>
+                                            lang="AR-SA">{{ 'content.remarks' | translate }}</label>
                                         <input type="text" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="adjustmentAmountRemarks" />
                                     </div>
@@ -563,13 +542,13 @@
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(+)
-                                            Financial Aid Amount</label>
+                                            {{ 'content.financialAidAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="financialAidAmount" (keyup)="calculateFinancialAmount()" />
                                     </div>
                                     <div class="col-lg-9 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Remarks</label>
+                                            lang="AR-SA">{{ 'content.remarks' | translate }}</label>
                                         <input type="text" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="finAidAmountRemarks" />
                                     </div>
@@ -577,28 +556,27 @@
                                 <div class="row">
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Total
-                                            Amount</label>
+                                            lang="AR-SA">{{'content.totalAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="totalAmount" readonly style="background-color: #e9e9e9;" />
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-lg-12" style="background-color: #C7EA46;">
-                                        <h1 lang="AR-SA" class="display-4 text-center mt-3">Sponsorship - رعاية</h1>
+                                        <h1 lang="AR-SA" class="display-4 text-center mt-3">{{ 'content.sponsorShip' | translate }}</h1>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
-                                            lang="AR-SA">Sponsored</label>
+                                            lang="AR-SA">{{ 'content.sponsored' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="noOfSponsor" readonly style="background-color: #e9e9e9;" />
                                     </div>
                                     <div class="col-lg-3 fv-row">
                                         <label class="col-form-label fw-bold fs-6 ArFontStyle label-color"
                                             lang="AR-SA">(-)
-                                            Sponsor Due Amount</label>
+                                            {{ 'content.sponsorDueAmount' | translate }}</label>
                                         <input type="number" class="form-control form-control-lg  mb-lg-0"
                                             formControlName="sponsorLoanPendingAmount" readonly
                                             style="background-color: #e9e9e9;" />
@@ -608,8 +586,7 @@
                                     <div class="col-lg-3 fv-row" style="margin-top: 43px;">
                                         <div class="text-right">
                                             <button mat-raised-button color="accent"
-                                                (click)="openCashierInformation(cashierInformationModal)">Cashier
-                                                Information</button>
+                                                (click)="openCashierInformation(cashierInformationModal)">{{ 'content.cashierInformation' | translate }}</button>
                                         </div>
                                     </div>
                                 </div>

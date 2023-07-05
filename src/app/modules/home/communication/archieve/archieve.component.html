@@ -5,7 +5,7 @@
     <div class="card-header card-header-stretch pb-0 panelBackgroundColor">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="ImportArchieves">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA" id="ImportArchieves">{{ 'content.importArchieves' | translate }}</h3>
         </div>
         <!--end::Title-->
     </div>
@@ -23,7 +23,7 @@
                     <div class="row mb-4">
                         <div class="col-lg-6 fv-row" *ngFor="let bodyLabel of formBodyLabels; let i = index">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA" >{{bodyLabel[0].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA" >{{ 'content.uploadExcelSheet' | translate }}</label>
                                 <input class="form-control" type="file" id="formFile">
                                 <span><small class="text-danger ArFontStyle" lang="AR-SA"></small></span>
                               </div>
@@ -37,7 +37,7 @@
     <!--end::Tab content-->
     <div class="card-footer d-flex justify-content-end py-6 px-9 " *ngFor="let bodyLabel of formBodyLabels; let i = index">
        <div class="d-flex">
-            <a href="#" class="btn btn-primary me-3 ArFontStyle bg-btn-print-labels">{{bodyLabel[2].title}}</a>
+            <a href="#" class="btn btn-primary me-3 ArFontStyle bg-btn-print-labels">{{ 'content.upload' | translate}}</a>
         </div>
     </div>
 </div>

@@ -18,6 +18,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DocumentAttachmentComponent } from './document-attachment/document-attachment.component';
 import { MaterialModule } from '../../material/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -46,7 +47,8 @@ import { MaterialModule } from '../../material/material.module';
     CKEditorModule,
     AngularEditorModule,
     TabsModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    TranslateModule
   ],
   exports: [
     SearchTabComponent,

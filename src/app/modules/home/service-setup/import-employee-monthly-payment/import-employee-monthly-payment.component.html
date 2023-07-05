@@ -6,7 +6,7 @@
     <div class="card-header card-header-stretch pb-0 panel2bgColor">
         <!--begin::Title-->
         <div class="card-title" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="lblHeader">{{label.headerName}}</h3>
+            <h3 class="m-0 ArFontStyle header_color" lang="AR-SA" id="lblHeader">{{ 'content.importEmployeeMonthlyPayment' | translate }}</h3>
         </div>
         <!--end::Title-->
     </div>
@@ -27,13 +27,13 @@
                     <div class="row mb-4">     
                         <div class="col-lg-6 fv-row">
                             <div class="mt-4">                                
-                                <label class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[0].title}} </label>
+                                <label class="form-label ArFontStyle" lang="AR-SA">{{ 'content.forThePeriod' | translate }}</label>
                                 <input class="form-control" type="date">
                               </div>
                         </div>                  
                         <div class="col-lg-6 fv-row">
                             <div class="mt-4">
-                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{bodyLabel[1].title}}</label>
+                                <label for="formFile" class="form-label ArFontStyle" lang="AR-SA">{{ 'content.selectFile' | translate }}</label>
                                 <input class="form-control" type="file" id="formFile"> 
                                 
                               </div>
@@ -47,7 +47,7 @@
     </div>
     <!--end::Tab content-->
     <div class="card-footer d-flex justify-content-end py-6 px-9" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-        <button type="button" class="btn btn-primary float-right ArFontStyle btn-bg" lang="AR-SA">{{bodyLabel[2].title}}</button>
+        <button type="button" class="btn btn-primary float-right ArFontStyle btn-bg" lang="AR-SA">{{ 'content.importEmployeeMonthlyPayment' | translate }}</button>
 
     </div>
 </div>
