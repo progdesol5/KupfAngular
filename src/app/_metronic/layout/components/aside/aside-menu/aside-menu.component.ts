@@ -4,7 +4,7 @@ import { MenuHeading } from 'src/app/modules/models/MenuHeading';
 import { UserFunctionDto } from 'src/app/modules/models/UserFunctions/UserFunctionDto';
 import { CommonService } from 'src/app/modules/_services/common.service';
 import { environment } from '../../../../../../environments/environment';
-
+import { LocalizationService } from 'src/app/modules/_services/localization.service';
 @Component({
   selector: 'app-aside-menu',
   templateUrl: './aside-menu.component.html',
@@ -19,17 +19,20 @@ export class AsideMenuComponent implements OnInit {
   menuHeading: any[] = [];
   color:any;
   lang:any;
-  constructor(private common: CommonService, private router: Router) { 
+
+  constructor(private common: CommonService, private router: Router,private localizationService: LocalizationService) { 
     this.common.menuSessionUdpated.subscribe((result: any) => {
       this.setMenuFromSession();
     })
   }
 
   ngOnInit(): void {
-    this.lang = localStorage.getItem('lang');
     this.setMenuFromSession();
+    this.common.getLang().subscribe((lang: string) => {
+      this.lang = lang
+      console.log(lang)
+    })
     console.log('aside-menu', this.menuHeading); 
-    
   }
 
   setMenuFromSession() {

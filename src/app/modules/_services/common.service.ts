@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +24,19 @@ export class CommonService {
   isViewOnly = false;
   public menuSessionUdpated = new Subject<any>();
   public empSearchClickEvent = new Subject<any>();
-  constructor() { }
+  private langSubject = new BehaviorSubject<string>('');
+  constructor() {
+  }
   sendFormTitle(title :string){
   this.formTitle = title
   }
   getFormTitle(){
     return this.formTitle;
+  }
+  setLang(lang: string) {
+    this.langSubject.next(lang);
+  }
+  getLang(): Observable<string> {
+    return this.langSubject.asObservable();
   }
 }

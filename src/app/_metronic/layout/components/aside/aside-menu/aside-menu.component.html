@@ -91,7 +91,7 @@
 
 <div class="menu-item">
   <div class="menu-content pt-8 pb-2">
-    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Service</span>
+    <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[0].title : menuHeading[0].listMenuHighLightHeading[0].arabicTitle}}</span>
   </div>
 </div>
 
@@ -111,7 +111,7 @@
           fill="currentColor" />
       </svg>
     </span>
-    <span class="menu-title" data-link="/error">Membership Management</span><span class="menu-arrow"></span></span>
+    <span class="menu-title" data-link="/error">{{ lang == 'en' ? menuHeading[0].headingNameEnglish : menuHeading[0].headingNameArabic}}</span><span class="menu-arrow"></span></span>
   <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
     <!-- <div class="menu-item">
       <a class="menu-link" routerLink="/references/subscription-details" routerLinkActive="active">        
@@ -124,25 +124,22 @@
 
     <div class="menu-item">
       <a class="menu-link without-sub" routerLink="/service-setup/manage-approvals" routerLinkActive="active"><span
-          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Manager
-          Approvals</span></a>
+          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[0].menuItems[0].menuItemNameEnglish : menuHeading[0].menuItems[0].menuItemNameArabic}}</span></a>
     </div>
     <div class="menu-item">
       <a class="menu-link without-sub" routerLink="/service-setup/financial-approval" routerLinkActive="active"><span
-          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Financial
-          Approvals</span></a>
+          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[0].menuItems[1].menuItemNameEnglish : menuHeading[0].menuItems[1].menuItemNameArabic}}</span></a>
     </div>
     <div class="menu-item">
       <a class="menu-link without-sub" routerLink="/service-setup/cashier-approval" routerLinkActive="active"><span
-          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Cashier
-          Approvals</span></a>
+          class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[0].menuItems[2].menuItemNameEnglish : menuHeading[0].menuItems[2].menuItemNameArabic}}</span></a>
     </div>
     <div class="menu-item">
       <a class="menu-link" routerLink="/references/subscription-details" routerLinkActive="active">
         <span class="menu-bullet">
           <span class="bullet bullet-dot"></span>
         </span>
-        <span class="menu-title">Online Membership Request</span>
+        <span class="menu-title">{{ lang == 'en' ? menuHeading[0].menuItems[3].menuItemNameEnglish : menuHeading[0].menuItems[3].menuItemNameArabic}}</span>
       </a>
     </div>
     <div class="menu-item">
@@ -150,7 +147,7 @@
         <span class="menu-bullet">
           <span class="bullet bullet-dot"></span>
         </span>
-        <span class="menu-title">Voucher Details</span>
+        <span class="menu-title">{{ lang == 'en' ? menuHeading[0].menuItems[4].menuItemNameEnglish : menuHeading[0].menuItems[4].menuItemNameArabic}}</span>
       </a>
     </div>
     <!-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion here">
@@ -213,7 +210,7 @@
 
   <div class="menu-item">
     <div class="menu-content pt-8 pb-2">
-      <span class="menu-section text-muted text-uppercase fs-8 ls-1">Services Management</span>
+      <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[5].title : menuHeading[0].listMenuHighLightHeading[5].arabicTitle}}</span>
     </div>
   </div>
 
@@ -222,38 +219,34 @@
       <span class="menu-bullet">
         <span class="bullet bullet-dot"></span>
       </span>
-      <span class="menu-title text-success">Services Management</span>
+      <span class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].headingNameEnglish : menuHeading[1].headingNameArabic}}</span>
       <span class="menu-arrow"></span>
     </span>
     <div class="menu-sub menu-sub-accordion" kt-hidden-height="78">
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/add-service"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title text-success">Add
-            Service</span><!--display add service form-->
+              class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].menuItems[0].menuItemNameEnglish : menuHeading[1].menuItems[0].menuItemNameArabic}}</span><!--display add service form-->
         </a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/service-details"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title text-success">Service
-            Details</span><!--display service details form-->
+              class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].menuItems[1].menuItemNameEnglish : menuHeading[1].menuItems[1].menuItemNameArabic}}</span><!--display service details form-->
         </a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/service-details"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title text-success">View
-            Service</span><!--display view service form-->
+              class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].menuItems[3].menuItemNameEnglish : menuHeading[1].menuItems[3].menuItemNameArabic}}</span><!--display view service form-->
         </a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/service-details"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title text-success">Delete
-            Service</span><!--display delete service form-->
+              class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].menuItems[4].menuItemNameEnglish : menuHeading[1].menuItems[4].menuItemNameArabic}}</span><!--display delete service form-->
         </a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/import-emplyee-monthly-payment"><span
             class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title text-success">Import Monthly Data</span><!--Not Implemented.-->
+            class="menu-title text-success">{{ lang == 'en' ? menuHeading[1].menuItems[5].menuItemNameEnglish : menuHeading[1].menuItems[5].menuItemNameArabic}}</span><!--Not Implemented.-->
         </a>
       </div>
       <!-- <div data-kt-menu-trigger="click" class="menu-item menu-accordion here">
@@ -294,7 +287,7 @@
           <span class="menu-bullet">
             <span class="bullet bullet-dot"></span>
           </span>
-          <span class="menu-title">Social Services </span>
+          <span class="menu-title">{{ lang == 'en' ? menuHeading[2].headingNameEnglish : menuHeading[2].headingNameArabic}}</span>
           <span class="menu-arrow"></span>
         </span>
         <div class="menu-sub menu-sub-accordion" style="display: none; overflow: hidden;" kt-hidden-height="78">
@@ -303,7 +296,7 @@
               <span class="menu-bullet">
                 <span class="bullet bullet-dot"></span>
               </span>
-              <span class="menu-title">Employee Certficate</span>
+              <span class="menu-title">{{ lang == 'en' ? menuHeading[2].menuItems[0].menuItemNameEnglish : menuHeading[2].menuItems[0].menuItemNameArabic}}</span>
             </a>
           </div>
           <div class="menu-item">
@@ -311,7 +304,7 @@
               <span class="menu-bullet">
                 <span class="bullet bullet-dot"></span>
               </span>
-              <span class="menu-title">Membership Certification </span>
+              <span class="menu-title">{{ lang == 'en' ? menuHeading[2].menuItems[1].menuItemNameEnglish : menuHeading[2].menuItems[1].menuItemNameArabic}} </span>
             </a>
           </div>
           <div class="menu-item">
@@ -319,7 +312,7 @@
               <span class="menu-bullet">
                 <span class="bullet bullet-dot"></span>
               </span>
-              <span class="menu-title">Debit Certification </span>
+              <span class="menu-title">{{ lang == 'en' ? menuHeading[2].menuItems[2].menuItemNameEnglish : menuHeading[2].menuItems[2].menuItemNameArabic}} </span>
             </a>
           </div>
           <div class="menu-item">
@@ -327,7 +320,7 @@
               <span class="menu-bullet">
                 <span class="bullet bullet-dot"></span>
               </span>
-              <span class="menu-title">Settlement Certification</span>
+              <span class="menu-title">{{ lang == 'en' ? menuHeading[2].menuItems[3].menuItemNameEnglish : menuHeading[2].menuItems[3].menuItemNameArabic}}</span>
             </a>
           </div>
           <div class="menu-item">
@@ -335,7 +328,7 @@
               <span class="menu-bullet">
                 <span class="bullet bullet-dot"></span>
               </span>
-              <span class="menu-title">Social Activity</span>
+              <span class="menu-title">{{ lang == 'en' ? menuHeading[2].menuItems[4].menuItemNameEnglish : menuHeading[2].menuItems[4].menuItemNameArabic}}</span>
             </a>
           </div>
         </div>
@@ -365,7 +358,7 @@
 
   <div class="menu-item">
     <div class="menu-content pt-8 pb-2">
-      <span class="menu-section text-muted text-uppercase fs-8 ls-1">Employees Data</span>
+      <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[1].title : menuHeading[0].listMenuHighLightHeading[1].arabicTitle}}</span>
     </div>
   </div>
 
@@ -385,7 +378,7 @@
             fill="currentColor" />
         </svg>
       </span>
-      <span class="menu-title text-success" data-link="/error">Employee Management</span><span
+      <span class="menu-title text-success" data-link="/error">{{ lang == 'en' ? menuHeading[3].headingNameEnglish : menuHeading[3].headingNameArabic}}</span><span
         class="menu-arrow"></span>
     </span>
     <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
@@ -395,7 +388,7 @@
             <span class="menu-bullet">
               <span class="bullet bullet-dot"></span>
             </span>
-            <span class="menu-title text-success">Add Employee</span>
+            <span class="menu-title text-success">{{ lang == 'en' ? menuHeading[3].menuItems[0].menuItemNameEnglish : menuHeading[3].menuItems[0].menuItemNameArabic}}</span>
           </a>
         </div>
         <div class="menu-item">
@@ -403,13 +396,12 @@
             <span class="menu-bullet">
               <span class="bullet bullet-dot"></span>
             </span>
-            <span class="menu-title text-success">View Employee</span>
+            <span class="menu-title text-success">{{ lang == 'en' ? menuHeading[3].menuItems[1].menuItemNameEnglish : menuHeading[3].menuItems[1].menuItemNameArabic}}</span>
           </a>
         </div>
         <div class="menu-item">
           <a class="menu-link without-sub" routerLink="/employee/import-employee-master" routerLinkActive="active"><span
-              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Import
-              Employee Excel Sheet</span></a>
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[3].menuItems[2].menuItemNameEnglish : menuHeading[3].menuItems[2].menuItemNameArabic}}</span></a>
         </div>
         <!-- <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/import-emplyee-monthly-payment"
@@ -423,7 +415,7 @@
 
   <div class="menu-item">
     <div class="menu-content pt-8 pb-2">
-      <span class="menu-section text-muted text-uppercase fs-8 ls-1">Communication</span>
+      <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[3].title : menuHeading[0].listMenuHighLightHeading[3].arabicTitle}}</span>
     </div>
   </div>
 
@@ -437,30 +429,27 @@
             d="M22 9.72498V20.725C22 21.325 21.6 21.725 21 21.725H3C2.4 21.725 2 21.325 2 20.725V9.72498L11.4 17.225C11.8 17.525 12.3 17.525 12.6 17.225L22 9.72498ZM15 11.725H18L14 7.72498V10.725C14 11.325 14.4 11.725 15 11.725Z"
             fill="currentColor" />
         </svg>
-      </span><span class="menu-title" data-link="/error">Communication</span><span class="menu-arrow"></span>
+      </span><span class="menu-title" data-link="/error">{{ lang == 'en' ? menuHeading[4].headingNameEnglish : menuHeading[4].headingNameArabic}}</span><span class="menu-arrow"></span>
     </span>
     <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/communication/incoming-letter-details"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title">Register incoming
-            Letter</span></a>
+            class="menu-title">{{ lang == 'en' ? menuHeading[4].menuItems[0].menuItemNameEnglish : menuHeading[4].menuItems[0].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/communication/outgoing-letter-details"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title">Register Outgoing
-            Letter</span></a>
+            class="menu-title">{{ lang == 'en' ? menuHeading[4].menuItems[1].menuItemNameEnglish : menuHeading[4].menuItems[1].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/communication/print-labels" routerLinkActive="active"
           (click)="toPrint('Communication')"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title">Print
-            Label</span></a>
+              class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[4].menuItems[2].menuItemNameEnglish : menuHeading[4].menuItems[2].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/communication/archieve" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">Archives
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[4].menuItems[3].menuItemNameEnglish : menuHeading[4].menuItems[3].menuItemNameArabic}}
           </span></a>
       </div>
     </div>
@@ -470,7 +459,7 @@
 
   <div class="menu-item">
     <div class="menu-content pt-8 pb-2">
-      <span class="menu-section text-muted text-uppercase fs-8 ls-1">Website Maintenance</span>
+      <span class="menu-section text-muted text-uppercase fs-8 ls-1">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[3].title : menuHeading[0].listMenuHighLightHeading[3].arabicTitle}}</span>
     </div>
   </div>
 
@@ -484,30 +473,29 @@
             d="M12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2ZM20 11.5C18.2 11.3 16.4 11.3 14.8 11.6C14.6 11 14.3 10.4 14.1 9.90002C15.6 9.10002 17.1 8.10002 18.3 6.90002C19.2 8.20002 19.9 9.8 20 11.5ZM16.7 5.59998C15.6 6.59998 14.4 7.49995 13.1 8.19995C12.4 6.79995 11.6 5.49995 10.7 4.19995C11.1 4.09995 11.5 4.09998 12 4.09998C13.8 3.99998 15.4 4.59998 16.7 5.59998ZM8.70001 4.69995C9.70001 6.09995 10.5 7.50002 11.3 8.90002C9.09999 9.70002 6.79999 10 4.29999 9.80005C4.89999 7.60005 6.60001 5.69995 8.70001 4.69995ZM4 12C4 11.9 4 11.9 4 11.8C4.5 11.8 5.10001 11.9 5.60001 11.9C7.90001 11.9 10.1 11.5 12.1 10.7C12.3 11.2 12.5 11.7 12.7 12.1C10.1 13 7.70001 14.6 5.70001 17C4.70001 15.6 4 13.9 4 12ZM7.20001 18.4C9.00001 16.3 11.1 14.8 13.4 14C14 15.8 14.4 17.6 14.7 19.5C13.8 19.8 12.9 20 11.9 20C10.2 20 8.60001 19.4 7.20001 18.4ZM16.6 18.5C16.3 16.8 15.9 15.2 15.4 13.5C16.8 13.3 18.3 13.3 19.8 13.5C19.4 15.6 18.3 17.3 16.6 18.5Z"
             fill="currentColor" />
         </svg>
-      </span><span class="menu-title">Website</span><span class="menu-arrow"></span></span>
+      </span><span class="menu-title">{{ lang == 'en' ? menuHeading[5].headingNameEnglish : menuHeading[5].headingNameArabic}}</span><span class="menu-arrow"></span></span>
     <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/website-maintenace/carousal-details"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title">Carousal Maintenance</span></a>
+            class="menu-title">{{ lang == 'en' ? menuHeading[5].menuItems[0].menuItemNameEnglish : menuHeading[5].menuItems[0].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/website-maintenace/special-offer-maintenance"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title">Special Offer Display
-            Maintenance</span></a>
+            class="menu-title">{{ lang == 'en' ? menuHeading[5].menuItems[1].menuItemNameEnglish : menuHeading[5].menuItems[1].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/website-maintenace/offer-received-maintenance"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title">Special Offer Received handling</span></a>
+            class="menu-title">{{ lang == 'en' ? menuHeading[5].menuItems[2].menuItemNameEnglish : menuHeading[5].menuItems[2].menuItemNameArabic}}</span></a>
       </div>
     </div>
   </div>
 
   <div class="menu-item">
     <div class="menu-content pt-8 pb-2">
-      <span class="menu-section text-muted text-uppercase fs-8 ls-1 ">Setup</span>
+      <span class="menu-section text-muted text-uppercase fs-8 ls-1 ">{{ lang == 'en' ? menuHeading[0].listMenuHighLightHeading[4].title : menuHeading[0].listMenuHighLightHeading[4].arabicTitle}}</span>
     </div>
   </div>
   <div class="menu-item menu-accordion here" data-kt-menu-trigger="click" routerLinkActive="here">
@@ -523,65 +511,60 @@
             fill="currentColor" />
         </svg>
 
-      </span><span class="menu-title text-success" data-link="/error">Setup</span>
+      </span><span class="menu-title text-success" data-link="/error">{{ lang == 'en' ? menuHeading[6].headingNameEnglish : menuHeading[6].headingNameArabic}}</span>
       <span class="menu-arrow">
       </span></span>
     <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/references/reference-details" routerLinkActive="active"><span
             class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title text-success">
-            References</span></a>
+              {{ lang == 'en' ? menuHeading[6].menuItems[0].menuItemNameEnglish : menuHeading[6].menuItems[0].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/references/add-university-tenant" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title"> University
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[6].menuItems[1].menuItemNameEnglish : menuHeading[6].menuItems[1].menuItemNameArabic}}
           </span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/service-setup-details"
           routerLinkActive="active"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title text-success"> Service
-            Setup</span></a>
+            class="menu-title text-success">{{ lang == 'en' ? menuHeading[6].menuItems[2].menuItemNameEnglish : menuHeading[6].menuItems[2].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/communication/print-labels" routerLinkActive="active"
           (click)="toPrint('Setup')"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
             class="menu-title">
-            Labels</span></a>
+            {{ lang == 'en' ? menuHeading[6].menuItems[3].menuItemNameEnglish : menuHeading[6].menuItems[3].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/users/user-details" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">System
-            Users</span></a>
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[6].menuItems[4].menuItemNameEnglish : menuHeading[6].menuItems[4].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/users/user-details" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">System
-            Functions</span></a>
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">{{ lang == 'en' ? menuHeading[6].menuItems[9].menuItemNameEnglish : menuHeading[6].menuItems[9].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/users/user-functions" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title text-success">User
-            Functions</span></a>
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[6].menuItems[5].menuItemNameEnglish : menuHeading[6].menuItems[5].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/users/user-mst" routerLinkActive="active"><span
-            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title text-success">User
-            MST</span></a>
+            class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[6].menuItems[6].menuItemNameEnglish : menuHeading[6].menuItems[6].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/users/function-mst" routerLinkActive="active"><span
             class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-            class="menu-title text-success">Function MST</span></a>
+            class="menu-title text-success">{{ lang == 'en' ? menuHeading[6].menuItems[10].menuItemNameEnglish : menuHeading[6].menuItems[10].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/service-setup/add-documents" routerLinkActive="active"><span
             class="menu-bullet"><span class="bullet bullet-dot"></span></span><span class="menu-title">
-            Document</span></a>
+              {{ lang == 'en' ? menuHeading[6].menuItems[7].menuItemNameEnglish : menuHeading[6].menuItems[7].menuItemNameArabic}}</span></a>
       </div>
       <div class="menu-item">
         <a class="menu-link without-sub" routerLink="/references/manage-form-labels"><span class="menu-bullet"><span
-              class="bullet bullet-dot"></span></span><span class="menu-title text-success">Language</span>
+              class="bullet bullet-dot"></span></span><span class="menu-title text-success">{{ lang == 'en' ? menuHeading[6].menuItems[8].menuItemNameEnglish : menuHeading[6].menuItems[8].menuItemNameArabic}}</span>
         </a>
       </div>
     </div>

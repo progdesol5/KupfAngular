@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonService } from 'src/app/modules/_services/common.service';
 
 @Component({
   selector: 'app-engages',
@@ -13,14 +14,16 @@ export class EngagesComponent implements OnInit {
   ifAlreadySelected: boolean;
   currentURL: string = '';
   selectedLanguage: any;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private common: CommonService) { }
 
   // async reload(url: string): Promise<boolean> {
   //   await this.router.navigateByUrl('.', { skipLocationChange: true });
   //   return this.router.navigateByUrl(url);
   // }
   ngOnInit(): void {
+    console.log(localStorage.getItem('lang'))
     if (localStorage.getItem('lang') == 'ar') {
+      this.common.setLang('ar')
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       // document.getElementsByTagName('body')[0].removeAttribute('style');
@@ -31,6 +34,7 @@ export class EngagesComponent implements OnInit {
       // document.getElementsByTagName('body')[0].setAttribute('style', 'direction: rtl');
     }
     if (localStorage.getItem('lang') == 'en') {
+      this.common.setLang('en')
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       // document.getElementsByTagName('body')[0].removeAttribute('style');
@@ -88,6 +92,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.common.setLang('en')
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'en') {
         this.selectedLanguage = 'en';
@@ -122,6 +127,7 @@ export class EngagesComponent implements OnInit {
       document.getElementsByTagName('body')[0].removeAttribute('dir');
       document.getElementsByTagName('body')[0].removeAttribute('direction');
       document.getElementsByTagName('body')[0].removeAttribute('style');
+      this.common.setLang('ar')
       this.ifLanguageAlreadySelected = localStorage.getItem('lang');
       if (this.ifLanguageAlreadySelected != 'ar') {
         this.selectedLanguage = 'ar';
