@@ -52,7 +52,7 @@ export class ApprovalManagementComponent implements OnInit {
 
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action', 'transId',  'employeeName', 'serviceType', 'source', 'totalInstallment', 'amount', 'status'];
+  columnsToDisplay: string[] = ['action', 'transId',  'employeeName', 'serviceType', 'totalInstallment', 'amount', 'status'];
 
   // Getting data as abservable.
   returnServiceApprovals$: Observable<CashierApprovalDto[]>;
@@ -139,7 +139,9 @@ export class ApprovalManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lang = localStorage.getItem('lang');
+    this.commonService.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
     this.currentUserId = localStorage.getItem('user');
 
     //#region TO SETUP THE FORM LOCALIZATION
@@ -160,11 +162,16 @@ export class ApprovalManagementComponent implements OnInit {
 
       for (let labels of this.AppFormLabels) {
 
-        if (labels.formID == this.formId && labels.language == this.languageType) {
+        if (labels.formID == this.formId) {
 
           this.formHeaderLabels.push(labels);
 
-          this.formBodyLabels.push(labels.formTitleDTLanguage);
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
           console.log(this.formBodyLabels);
         }
       }

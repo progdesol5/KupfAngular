@@ -22,6 +22,8 @@ export class EngagesComponent implements OnInit {
   // }
   ngOnInit(): void {
     console.log(localStorage.getItem('lang'))
+    localStorage.setItem('lang', 'en')
+    localStorage.setItem('langType', '1')
     if (localStorage.getItem('lang') == 'ar') {
       this.common.setLang('ar')
       document.getElementsByTagName('body')[0].removeAttribute('dir');

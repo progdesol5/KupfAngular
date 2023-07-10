@@ -50,6 +50,8 @@ export class UserInnerComponent implements OnInit, OnDestroy {
  logout(){
   this.auth.logout();
   this.loginService.isLoading = false;
+  localStorage.setItem('lang', 'en')
+  localStorage.setItem('langType', '1')
  }
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

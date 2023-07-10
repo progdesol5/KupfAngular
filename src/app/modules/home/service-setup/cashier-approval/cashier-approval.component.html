@@ -1,17 +1,17 @@
 <ngb-accordion #ngbOfferDetails="ngbAccordion" activeIds="ngb-panel-1" opened="true">
     <ngb-panel id="ngb-panel-1">
         <ng-template ngbPanelTitle>
-            <h3 class="m-0 ArFontStyle" lang="AR-SA">Cashier Apporval</h3>
+            <h3 class="m-0 ArFontStyle" lang="AR-SA">{{ lang == 'en' ? formHeaderLabels[0].headerName : formHeaderLabels[1].headerName}}</h3>
         </ng-template>
         <ng-template ngbPanelContent>
             <form [formGroup]="formGroup">
                 <div class="form-group form-check mb-3">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1"
                         (change)="onShowAllChange($event)">
-                    <label class="form-check-label" for="exampleCheck1">Show All</label>
+                    <label class="form-check-label" for="exampleCheck1">{{ lang == 'en' ? formBodyLabels[0].lblShowAll.title : formBodyLabels[1].lblShowAll.title}}</label>
                 </div>
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ lang == 'en' ? formBodyLabels[0].lblSearchtext.title : formBodyLabels[1].lblSearchtext.title}}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -21,7 +21,7 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="cashierApprovalDto" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <th mat-header-cell *matHeaderCellDef>{{ lang == 'en' ? formBodyLabels[0].lblActions.title : formBodyLabels[1].lblActions.title}}</th>
                         <td mat-cell *matCellDef="let item" class="text-right w-40">
                             <!-- <button mat-button [matMenuTriggerFor]="menu" class="btn btn-primary p-0">Menu</button>
                                 <mat-menu #menu="matMenu">
@@ -40,36 +40,38 @@
                                         View</button>
                                 </mat-menu> -->
                             <button mat-raised-button color="warn"
-                                (click)="onDetailsClick(item.transId)">Details</button> &nbsp;
+                                (click)="onDetailsClick(item.transId)">{{ lang == 'en' ? formBodyLabels[0].btnDetails.title : formBodyLabels[1].btnDetails.title}}</button> &nbsp;
                             <button mat-raised-button color="primary"
                                 (click)="navigateToCashierDraft(item.transId,item.employeeId)"
-                                [hidden]="isShowAllChecked" [disabled]="item.isDraftCreated">Draft</button> &nbsp;
+                                [hidden]="isShowAllChecked" [disabled]="item.isDraftCreated">{{ lang == 'en' ? formBodyLabels[0].btnDraft.title : formBodyLabels[1].btnDraft.title}}</button> &nbsp;
                             <button mat-raised-button color="accent"
                                 (click)="navigateToCashierDelivery(item.transId,item.employeeId)"
-                                [hidden]="isShowAllChecked" [disabled]="!item.isDraftCreated">Deliver</button>&nbsp;
+                                [hidden]="isShowAllChecked" [disabled]="!item.isDraftCreated">{{ lang == 'en' ? formBodyLabels[0].btnDeliver.title : formBodyLabels[1].btnDeliver.title}}</button>&nbsp;
                             <button mat-raised-button color="warn" (click)="openJvModal(jvModal,item.transId)"
-                                [disabled]="!item.isDraftCreated">JV View</button>
+                                [disabled]="!item.isDraftCreated">{{ lang == 'en' ? formBodyLabels[0].btnJVView.title : formBodyLabels[1].btnJVView.title}}</button>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="transId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Civil ID / Employee / PF / TransID </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'en' ? 
+                            formBodyLabels[0].lblCivilId.title + '/'+ formBodyLabels[0].lblEmployeeId.title + '/' + formBodyLabels[0].lblPFId.title + '/' + formBodyLabels[0].lblTransId.title: 
+                            formBodyLabels[1].lblCivilId.title + '/'+ formBodyLabels[1].lblEmployeeId.title + '/' + formBodyLabels[1].lblPFId.title + '/' + formBodyLabels[1].lblTransId.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.transId}} {{item.pfid}}
                             {{item.employeeId}} {{item.empCidNum}} </td>
                     </ng-container>
                     <ng-container matColumnDef="periodCode">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Perion Code</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'en' ? formBodyLabels[0].lblPeriodCode.title : formBodyLabels[1].lblPeriodCode.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.periodCode}}</td>
                     </ng-container>
                     <ng-container matColumnDef="employee">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'en' ? formBodyLabels[0].lblEmployeeName.title : formBodyLabels[1].lblEmployeeName.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="mobile">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'en' ? formBodyLabels[0].lblMobile.title : formBodyLabels[1].lblMobile.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.mobileNumber}}</td>
                     </ng-container>
                     <ng-container matColumnDef="service">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Service</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'en' ? formBodyLabels[0].lblServices.title : formBodyLabels[1].lblServices.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceName}}</td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
