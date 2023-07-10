@@ -26,7 +26,7 @@ import { UserParams } from 'src/app/modules/models/UserParams';
 })
 export class ApprovalManagementComponent implements OnInit {
 
-  //#region 
+  //#region
   /*----------------------------------------------------*/
 
   // Language Type e.g. 1 = ENGLISH and 2 =  ARABIC
@@ -82,7 +82,7 @@ export class ApprovalManagementComponent implements OnInit {
   searchTerm: string = '';
   //#endregion
 
-  // 
+  //
   approveServiceForm: FormGroup;
 
   //
@@ -135,14 +135,14 @@ export class ApprovalManagementComponent implements OnInit {
     this.username = data.map((obj: { username: any; }) => obj.username);
     this.userId = data.map((obj: { userId: any; }) => obj.userId);
 
-    this.userParams = this.financialService.getUserParams(); 
+    this.userParams = this.financialService.getUserParams();
   }
 
   ngOnInit(): void {
     this.lang = localStorage.getItem('lang');
     this.currentUserId = localStorage.getItem('user');
 
-    //#region TO SETUP THE FORM LOCALIZATION    
+    //#region TO SETUP THE FORM LOCALIZATION
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
     this.languageType = localStorage.getItem('langType');
 
@@ -150,7 +150,7 @@ export class ApprovalManagementComponent implements OnInit {
     this.language = localStorage.getItem('lang');
 
     // To setup the form id so will will get form labels based on form Id
-    this.formId = 'ManageApprovals';
+    this.formId = 'ManagerApprovals';
 
     // Check if LocalStorage is Not NULL
     if (localStorage.getItem('AppLabels') != null) {
@@ -248,7 +248,7 @@ export class ApprovalManagementComponent implements OnInit {
     })
   }
 
-  onShowAllChange(event: any) {   
+  onShowAllChange(event: any) {
     this.loadData(this.paginator.pageIndex, event.target.checked)
     this.isShowAllChecked = event.target.checked;
   }
@@ -433,7 +433,7 @@ export class ApprovalManagementComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-//#region Material Search and Clear Filter 
+//#region Material Search and Clear Filter
 filterRecords(pageIndex: number = -1) {
   if (this.formGroup.value.searchTerm != null && this.returnServiceApprovals) {
     this.formGroup.value.searchTerm = this.returnServiceApprovals.filter = this.formGroup.value.searchTerm.trim();

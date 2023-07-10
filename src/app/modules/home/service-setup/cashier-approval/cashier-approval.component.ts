@@ -27,7 +27,7 @@ export class CashierApprovalComponent implements OnInit {
   // To display table column headers
   columnsToDisplay: string[] = ['action', 'transId', 'periodCode', 'employee', 'mobile', 'service'];
 
-  JvcolumnsToDisplay: string[] = ['accountid', 'accountname', 'cr', 'dr', 'amount'];
+  JvcolumnsToDisplay: string[] = ['accountid', 'accountname', 'cr', 'dr' ];
   // Getting data as abservable.
   cashierApprovalDto$: Observable<CashierApprovalDto[]>;
 
@@ -74,7 +74,7 @@ export class CashierApprovalComponent implements OnInit {
       searchTerm: new FormControl("")
     })
 
-    this.userParams = this.financialService.getUserParams(); 
+    this.userParams = this.financialService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -129,7 +129,7 @@ export class CashierApprovalComponent implements OnInit {
     this.isShowAllChecked = event.target.checked;
     this.loadData(0, event.target.checked)
   }
-  //#region Material Search and Clear Filter 
+  //#region Material Search and Clear Filter
   filterRecords(pageIndex: number = -1) {
     if (this.formGroup.value.searchTerm != null && this.cashierApprovalDto) {
       this.formGroup.value.searchTerm = this.cashierApprovalDto.filter = this.formGroup.value.searchTerm.trim();
@@ -139,7 +139,7 @@ export class CashierApprovalComponent implements OnInit {
   }
   clearFilter() {
     this.formGroup?.patchValue({ searchTerm: "" });
-    
+
     this.loadData(0, this.isShowAllChecked);
     this.userParams.pageNumber = 1;
     this.userParams.pageSize = 10;

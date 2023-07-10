@@ -16,7 +16,7 @@ export class EmployeeService {
   //
   employeeDetails: DetailedEmployee[] = [];
   userParams: UserParams;
-  // 
+  //
   // totalRows = 0;
   // pageSize = 10;
   // pageNumber = 0;
@@ -63,10 +63,11 @@ export class EmployeeService {
     return this.httpClient.get(this.baseUrl + `Employee/DownloadSampleFile?fileName=${sampleFileName}`, { responseType: 'blob' });
   }
   UploadEmployeeExcelFile(formData: FormData) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
-    });
-    return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`,formData, {headers: headers});
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
+    // });
+    return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`,formData );
+    //return this.httpClient.post(this.baseUrl + `Employee/UploadEmployeeExcelFile`,formData, {headers: headers});
   }
-  
+
 }
