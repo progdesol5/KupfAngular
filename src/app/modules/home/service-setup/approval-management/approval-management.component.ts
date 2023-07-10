@@ -361,6 +361,7 @@ export class ApprovalManagementComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
       if (result === 'yes') {
 
+        console.log('test');
         let currentDate = this.datepipe.transform((new Date));
         let currentTime = this.datepipe.transform((new Date), 'h:mm:ss');
         this.approveServiceForm.controls['approvalDate']?.setValue(currentDate);
