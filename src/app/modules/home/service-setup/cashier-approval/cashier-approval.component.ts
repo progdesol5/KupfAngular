@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/modules/models/pagination';
 import { UserParams } from 'src/app/modules/models/UserParams';
+import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 
 
 @Component({
@@ -64,6 +65,11 @@ export class CashierApprovalComponent implements OnInit {
   totalRows = 0;
   pageSizeOptions: number[] = [10, 20, 50, 100];
   cashierApprovalHeaders: any = {};
+  lang: string;
+  formHeaderLabels: any[] = [];
+  formBodyLabels: any[] = [];
+  formId: string;
+  AppFormLabels: FormTitleHd[] = [];
 
   constructor(private financialService: FinancialService,
     private modalService: NgbModal,
@@ -79,7 +85,35 @@ export class CashierApprovalComponent implements OnInit {
 
   ngOnInit(): void {
     //
+    this.commonService.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
+    this.formId = 'CashierApprovals';
+
+    // Check if LocalStorage is Not NULL
+    if (localStorage.getItem('AppLabels') != null) {
+
+      // Get data from LocalStorage
+      this.AppFormLabels = JSON.parse(localStorage.getItem('AppLabels') || '{}');
+
+      for (let labels of this.AppFormLabels) {
+
+        if (labels.formID == this.formId) {
+
+          this.formHeaderLabels.push(labels);
+
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          this.formBodyLabels.push(jsonFormTitleDTLanguage);
+        }
+      }
+      console.log(this.formBodyLabels)
+      console.log(this.formHeaderLabels)
+    }
     this.loadData(0);
+    
   }
   navigateToCashierDraft(mytransId: number, employeeId: number) {
     this.router.navigateByUrl(`/service-setup/cashier-draft?mytransId=${mytransId}&employeeId=${employeeId}`);

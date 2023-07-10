@@ -71,6 +71,8 @@ export class AuthService implements OnDestroy {
   logout() {
     localStorage.removeItem(this.authLocalStorageToken);
     localStorage.removeItem('user');
+    localStorage.setItem('lang', 'en')
+    localStorage.setItem('langType', '1')
     this.currentUserSubject.next(undefined);
     this.isLoadingSubject.next(false);
     this.router.navigate(['/login'], {

@@ -17,6 +17,7 @@ import { EmployeeService } from 'src/app/modules/_services/employee.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { Pagination } from 'src/app/modules/models/pagination';
 import { UserParams } from 'src/app/modules/models/UserParams';
+import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 
 @Component({
   selector: 'app-financial-approval',
@@ -84,12 +85,17 @@ export class FinancialApprovalComponent implements OnInit {
   prevPeriodCode: any
   roleId: any;
   username: any;
+  formId: string;
   financialData: any;
   financialDetails: any;
   approvalDetails: any;
   employeeActivityLog: any;
   crupId: any;
+  AppFormLabels: FormTitleHd[] = [];
   isShowAllChecked: boolean = false;
+  formHeaderLabels: any[] = [];
+  formBodyLabels: any[] = [];
+  lang: string;
   constructor(private financialService: FinancialService,
     private router: Router,
     private commonService: CommonService,
@@ -124,6 +130,33 @@ export class FinancialApprovalComponent implements OnInit {
     this.rejectionType$ = this.financialService.GetRejectionType();
     //
     this.initEmployeeForm();
+    this.commonService.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
+    this.formId = 'FinancialApprovals';
+
+    // Check if LocalStorage is Not NULL
+    if (localStorage.getItem('AppLabels') != null) {
+
+      // Get data from LocalStorage
+      this.AppFormLabels = JSON.parse(localStorage.getItem('AppLabels') || '{}');
+
+      for (let labels of this.AppFormLabels) {
+
+        if (labels.formID == this.formId) {
+
+          this.formHeaderLabels.push(labels);
+
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          this.formBodyLabels.push(jsonFormTitleDTLanguage);
+        }
+      }
+      console.log(this.formBodyLabels)
+      console.log(this.formHeaderLabels)
+    }
   }
   initApproveServiceForm() {
     this.approveServiceForm = this.fb.group({
@@ -221,6 +254,7 @@ export class FinancialApprovalComponent implements OnInit {
       this.financialApprovalDto.sort = this.sort;
       this.isLoadingCompleted = true;
       setTimeout(() => {
+        console.log(this.paginator)
         this.paginator.pageIndex = pageIndex;
         this.paginator.length = this.financialApprovalHeaders.totalItems;
       });
