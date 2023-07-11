@@ -3,21 +3,21 @@
 <div class="card mb-5 mb-xl-8">
     <!--begin::Header--> 
     <div class="card-header border-0 pt-5 header_waves">
-        <div class="card-toolbar" *ngFor="let label of formHeaderLabels; let i = index">
-            <h3 class="text-dark ArFontStyle header_color" lang="AR-SA" id="ServiceDetails">{{label.headerName}}</h3>
+        <div class="card-toolbar">
+            <h3 class="text-dark ArFontStyle header_color" lang="AR-SA" id="ServiceDetails">{{ lang == 'ar' ? formHeaderLabels[0].headerName : formHeaderLabels[1].headerName}}</h3>
         </div>
         <div class="d-flex justify-content-between gap-4">
             <h3 class="card-title align-items-start flex-column">
-                <div class="btn-group" role="group" aria-label="Basic example" *ngFor="let bodyLabel of formBodyLabels; let i = index">
-                    <button type="button" class="btn btn-primary ArFontStyle btn_green-pool-tb" lang="AR-SA" (click)="openLoanForm()">{{bodyLabel[0].title}}</button>
-                    <button type="button" class="btn btn-primary ArFontStyle btn_green-pool-tb" lang="AR-SA">{{bodyLabel[1].title}}</button>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary ArFontStyle btn_green-pool-tb" lang="AR-SA" (click)="openLoanForm()">{{ lang == 'ar' ? formBodyLabels[0].btnAddService.title : formBodyLabels[1].btnAddService.title}}</button>
+                    <button type="button" class="btn btn-primary ArFontStyle btn_green-pool-tb" lang="AR-SA">{{ lang == 'ar' ? formBodyLabels[0].btnPrintServiceDetails.title : formBodyLabels[1].btnPrintServiceDetails.title}}</button>
                 </div>
             </h3>
         </div>
     </div>
     <!--end::Header-->
     <!--begin::Body-->
-    <div class="card-body py-3" *ngFor="let bodyLabel of formBodyLabels; let i = index">       
+    <div class="card-body py-3">       
         <!-- <div class="table-responsive mt-3">
             <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-3">
                 <thead class="bg-secondary">
@@ -90,7 +90,7 @@
         <div class="row gx-9 gy-6">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never" >
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ lang == 'ar' ? formBodyLabels[0].lblSearch.title : formBodyLabels[1].lblSearch.title}}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)" class="ArFontStyle"/>
                     <mat-icon matPrefix class="material-icons">search</mat-icon>                        
                     <mat-icon matSuffix (click)="clearFilter()" class="material-icons">close</mat-icon>
@@ -99,7 +99,7 @@
             <div class="table-container service-details-table">
                 <table mat-table class="w-100" [dataSource]="returnTransactionHdDto" matSort>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <th mat-header-cell *matHeaderCellDef>{{ lang == 'ar' ? formBodyLabels[0].lblAction.title : formBodyLabels[1].lblAction.title}}</th>
                         <td mat-cell *matCellDef="let item" class="w-25 text-right actionTdClass">
                             <button mat-raised-button color="warn" (click)="openDeleteModal(deleteModal,item.mytransid)">Delete</button> |                                
                             <button mat-raised-button color="accent" routerLink="/service-setup/add-service/{{item.mytransid}}">Edit</button> |
@@ -107,35 +107,35 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="transId">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Trans Id </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblTransId.title : formBodyLabels[1].lblTransId.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle" >{{item.mytransid}}</td>
                     </ng-container>
                     <ng-container matColumnDef="employeeName">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblEmployeeNameEmpPF.title : formBodyLabels[1].lblEmployeeNameEmpPF.title}}</th>
                         <td mat-cell *matCellDef="let item" class="w-70 ArFontStyle" >{{item.englishName}} {{item.employeeId}} {{item.pfId}} {{item.cid}}</td>
                     </ng-container>
                     <ng-container matColumnDef="services">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Service</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblServices.title : formBodyLabels[1].lblServices.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceType}}</td>
                     </ng-container>
                     <ng-container matColumnDef="installments">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Installment</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblInstallments.title : formBodyLabels[1].lblInstallments.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.installment}}</td>
                     </ng-container>
                     <ng-container matColumnDef="amount">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblAmount.title : formBodyLabels[1].lblAmount.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.amount}}</td>
                     </ng-container>
                     <ng-container matColumnDef="dated">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Dated</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblDate.title : formBodyLabels[1].lblDate.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.payDate}}</td>
                     </ng-container>
                     <ng-container matColumnDef="paid">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblPaid.title : formBodyLabels[1].lblPaid.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.paid}}</td>
                     </ng-container>
                     <ng-container matColumnDef="payDate">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>PayDate</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblPayDate.title : formBodyLabels[1].lblPayDate.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.payDate}}</td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"
@@ -144,7 +144,7 @@
                 </table>
             </div>
             <div [ngClass]="{'hidden':!isLoadingCompleted}">
-                <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[10,20,50]" 
+                <mat-paginator [length]="10" [pageSize]="[10,20,30]" [pageSizeOptions]="[10,20,50]" 
                 (page)="pageChanged($event)" 
                 showFirstLastButtons>
                 </mat-paginator>
