@@ -96,6 +96,7 @@ export class ServiceDetailsComponent implements OnInit {
   constructor(private common: CommonService, 
     private router: Router, 
     private financialService:FinancialService,
+    private commonService: CommonService,
     private modalService: NgbModal,
     private toastrService:ToastrService) {
     this.formGroup = new FormGroup({
@@ -106,6 +107,10 @@ export class ServiceDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.formTitle = this.common.getFormTitle();
+    this.commonService.getLang().subscribe((lang: string) => {
+      this.lang = lang
+      console.log(this.lang)
+    })
     //#region TO SETUP THE FORM LOCALIZATION    
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
     this.languageType = localStorage.getItem('langType');
@@ -124,11 +129,17 @@ export class ServiceDetailsComponent implements OnInit {
 
       for (let labels of this.AppFormLabels) {
 
-        if (labels.formID == this.formId && labels.language == this.languageType) {
+        if (labels.formID == this.formId) {
 
           this.formHeaderLabels.push(labels);
 
-          this.formBodyLabels.push(labels.formTitleDTLanguage);
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
 
         }
       }

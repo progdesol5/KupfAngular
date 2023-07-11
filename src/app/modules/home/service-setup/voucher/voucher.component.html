@@ -2,7 +2,7 @@
     <!--begin::Header-->
     <div class="card-header border-0 pt-5 panel3bgColor">
         <div class="card-toolbar">
-            <h3 class="text-dark ArFontStyle" lang="AR-SA">Vouchers</h3>
+            <h3 class="text-dark ArFontStyle" lang="AR-SA">{{ lang == 'ar' ? formHeaderLabels[0].headerName : formHeaderLabels[1].headerName}}</h3>
         </div>
     </div>
     <!--end::Header-->
@@ -11,7 +11,7 @@
         <div class="row gx-9 gy-6">
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="w-100" floatLabel="never">
-                    <mat-label>Search</mat-label>
+                    <mat-label>{{ lang == 'ar' ? formBodyLabels[0].lblSearch.title : formBodyLabels[1].lblSearch.title}}</mat-label>
                     <input type="search" matInput formControlName="searchTerm" (keyup.enter)="filterRecords(0)"
                         class="ArFontStyle" />
                     <mat-icon matPrefix class="material-icons">search</mat-icon>
@@ -21,35 +21,37 @@
             <div class="table-container">
                 <table mat-table class="w-100" [dataSource]="voucherDto" matSort>
                     <ng-container matColumnDef="empname">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name English/Arabic</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblEmployeeName.title : formBodyLabels[1].lblEmployeeName.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.englishName}}
                             {{item.arabicName}}</td>
                     </ng-container>
                     <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblStatus.title : formBodyLabels[1].lblStatus.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-10">{{item.status}} </td>
                     </ng-container>   
                     <ng-container matColumnDef="cepfid">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Civil Id/Employee/PF</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? 
+                            formBodyLabels[0].lblCivilId.title + '/'+ formBodyLabels[0].lblEmployeeId.title + '/' + formBodyLabels[0].lblPFId.title : 
+                            formBodyLabels[1].lblCivilId.title + '/'+ formBodyLabels[1].lblEmployeeId.title + '/' + formBodyLabels[1].lblPFId.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle w-20">{{item.civilId}}/{{item.employeeID}}/{{item.pfid}}</td>
                     </ng-container>
                     <ng-container matColumnDef="transid">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Transaction Id </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblTransactionId.title : formBodyLabels[1].lblTransactionId.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.mytransid}}</td>
                     </ng-container>
                     <ng-container matColumnDef="jvid">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>JV Id</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblJVId.title : formBodyLabels[1].lblJVId.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.jvId}}</td>
                     </ng-container>
                     <ng-container matColumnDef="services">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Services</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ lang == 'ar' ? formBodyLabels[0].lblServices.title : formBodyLabels[1].lblServices.title}}</th>
                         <td mat-cell *matCellDef="let item" class="ArFontStyle">{{item.serviceType}}</td>
                     </ng-container>
                     <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>Action</th>
+                        <th mat-header-cell *matHeaderCellDef>{{ lang == 'ar' ? formBodyLabels[0].lblAction.title : formBodyLabels[1].lblAction.title}}</th>
                         <td mat-cell *matCellDef="let item" class="text-right w-10">
                             <button mat-raised-button color="primary"
-                                (click)="openVoucherModal(voucherModal,item.jvId)">View</button>
+                                (click)="openVoucherModal(voucherModal,item.jvId)">{{ lang == 'ar' ? formBodyLabels[0].btnView.title : formBodyLabels[1].btnView.title}}</button>
                         </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky:true"

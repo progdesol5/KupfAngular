@@ -6,9 +6,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
+import { CommonService } from 'src/app/modules/_services/common.service';
 import { FinancialService } from 'src/app/modules/_services/financial.service';
 import { CashierApprovalDto } from 'src/app/modules/models/FinancialService/CashierApprovalDto';
 import { voucherDto } from 'src/app/modules/models/VoucherDto';
+import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 
 
 @Component({
@@ -50,13 +52,45 @@ export class VoucherComponent implements OnInit {
   searchTerm: string = '';
   //#endregion
   voucherDetail: any;
-  constructor(private financialService: FinancialService, private router: Router, private modalService: NgbModal) {
+  formId: string;
+  formHeaderLabels: any[] = [];
+  formBodyLabels: any[] = [];
+  AppFormLabels: FormTitleHd[] = [];
+  lang: string;
+  constructor(private financialService: FinancialService, private router: Router, private modalService: NgbModal, private commonService: CommonService) {
     this.formGroup = new FormGroup({
       searchTerm: new FormControl("")
     })
   }
 
   ngOnInit(): void {
+    this.formId = 'VoucherDetails';
+    this.commonService.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
+
+    // Check if LocalStorage is Not NULL
+    if (localStorage.getItem('AppLabels') != null) {
+
+      // Get data from LocalStorage
+      this.AppFormLabels = JSON.parse(localStorage.getItem('AppLabels') || '{}');
+
+      for (let labels of this.AppFormLabels) {
+
+        if (labels.formID == this.formId) {
+
+          this.formHeaderLabels.push(labels);
+
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
+        }
+      }
+    }
     this.loadData(0);
   }
   length: number;
