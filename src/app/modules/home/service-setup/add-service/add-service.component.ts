@@ -149,7 +149,7 @@ export class AddServiceComponent implements OnInit, OnDestroy {
 
       for (let labels of this.AppFormLabels) {
 
-        if (labels.formID == this.formId && labels.language == this.languageType) {
+        if (labels.formID == this.formId) {
 
           this.formHeaderLabels.push(labels);
 
