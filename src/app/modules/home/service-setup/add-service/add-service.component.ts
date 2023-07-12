@@ -40,7 +40,10 @@ export class AddServiceComponent implements OnInit, OnDestroy {
   formHeaderLabels: any[] = [];
 
   // We will filter form body labels array
-  formBodyLabels: any[] = [];
+  formBodyLabels: any = {
+    en: {},
+    ar: {}
+  };
 
   // FormId
   formId: string;
@@ -104,6 +107,7 @@ export class AddServiceComponent implements OnInit, OnDestroy {
   isSearched: boolean = false;
   //
   isPfIdExists: boolean = false;
+  lang: string;
   constructor(
     private financialService: FinancialService,
     private commonService: DbCommonService,
@@ -124,6 +128,9 @@ export class AddServiceComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.common.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
     //#region TO SETUP THE FORM LOCALIZATION    
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
     this.languageType = localStorage.getItem('langType');
@@ -146,7 +153,18 @@ export class AddServiceComponent implements OnInit, OnDestroy {
 
           this.formHeaderLabels.push(labels);
 
-          this.formBodyLabels.push(labels.formTitleDTLanguage);
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          if(labels.language == 1 ) {
+            this.formBodyLabels['en'] = jsonFormTitleDTLanguage;
+          } else if (labels.language == 2) {
+            this.formBodyLabels['ar'] = jsonFormTitleDTLanguage;
+          }
+          // this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
 
         }
       }
