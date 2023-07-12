@@ -13,16 +13,15 @@
             <input type="hidden" #AddService name="AddService" value="AddService">
             <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
                 <div class="row">
-                    <div class="btn-group " role="group" aria-label="Basic example"
-                        *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                    <div class="btn-group " role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary float-left ArFontStyle dark-sea-green" lang="AR-SA"
-                            (click)="saveFinancialService()">Save</button>
+                            (click)="saveFinancialService()">{{ lang == 'en' ? formBodyLabels.en.btnSaveService.title: formBodyLabels.ar.btnSaveService.title}}</button>
 
                         <button type="button" class="btn btn-primary float-left ArFontStyle caledon" lang="AR-SA"
-                            routerLink="/service-setup/service-details">{{bodyLabel[1].title}}</button>
+                            routerLink="/service-setup/service-details">{{ lang == 'en' ? formBodyLabels.en.btnCancelService.title: formBodyLabels.ar.btnCancelService.title}}</button>
 
                         <button type="button" class="btn btn-primary float-left ArFontStyle tea-green" lang="AR-SA"
-                            routerLink="/service-setup/service-details">{{bodyLabel[2].title}}</button>
+                            routerLink="/service-setup/service-details">{{ lang == 'en' ? formBodyLabels.en.btnBackService.title: formBodyLabels.ar.btnBackService.title}}</button>
                     </div>
                 </div>
             </div>
@@ -41,41 +40,40 @@
         <ngb-accordion #acc="ngbAccordion" class="mb-2" activeIds="ngb-panel-1">
             <ngb-panel id="ngb-panel-1">
                 <ng-template ngbPanelTitle>
-                    <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">Search Employee</h3>
+                    <h3 class="m-0 ArFontStyle" lang="AR-SA" id="DocumentAttachments">{{ lang == 'en' ? formBodyLabels.en.btnBackService.title: formBodyLabels.ar.btnBackService.title}}</h3>
                 </ng-template>
                 <ng-template ngbPanelContent>
-                    <div id="kt_account_email_preferences" class="collapse show"
-                        *ngFor="let bodyLabel of formBodyLabels; let i = index">
+                    <div id="kt_account_email_preferences" class="collapse show">
                         <div class="flex-grow-1 rounded border-primary border border-dashed p-6">
                             <form [formGroup]="searchForm">
                                 <div class="row mb-4">
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example1 " lang="AR-SA"
-                                            [style]='arabicFont'>PF Id</label>
+                                            [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblPFId.title: formBodyLabels.ar.lblPFId.title}}</label>
                                         <input type="number" class="form-control" formControlName="pfId" name="pfId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                            [style]='arabicFont'>CID</label>
+                                            [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblCID.title: formBodyLabels.ar.lblCID.title}}</label>
                                         <input type="number" class="form-control" formControlName="cId" name="cId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                            [style]='arabicFont'>Employee Id</label>
+                                            [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblEmployeeId.title: formBodyLabels.ar.lblEmployeeId.title}}</label>
                                         <input type="number" class="form-control" formControlName="employeeId"
                                             name="employeeId" />
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-primary mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchEmployee()">Search Employee</button>
+                                            [style]='arabicFont' (click)="SearchEmployee()">{{ lang == 'en' ? formBodyLabels.en.btnSearchEmployee.title: formBodyLabels.ar.btnSearchEmployee.title}}</button>
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-success mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchSponsor()">Search Sponsor</button>
+                                            [style]='arabicFont' (click)="SearchSponsor()">{{ lang == 'en' ? formBodyLabels.en.btnSearchSponsor.title: formBodyLabels.ar.btnSearchSponsor.title}}</button>
                                     </div>
                                     <div class="col-lg-2 fv-row">
                                         <button type="button" class="btn btn-success mt-8 fringy_flower" lang="AR-SA"
-                                            [style]='arabicFont' (click)="SearchNewSubscriber()">New Subscriber</button>
+                                            [style]='arabicFont' (click)="SearchNewSubscriber()">{{ lang == 'en' ? formBodyLabels.en.btnNewSubscriber.title: formBodyLabels.ar.btnNewSubscriber.title}}</button>
                                     </div>
                                 </div>
                             </form>
@@ -85,20 +83,19 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example1 " lang="AR-SA"
-                                        [style]='arabicFont'>PF
-                                        Id</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblPFId.title: formBodyLabels.ar.lblPFId.title}}</label>
                                     <input type="text" class="form-control" formControlName="employeePFId"
                                         name="employeePFId" readonly style="background-color: #43ffcb !important;" />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                        [style]='arabicFont'>CID</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblCID.title: formBodyLabels.ar.lblCID.title}}</label>
                                     <input type="text" class="form-control" formControlName="employeeCID"
                                         name="employeeCID" readonly style="background-color: #43ffcb !important;" />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label _title" for="form3Example2 " lang="AR-SA"
-                                        [style]='arabicFont'>Employee Id</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblEmployeeId.title: formBodyLabels.ar.lblEmployeeId.title}}</label>
                                     <input type="text" class="form-control" formControlName="employeeFormEmployeeId"
                                         name="employeeFormEmployeeId" readonly
                                         style="background-color: #43ffcb !important;" />
@@ -109,21 +106,19 @@
                                     <input type="hidden" class="form-control" formControlName="employeeId"
                                         name="employeeId" />
                                     <label class="form-label" for="englishName " lang="AR-SA"
-                                        [style]='arabicFont'>English
-                                        Name</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblEnglishName.title: formBodyLabels.ar.lblEnglishName.title}}</label>
                                     <input type="text" class="form-control" formControlName="englishName"
                                         name="englishName" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="arabicName " lang="AR-SA" [style]='arabicFont'>Arabic
-                                        Name
+                                    <label class="form-label" for="arabicName " lang="AR-SA" [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblArabicName.title: formBodyLabels.ar.lblArabicName.title}}
                                     </label>
                                     <input type="text" class="form-control" formControlName="arabicName"
                                         name="arabicName" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="empGender " lang="AR-SA"
-                                        [style]='arabicFont'>Gender</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblGender.title: formBodyLabels.ar.lblGender.title}}</label>
                                     <ng-select formControlName="empGender" [disabled]="true">
                                         <ng-option *ngFor="let item of genderArray" [value]="item.id"
                                             [disabled]="true">{{item.name}}</ng-option>
@@ -132,22 +127,20 @@
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="joinedDate" lang="AR-SA" [style]='arabicFont'>Joining
-                                        Date</label>
+                                    <label class="form-label" for="joinedDate" lang="AR-SA" [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblJoiningDate.title: formBodyLabels.ar.lblJoiningDate.title}}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="joinedDate"
                                         name="joinedDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="mobileNumber " lang="AR-SA"
-                                        [style]='arabicFont'>Mobile</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblMobile.title: formBodyLabels.ar.lblMobile.title}}</label>
                                     <input type="text" id="mobileNumber" class="form-control"
                                         formControlName="mobileNumber" name="mobileNumber" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="empMaritalStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Marital
-                                        Status</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblMartialStatus.title: formBodyLabels.ar.lblMartialStatus.title}}</label>
                                     <!-- <input type="text" id="empMaritalStatus" class="form-control"
                                             formControlName="empMaritalStatus" name="empMaritalStatus" lang="AR-SA" readonly /> -->
                                     <ng-select formControlName="empMaritalStatus" [disabled]="true">
@@ -159,42 +152,39 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="nationName " lang="AR-SA"
-                                        [style]='arabicFont'>Nation</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblNation.title: formBodyLabels.ar.lblNation.title}}</label>
                                     <input type="text" id="CountryNameEnglish" class="form-control"
                                         formControlName="CountryNameEnglish" name="CountryNameEnglish" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="contractType " lang="AR-SA"
-                                        [style]='arabicFont'>Contract
-                                        Type</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblContractType.title: formBodyLabels.ar.lblContractType.title}}</label>
                                     <input type="text" id="contractType" class="form-control"
                                         formControlName="contractType" name="contractType" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="kinName" lang="AR-SA" [style]='arabicFont'>Kin
-                                        Name</label>
+                                    <label class="form-label" for="kinName" lang="AR-SA" [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblKinName.title: formBodyLabels.ar.lblKinName.title}}</label>
                                     <input type="text" id="kinName" class="form-control" formControlName="kinName"
                                         name="kinName" lang="AR-SA" readonly />
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="kinMobile " lang="AR-SA" [style]='arabicFont'>Kin
-                                        Mobile</label>
+                                    <label class="form-label" for="kinMobile " lang="AR-SA" [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblKinMobile.title: formBodyLabels.ar.lblKinMobile.title}}</label>
                                     <input type="text" id="kinMobile" class="form-control" formControlName="kinMobile"
                                         name="kinMobile" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionAmount " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Amount</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblSubscriptionAmount.title: formBodyLabels.ar.lblSubscriptionAmount.title}}</label>
                                     <input type="text" id="subscriptionAmount" class="form-control"
                                         formControlName="subscriptionAmount" name="subscriptionAmount" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionPaid " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Paid</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblSubscriptionPaid.title: formBodyLabels.ar.lblSubscriptionPaid.title}}</label>
                                     <input type="text" id="subscriptionPaid" class="form-control"
                                         formControlName="subscriptionPaid" name="subscriptionPaid" lang="AR-SA"
                                         readonly />
@@ -203,22 +193,21 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="lastSubscriptionPaid " lang="AR-SA"
-                                        [style]='arabicFont'>Last
-                                        Subscription Paid</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblLastSubscriptionPaid.title: formBodyLabels.ar.lblLastSubscriptionPaid.title}}</label>
                                     <input type="number" id="lastSubscriptionPaid" class="form-control"
                                         formControlName="lastSubscriptionPaid" name="lastSubscriptionPaid" lang="AR-SA"
                                         readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionDueAmount " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Due Amount</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblSubscriptionDueAmount.title: formBodyLabels.ar.lblSubscriptionDueAmount.title}}</label>
                                     <input type="number" id="subscriptionDueAmount" class="form-control"
                                         formControlName="subscriptionDueAmount" name="subscriptionDueAmount"
                                         lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="subscriptionStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Subscription Status</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblSubscriptionStatus.title: formBodyLabels.ar.lblSubscriptionStatus.title}}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                                         formControlName="subscriptionStatus" name="subscriptionStatus" lang="AR-SA"
@@ -230,22 +219,20 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="terminationDate " lang="AR-SA"
-                                        [style]='arabicFont'>Termination Date</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblTerminationDate.title: formBodyLabels.ar.lblTerminationDate.title}}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="terminationDate"
                                         name="terminationDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
-                                    <label class="form-label" for="endDate " lang="AR-SA" [style]='arabicFont'>End
-                                        Date</label>
+                                    <label class="form-label" for="endDate " lang="AR-SA" [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblEndDate.title: formBodyLabels.ar.lblEndDate.title}}</label>
                                     <input type="text" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" formControlName="endDate"
                                         name="endDate" lang="AR-SA" readonly />
                                 </div>
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="employeeStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Employee
-                                        Status</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblEmployeeStatus.title: formBodyLabels.ar.lblEmployeeStatus.title}}</label>
                                     <input type="number" id="employeeStatus" class="form-control"
                                         formControlName="employeeStatus" name="employeeStatus" lang="AR-SA" readonly />
                                 </div>
@@ -253,7 +240,7 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 fv-row">
                                     <label class="form-label" for="employeeStatus " lang="AR-SA"
-                                        [style]='arabicFont'>Salary</label>
+                                        [style]='arabicFont'>{{ lang == 'en' ? formBodyLabels.en.lblSalary.title: formBodyLabels.ar.lblSalary.title}}</label>
                                     <input type="number" id="employeeStatus" class="form-control"
                                         formControlName="salary" name="salary" lang="AR-SA" readonly />
                                 </div>
