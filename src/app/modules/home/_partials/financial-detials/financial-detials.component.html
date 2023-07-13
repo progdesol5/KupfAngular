@@ -5,22 +5,22 @@
 'bgColorFromServiceSetup': accordialDetails === 'addServiceSetup'}">
 
     <ngb-panel>
-        <ng-template ngbPanelTitle *ngFor="let label of formHeaderLabels; let i = index">
+        <ng-template ngbPanelTitle>
             <h3 class="m-0 ArFontStyle" lang="AR-SA" id="FinancialDetails"
             [ngClass]="{'header_color_addEmplyee' : accordialDetails === 'AddEmployee',
             'header_color_AddTenant': accordialDetails === 'setupAddUniversityTenantfinance',
-            'header_color_erviceSetup': accordialDetails === 'addServiceSetup'}">Financial Details - التفاصيل المالية</h3>  
+            'header_color_erviceSetup': accordialDetails === 'addServiceSetup'}">{{ lang == 'en' ? formBodyLabels.en.hdrFinancialDetails.title : formBodyLabels.ar.hdrFinancialDetails.title}} </h3>  
           </ng-template>
       <ng-template ngbPanelContent >
-        <div class="row gx-9 gy-6" *ngFor="let bodyLabel of formBodyLabels; let i = index"> 
+        <div class="row gx-9 gy-6"> 
                 <form>
                 <table class="table table-row-bordered">                
                     <thead>
                         <tr class="fw-bolder">
-                            <th class="ArFontStyle" lang="AR-SA" style="width: 30%">{{bodyLabel[0].title}}</th>
+                            <th class="ArFontStyle" lang="AR-SA" style="width: 30%">{{ lang == 'en' ? formBodyLabels.en.lblLoanAccount.title : formBodyLabels.ar.lblLoanAccount.title}}</th>
                             <th class="ArFontStyle" lang="AR-SA" style="width: 10%"></th>
-                            <th class="ArFontStyle" lang="AR-SA" >Account Name in English</th>
-                            <th class="ArFontStyle" lang="AR-SA" >Account Name in Arabic - اسم الحساب بالعربية</th>              
+                            <th class="ArFontStyle" lang="AR-SA" >{{ lang == 'en' ? formBodyLabels.en.lblAccountEng.title : formBodyLabels.ar.lblAccountEng.title}}</th>
+                            <th class="ArFontStyle" lang="AR-SA" >{{ lang == 'en' ? formBodyLabels.en.LblAccArabic.title : formBodyLabels.ar.LblAccArabic.title}}</th>              
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +29,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[0].controls['loanAct']" id="loanAct" name="loanAct" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyLoanAccount()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyLoanAccount()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[0].controls['lblloanActNameInEnglish']" id="lblloanActNameInEnglish" name="lblloanActNameInEnglish" readonly/>                           
@@ -40,7 +40,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[1].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblHajjAccount.title : formBodyLabels.ar.lblHajjAccount.title}}
                             </td>
                         </tr>
                         <tr>                        
@@ -48,7 +48,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[1].controls['hajjAct']"  id="hajjAct" name="hajjAct" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyHajjAccount()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyHajjAccount()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>   
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[1].controls['lblHajjActNameInEnglish']" id="lblHajjActNameInEnglish" name="lblHajjActNameInEnglish" readonly/>                           
@@ -59,7 +59,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[2].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblPerLoadAct.title : formBodyLabels.ar.lblPerLoadAct.title}}
                             </td>
                         </tr>
                         <tr>                        
@@ -67,7 +67,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[2].controls['persLoanAct']"  id="persLoanAct" name="persLoanAct" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyPerLoanAct()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyPerLoanAct()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>   
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[2].controls['lblPersLoanActNameInEnglish']" id="lblPersLoanActNameInEnglish" name="lblPersLoanActNameInEnglish" readonly/>                           
@@ -78,7 +78,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[3].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblConsumerLoan.title : formBodyLabels.ar.lblConsumerLoan.title}}
                             </td>
                         </tr>
                         <tr>                        
@@ -86,7 +86,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[3].controls['consumerLoanAct']" id="consumerLoanAct" name="consumerLoanAct" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyConsumerLoanAct()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyConsumerLoanAct()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td> 
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[3].controls['lblConsumerLoanActNameInEnglish']" id="lblConsumerLoanActNameInEnglish" name="lblConsumerLoanActNameInEnglish" readonly/>                           
@@ -97,7 +97,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[4].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblOtherAct.title : formBodyLabels.ar.lblOtherAct.title}} #1
                             </td>
                         </tr>
                         <tr>                        
@@ -105,7 +105,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[4].controls['otherAct1']"  id="otherAct1" name="otherAct1" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct1()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct1()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td> 
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[4].controls['lblOtherAct1NameInEnglish']" id="lblOtherAct1NameInEnglish" name="lblOtherAct1NameInEnglish" readonly/>                           
@@ -116,7 +116,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[5].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblOtherAct.title : formBodyLabels.ar.lblOtherAct.title}} #2
                             </td>
                         </tr>
                         <tr>                        
@@ -124,7 +124,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[5].controls['otherAct2']" id="otherAct2" name="otherAct2" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct2()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct2()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>  
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[5].controls['lblOtherAct2NameInEnglish']" id="lblOtherAct2NameInEnglish" name="lblOtherAct2NameInEnglish" readonly/>                           
@@ -135,7 +135,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[6].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblOtherAct.title : formBodyLabels.ar.lblOtherAct.title}} #3
                             </td>
                         </tr>
                         <tr>                        
@@ -143,7 +143,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[6].controls['otherAct3']"  id="otherAct3" name="otherAct3" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct3()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct3()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>  
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[6].controls['lblOtherAct3NameInEnglish']" id="lblOtherAct3NameInEnglish" name="lblOtherAct3NameInEnglish" readonly/>                           
@@ -154,7 +154,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                {{bodyLabel[7].title}}
+                                {{ lang == 'en' ? formBodyLabels.en.lblOtherAct.title : formBodyLabels.ar.lblOtherAct.title}} #4
                             </td>
                         </tr>
                         <tr>                        
@@ -162,7 +162,7 @@
                                 <input type="number" class="form-control" [formControl]="accountsArray.controls[7].controls['otherAct4']" id="otherAct4" name="otherAct4" maxlength="10"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct4()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct4()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td> 
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[7].controls['lblOtherAct4NameInEnglish']" id="lblOtherAct4NameInEnglish" name="lblOtherAct4NameInEnglish" readonly/>                           
@@ -173,7 +173,7 @@
                         </tr>
                         <tr>                        
                             <td class="fw-bolder">
-                                Other Act # 5
+                                {{ lang == 'en' ? formBodyLabels.en.lblOtherAct.title : formBodyLabels.ar.lblOtherAct.title}} #5
                             </td>
                         </tr>
                         <tr>                        
@@ -182,7 +182,7 @@
                                 
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct5()">Verify</button>
+                                <button type="button" class="btn btn-sm btn-primary mt-1" (click)="verifyOtherAct5()">{{ lang == 'en' ? formBodyLabels.en.btnVerify.title : formBodyLabels.ar.btnVerify.title}}</button>
                             </td>
                             <td class="mt-2">
                                 <input type="text" class="form-control" [formControl]="accountsArray.controls[8].controls['lblOtherAct5NameInEnglish']" id="lblOtherAct5NameInEnglish" name="lblOtherAct5NameInEnglish" readonly/>                           

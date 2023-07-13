@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CoaDto } from 'src/app/modules/models/CoaDto';
 import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 import { DbCommonService } from 'src/app/modules/_services/db-common.service';
+import { CommonService } from 'src/app/modules/_services/common.service';
 
 @Component({
   selector: 'app-financial-detials',
@@ -36,15 +37,20 @@ export class FinancialDetialsComponent implements OnInit {
   formHeaderLabels: any[] = [];
 
   // We will filter form body labels array
-  formBodyLabels: any[] = [];
+  formBodyLabels: any = {
+    en: {},
+    ar: {}
+  };
 
   // FormId
   formId: string;
+  lang: string;
 
   /*----------------------------------------------------*/
   //#endregion
 
   constructor(private dbCommonService: DbCommonService,
+    public common: CommonService,
     private toastr: ToastrService,
     ) { }
   //addFincancialForm: FormGroup;
@@ -56,14 +62,18 @@ export class FinancialDetialsComponent implements OnInit {
   
   ngOnInit(): void {
     //#region TO SETUP THE FORM LOCALIZATION    
+    this.common.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
+
     this.languageType = localStorage.getItem('langType');
 
     // To get the selected language...
     this.language = localStorage.getItem('lang');
 
     // To setup the form id so will will get form labels based on form Id
-    this.formId = 'FinancialDetails';
+    this.formId = 'AddService';
 
     // Check if LocalStorage is Not NULL
     if (localStorage.getItem('AppLabels') != null) {
@@ -73,11 +83,20 @@ export class FinancialDetialsComponent implements OnInit {
 
       for (let labels of this.AppFormLabels) {
 
-        if (labels.formID == this.formId && labels.language == this.languageType) {
+        if (labels.formID == this.formId) {
 
-          this.formHeaderLabels.push(labels);
-
-          this.formBodyLabels.push(labels.formTitleDTLanguage);
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          if(labels.language == 1 ) {
+            this.formBodyLabels['en'] = jsonFormTitleDTLanguage;
+          } else if (labels.language == 2) {
+            this.formBodyLabels['ar'] = jsonFormTitleDTLanguage;
+          }
+          // this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
 
         }
       }

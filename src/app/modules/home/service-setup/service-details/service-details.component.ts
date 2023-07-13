@@ -50,7 +50,7 @@ export class ServiceDetailsComponent implements OnInit {
 
   //#region
   // To display table column headers
-  columnsToDisplay: string[] = ['action','transId', 'employeeName', 'services', 'installments', 'amount','dated','paid','payDate'];
+  columnsToDisplay: string[] = ['action', 'transId', 'employeeName', 'services', 'installments', 'amount', 'dated', 'paid', 'payDate'];
 
   // Getting data as abservable.
   returnTransactionHdDto$: Observable<ReturnTransactionHdDto[]>;
@@ -79,7 +79,7 @@ export class ServiceDetailsComponent implements OnInit {
   // Search Term
   searchTerm: string = '';
   //#endregion
-  
+
   formTitle: string;
   selectedOpt: string = '';
   lang: any = '';
@@ -93,16 +93,16 @@ export class ServiceDetailsComponent implements OnInit {
   pageSizeOptions: number[] = [10, 20, 50, 100];
   financialHeaders: any = {};
 
-  constructor(private common: CommonService, 
-    private router: Router, 
-    private financialService:FinancialService,
+  constructor(private common: CommonService,
+    private router: Router,
+    private financialService: FinancialService,
     private commonService: CommonService,
     private modalService: NgbModal,
-    private toastrService:ToastrService) {
+    private toastrService: ToastrService) {
     this.formGroup = new FormGroup({
       searchTerm: new FormControl(null)
-    })      
-    this.userParams = this.financialService.getUserParams(); 
+    })
+    this.userParams = this.financialService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -128,19 +128,15 @@ export class ServiceDetailsComponent implements OnInit {
       this.AppFormLabels = JSON.parse(localStorage.getItem('AppLabels') || '{}');
 
       for (let labels of this.AppFormLabels) {
-
         if (labels.formID == this.formId) {
-
           this.formHeaderLabels.push(labels);
-
           const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
             result[element.labelId] = element;
             return result;
           }, {})
           this.formBodyLabels.push(jsonFormTitleDTLanguage);
-          console.log(this.formHeaderLabels)
-          console.log(this.formBodyLabels);
-
+          console.log('formHeaderLabels', this.formHeaderLabels)
+          console.log('formBodyLabels', this.formBodyLabels);
         }
       }
     }
@@ -149,9 +145,9 @@ export class ServiceDetailsComponent implements OnInit {
     //
     this.loadData(0);
     //
-  
+
   }
-  loadData(pageIndex:any){
+  loadData(pageIndex: any) {
     this.financialService.setUserParams(this.userParams);
     //this.detailedEmployee = [];
     this.financialService.GetFinancialServices(this.userParams, "").subscribe((response: any) => {
@@ -196,69 +192,69 @@ export class ServiceDetailsComponent implements OnInit {
       this.loadData(event.pageIndex);
     }
   }
- //#region Material Search and Clear Filter
- filterRecords(pageIndex: any) {
-  if (this.formGroup.value.searchTerm != null && this.returnTransactionHdDto) {
-    this.returnTransactionHdDto.filter = this.formGroup.value.searchTerm.trim();
-  }
-
-  this.userParams.pageNumber = pageIndex + 1;
-  this.financialService.setUserParams(this.userParams);
-  this.financialService.GetFinancialServices(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
-    this.financialHeaders = JSON.parse(response.headers.get('pagination'));
-    this.returnTransactionHdDto = new MatTableDataSource<ReturnTransactionHdDto>(response.body);
-    this.returnTransactionHdDto.paginator = this.paginator;
-    this.returnTransactionHdDto.sort = this.sort;
-    this.isLoadingCompleted = true;
-    setTimeout(() => {
-      this.paginator.pageIndex = pageIndex;
-      this.paginator.length = this.financialHeaders.totalItems;
-    });
-  }, error => {
-    console.log(error);
-    this.dataLoadingStatus = 'Error fetching the data';
-    this.isError = true;
-  })
-}
-clearFilter() {
-  this.formGroup?.patchValue({ searchTerm: "" });
-  this.loadData(0);
-  this.userParams.pageNumber = 1;
-  this.userParams.pageSize = 10;
-}
-//#endregion
-
-//#region Delete operation and Modal Config
-openDeleteModal(content: any, id: number) {
-  this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-    if (result === 'yes') {
-      console.log(id);
-      this.financialService.DeleteFinancialService(id).subscribe(response => {
-        if (response === 11) {
-          this.toastrService.success('Record deleted successfully', 'Success');
-          // Refresh Grid
-          this.loadData(this.paginator.pageIndex);
-        } else {
-          this.toastrService.error('Something went wrong', 'Error');
-        }
-      });
+  //#region Material Search and Clear Filter
+  filterRecords(pageIndex: any) {
+    if (this.formGroup.value.searchTerm != null && this.returnTransactionHdDto) {
+      this.returnTransactionHdDto.filter = this.formGroup.value.searchTerm.trim();
     }
-  }, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
 
-}
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
+    this.userParams.pageNumber = pageIndex + 1;
+    this.financialService.setUserParams(this.userParams);
+    this.financialService.GetFinancialServices(this.userParams, this.formGroup.value.searchTerm).subscribe((response: any) => {
+      this.financialHeaders = JSON.parse(response.headers.get('pagination'));
+      this.returnTransactionHdDto = new MatTableDataSource<ReturnTransactionHdDto>(response.body);
+      this.returnTransactionHdDto.paginator = this.paginator;
+      this.returnTransactionHdDto.sort = this.sort;
+      this.isLoadingCompleted = true;
+      setTimeout(() => {
+        this.paginator.pageIndex = pageIndex;
+        this.paginator.length = this.financialHeaders.totalItems;
+      });
+    }, error => {
+      console.log(error);
+      this.dataLoadingStatus = 'Error fetching the data';
+      this.isError = true;
+    })
   }
-}
-//#endregion
+  clearFilter() {
+    this.formGroup?.patchValue({ searchTerm: "" });
+    this.loadData(0);
+    this.userParams.pageNumber = 1;
+    this.userParams.pageSize = 10;
+  }
+  //#endregion
+
+  //#region Delete operation and Modal Config
+  openDeleteModal(content: any, id: number) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      if (result === 'yes') {
+        console.log(id);
+        this.financialService.DeleteFinancialService(id).subscribe(response => {
+          if (response === 11) {
+            this.toastrService.success('Record deleted successfully', 'Success');
+            // Refresh Grid
+            this.loadData(this.paginator.pageIndex);
+          } else {
+            this.toastrService.error('Something went wrong', 'Error');
+          }
+        });
+      }
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+  //#endregion
 
   //#region
   openLoanForm() {
@@ -274,6 +270,6 @@ private getDismissReason(reason: any): string {
       this.router.navigate([uri]));
   }
   //#endregion
-   
- 
+
+
 }

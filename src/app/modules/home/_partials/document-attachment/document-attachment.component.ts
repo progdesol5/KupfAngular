@@ -8,6 +8,8 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { JsonPipe } from '@angular/common';
 import * as moment from 'moment';
+import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
+import { CommonService } from 'src/app/modules/_services/common.service';
 export interface Fruit {
   name: string;
 }
@@ -33,12 +35,32 @@ export class DocumentAttachmentComponent implements OnInit {
   metaTag: string[] = [];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  // We will get form lables from lcale storage and will put into array.
+  AppFormLabels: FormTitleHd[] = [];
 
+  // We will filter form header labels array
+  formHeaderLabels: any[] = [];
+
+  // We will filter form body labels array
+  formBodyLabels: any = {
+    en: {},
+    ar: {}
+  };
+  formId: string;
+
+  formTitle: string;
+  lang: string;
+  languageType: any;
+
+  // Selected Language
+  language: any;
+  
   getForm!: FormGroup;
   @ViewChild('fruitInput', { static: false }) fruitInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete!: MatAutocomplete;
 
   constructor(private fb: FormBuilder,
+    public common: CommonService,
     private dbCommonService: DbCommonService) {
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
       startWith(null),
@@ -49,7 +71,49 @@ export class DocumentAttachmentComponent implements OnInit {
     //
     this.getFormdvalue();
     //
-    this.GetDocType()
+    this.GetDocType();
+
+    this.common.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
+    //#region TO SETUP THE FORM LOCALIZATION    
+    // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
+    this.languageType = localStorage.getItem('langType');
+
+    // To get the selected language...
+    this.language = localStorage.getItem('lang');
+
+
+    this.formId = 'AddService';
+    
+
+    // Check if LocalStorage is Not NULL
+    if (localStorage.getItem('AppLabels') != null) {
+
+      // Get data from LocalStorage
+      this.AppFormLabels = JSON.parse(localStorage.getItem('AppLabels') || '{}');
+
+      for (let labels of this.AppFormLabels) {
+
+        if (labels.formID == this.formId) {
+
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          if(labels.language == 1 ) {
+            this.formBodyLabels['en'] = jsonFormTitleDTLanguage;
+          } else if (labels.language == 2) {
+            this.formBodyLabels['ar'] = jsonFormTitleDTLanguage;
+          }
+          // this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
+
+        }
+      }
+    }
+
   }
   GetDocType() {
     this.dbCommonService.GetDocTypes(21).subscribe((response: any) => {

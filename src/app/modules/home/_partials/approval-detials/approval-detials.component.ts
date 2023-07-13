@@ -7,6 +7,7 @@ import { FormTitleHd } from 'src/app/modules/models/formTitleHd';
 import { SelectApprovalRoleDto } from 'src/app/modules/models/ServiceSetup/SelectApprovalRoleDto';
 import { DbCommonService } from 'src/app/modules/_services/db-common.service';
 import { LocalizationService } from 'src/app/modules/_services/localization.service';
+import { CommonService } from 'src/app/modules/_services/common.service';
 
 @Component({
   selector: 'app-approval-detials',
@@ -22,20 +23,24 @@ export class ApprovalDetialsComponent implements OnInit {
     // Language Type e.g. 1 = ENGLISH and 2 =  ARABIC
     languageType: any;
 
-    // Selected Language
-    language: any;
+  // Selected Language
+  language: any;
 
-    // We will get form lables from lcale storage and will put into array.
-    AppFormLabels: FormTitleHd[] = [];
+  // We will get form lables from lcale storage and will put into array.
+  AppFormLabels: FormTitleHd[] = [];
 
-    // We will filter form header labels array
-    formHeaderLabels: any[] = [];
+  // We will filter form header labels array
+  formHeaderLabels: any[] = [];
 
-    // We will filter form body labels array
-    formBodyLabels: any[] = [];
+  // We will filter form body labels array
+  formBodyLabels: any = {
+    en: {},
+    ar: {}
+  };
 
-    // FormId
-    formId: string;
+  // FormId
+  formId: string;
+  lang: string;
 
     /*----------------------------------------------------*/  
   //#endregion
@@ -46,18 +51,22 @@ export class ApprovalDetialsComponent implements OnInit {
   //
   approvalRoles$: Observable<SelectApprovalRoleDto[]>;
   
-  constructor(private commonDbService: DbCommonService){ }
+  constructor(private commonDbService: DbCommonService,
+    public common:CommonService){ }
 
   ngOnInit(): void {
-    //#region TO SETUP THE FORM LOCALIZATION    
+    this.common.getLang().subscribe((lang: string) => {
+      this.lang = lang
+    })
     // TO GET THE LANGUAGE ID e.g. 1 = ENGLISH and 2 =  ARABIC
+
     this.languageType = localStorage.getItem('langType');
 
     // To get the selected language...
     this.language = localStorage.getItem('lang');
 
     // To setup the form id so will will get form labels based on form Id
-    this.formId = 'ApprovalDetailsInformation';
+    this.formId = 'AddService';
 
     // Check if LocalStorage is Not NULL
     if (localStorage.getItem('AppLabels') != null) {
@@ -67,11 +76,20 @@ export class ApprovalDetialsComponent implements OnInit {
 
       for (let labels of this.AppFormLabels) {
 
-        if (labels.formID == this.formId && labels.language == this.languageType) {
+        if (labels.formID == this.formId) {
 
-          this.formHeaderLabels.push(labels);
-
-          this.formBodyLabels.push(labels.formTitleDTLanguage);
+          const jsonFormTitleDTLanguage = labels.formTitleDTLanguage.reduce((result: any, element) => {
+            result[element.labelId] = element;
+            return result;
+          }, {})
+          if(labels.language == 1 ) {
+            this.formBodyLabels['en'] = jsonFormTitleDTLanguage;
+          } else if (labels.language == 2) {
+            this.formBodyLabels['ar'] = jsonFormTitleDTLanguage;
+          }
+          // this.formBodyLabels.push(jsonFormTitleDTLanguage);
+          console.log(this.formHeaderLabels)
+          console.log(this.formBodyLabels);
 
         }
       }
